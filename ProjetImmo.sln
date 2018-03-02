@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetImmo.WPF", "ProjetImmo\ProjetImmo.WPF.csproj", "{0C07B037-0D60-41CE-B0D3-212D5C5DB8E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetImmo.Core", "ProjetImmo.Core\ProjetImmo.Core.csproj", "{28137171-308C-4DFB-9797-A3C17251E0F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C07B037-0D60-41CE-B0D3-212D5C5DB8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C07B037-0D60-41CE-B0D3-212D5C5DB8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C07B037-0D60-41CE-B0D3-212D5C5DB8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C07B037-0D60-41CE-B0D3-212D5C5DB8E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28137171-308C-4DFB-9797-A3C17251E0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28137171-308C-4DFB-9797-A3C17251E0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28137171-308C-4DFB-9797-A3C17251E0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28137171-308C-4DFB-9797-A3C17251E0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFAB4E09-AD73-4261-8344-A1385A14B0D1}
+	EndGlobalSection
+EndGlobal
