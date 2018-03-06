@@ -1,16 +1,16 @@
-﻿using ProjetImmo.Core.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ProjetImmo.Core.Models
 {
-    public class Estate : ViewModels.BaseNotifyPropertyChanged
+    public class Address : ViewModels.BaseNotifyPropertyChanged
     {
 
-        #region Model.Estate - ID
+        #region Model.Address - ID
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID
@@ -21,70 +21,52 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
-        #region Model.Estate - Foreign Keys & Links
+        #region Model.Address - Foreign Keys & Links
 
         // Foreign Key links with [ForeignKey], [InverseForeignKey], [NameOf], etc.
         //      are replaced with the code located into AgencyDbContext
 
-        public Person Owner
+        public Estate AddressedEstate
         {
-            get { return GetProperty<Person>(); }
+            get { return GetProperty<Estate>(); }
             set { SetProperty(value); }
         }
 
-        public Person Referent
+        public Person AddressedPerson
         {
             get { return GetProperty<Person>(); }
-            set { SetProperty(value); }
-        }
-
-        public Address Address
-        {
-            get { return GetProperty<Address>(); }
             set { SetProperty(value); }
         }
 
         #endregion
 
-        #region Model.Estate - Attributes
+        #region Model.Address - Attributes
 
-        public double Surface
+        public String PostalAddress
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
+
+        public String ZIP
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
+
+        public String City
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
+
+        public double Longitude
         {
             get { return GetProperty<double>(); }
             set { SetProperty(value); }
         }
 
-        public EstateType Type
-        {
-            get { return GetProperty<EstateType>(); }
-            set { SetProperty(value); }
-        }
-
-        public int RoomsCount
-        {
-            get { return GetProperty<int>(); }
-            set { SetProperty(value); }
-        }
-
-        public int FloorNumber
-        {
-            get { return GetProperty<int>(); }
-            set { SetProperty(value); }
-        }
-
-        public int FloorCount
-        {
-            get { return GetProperty<int>(); }
-            set { SetProperty(value); }
-        }
-
-        public double AnnualCharges
-        {
-            get { return GetProperty<double>(); }
-            set { SetProperty(value); }
-        }
-
-        public double PropertyTax
+        public double Latitude
         {
             get { return GetProperty<double>(); }
             set { SetProperty(value); }
