@@ -1,6 +1,7 @@
 ﻿using ProjetImmo.Core.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -41,6 +42,24 @@ namespace ProjetImmo.Core.Models
         public Address Address
         {
             get { return GetProperty<Address>(); }
+            set { SetProperty(value); }
+        }
+
+        public ObservableCollection<Picture> Pictures
+        {
+            get { return GetProperty<ObservableCollection<Picture>>(); }
+            set { SetProperty(value); }
+        }
+
+        public ObservableCollection<EstateKeyword> Keywords
+        {
+            get { return GetProperty<ObservableCollection<EstateKeyword>>(); }
+            set { SetProperty(value); }
+        }
+
+        public ObservableCollection<Transaction> Transactions
+        {
+            get { return GetProperty<ObservableCollection<Transaction>>(); }
             set { SetProperty(value); }
         }
 

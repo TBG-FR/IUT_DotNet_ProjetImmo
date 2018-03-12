@@ -27,13 +27,33 @@ namespace ProjetImmo.Core.Models
         // Foreign Key links with [ForeignKey], [InverseForeignKey], [NameOf], etc.
         //      are replaced with the code located into AgencyDbContext
 
-
+        public Estate RelatedEstate
+        {
+            get { return GetProperty<Estate>(); }
+            set { SetProperty(value); }
+        }
 
         #endregion
 
         #region Model.Picture - Attributes
 
+        public string Title
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
 
+        public DateTime Date
+        {
+            get { return GetProperty<DateTime>(); }
+            set { SetProperty(value); }
+        }
+
+        public Byte Base64
+        {
+            get { return GetProperty<Byte>(); }
+            set { SetProperty(value); }
+        }
 
         #endregion
 
