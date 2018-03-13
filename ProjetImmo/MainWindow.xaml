@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetImmo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Window.Resources>
-        <Color x:Key="Color1">#FF444343</Color>
-        <Color x:Key="Color2">#FFB2B2B2</Color>
-    </Window.Resources>
+        Title="MainWindow"
+        Height="350" Width="525">
+    
+    <!-- RESSOURCES : DANS APP.XAML -->
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -17,77 +17,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Grid contenant la Barre de Recherche -->
+        <!-- Grid contenant le menu de navigation entres les Pages -->
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*" />
-                <ColumnDefinition Width="1.55*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2.25*" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Input de Recherche -->
-            <TextBox Grid.Column="0" Text="Rechercher..." RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" Foreground="#FFCFCFCF">
-                <TextBox.SelectionBrush>
-                    <SolidColorBrush Color="Gray"/>
-                </TextBox.SelectionBrush>
-                <TextBox.BorderBrush>
-                    <SolidColorBrush Color="DarkGray"/>
-                </TextBox.BorderBrush>
-            </TextBox>
-
-            <!-- Boutton de Recherche -->
-            <Button Grid.Column="2" Content="GO" FontSize="16" FontFamily="Open Sans" FontWeight="Bold" Opacity="0.75">
-                
-            </Button>
-
-            <!-- Menu de Tri de la Recherche -->
-            <ComboBox Grid.Column="3" FontSize="16" FontFamily="Open Sans" Opacity="0.75" SelectionChanged="ComboBox_SelectionChanged" FontWeight="Bold">
-
-                <ComboBoxItem FontSize="14" Opacity="0.75" Content="Date" IsSelected="True"/>
-                <ComboBoxItem FontSize="14" Opacity="0.75" Content="Prix"/>
-                <ComboBoxItem FontSize="14" Opacity="0.75" Content="Superficie"/>
-
-            </ComboBox>
 
         </Grid>
 
-        <!-- Grid contenant les Offres Immobilières -->
+        <!-- Grid contenant la Page actuelle -->
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.25*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <!-- ListView contenant les Offres -->
-            <ListView Grid.Column="0">
-                
-            </ListView>
-
-            <!-- Grid contenant les Infos de l'Offres Sélectionnée -->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="2.5*" />
-                </Grid.RowDefinitions>
-
-            </Grid>
+            <Frame Source="Pages/BrowseEstatesPage.xaml" />
+            <!-- TODO : ADAPTER LE NAVIGATION SERVICE DU PROF AUX FRAMES ? -->
 
         </Grid>
 
-        <!-- Grid contenant la Barre du Menu -->
+        <!-- Grid contenant le menu du bas (trucs divers à définir) -->
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="7*" />
-            </Grid.ColumnDefinitions>
-
-
-
+            
         </Grid>
 
     </Grid>
+
 </Window>

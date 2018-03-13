@@ -1,0 +1,25 @@
+﻿<Window x:Class="ProjetImmo.WPF.SearchFiltersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetImmo.WPF"
+        mc:Ignorable="d"
+        Title="SearchFiltersWindow" Height="200" Width="300">
+    
+    <Grid>
+        
+        <!--
+        
+        IDEES :
+                - Type(s) de Bien à afficher (CheckBoxes : une par type)
+                - Distance autour d'une ville (Textbox + Barre de Sélection)
+                - Rechercher dans (Checkboxes : Keywords, Titres, Descriptions, Nom du vendeur)
+                - Nombre d'étages (ComboBoxes)
+                - Etage souhaité (ComboBoxes)
+                - ...
+        
+        -->
+        
+    </Grid>
+</Window>

@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProjetImmo.Core.Models;
 
-namespace ProjetImmo
+namespace ProjetImmo.WPF
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour SearchPage.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class BrowseEstatePage : Page
     {
-        public MainWindow()
+        public BrowseEstatePage()
         {
             InitializeComponent();
 
@@ -55,6 +54,22 @@ namespace ProjetImmo
              */
 
         }
+        /*
+        private void ComboBox_OrderBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Filters_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }*/
 
     }
+
 }

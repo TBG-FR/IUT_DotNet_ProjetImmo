@@ -16,6 +16,7 @@ namespace ProjetImmo
 
         protected async override void OnStartup(StartupEventArgs e)
         {
+
             base.OnStartup(e);
             await Core.DataAccess.AgencyDbContext.Initialize();
 

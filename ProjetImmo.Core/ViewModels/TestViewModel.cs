@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProjetImmo.Core.ViewModels
 {
-    class TestViewModel
+    public class TestViewModel : BaseNotifyPropertyChanged
     {
 
         public void Test()
