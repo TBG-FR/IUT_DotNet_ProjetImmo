@@ -27,13 +27,46 @@ namespace ProjetImmo.Core.Models
         // Foreign Key links with [ForeignKey], [InverseForeignKey], [NameOf], etc.
         //      are replaced with the code located into AgencyDbContext
 
+        public Estate RelatedEstate
+        {
+            get { return GetProperty<Estate>(); }
+            set { SetProperty(value); }
+        }
 
+        []
+        public Person RelatedCustomer // Buyer, Occupant, Occupier, Leaseholder
+        {
+            get { return GetProperty<Person>(); }
+            set { SetProperty(value); }
+        }
 
         #endregion
 
         #region Model.Transaction - Attributes
 
+        public string Title
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
 
+        public string Description
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
+
+        public DateTime CreationDate
+        {
+            get { return GetProperty<DateTime>(); }
+            set { SetProperty(value); }
+        }
+
+        public DateTime TransactionDate
+        {
+            get { return GetProperty<DateTime>(); }
+            set { SetProperty(value); }
+        }
 
         #endregion
 

@@ -27,7 +27,11 @@ namespace ProjetImmo.Core.Models
         // Foreign Key links with [ForeignKey], [InverseForeignKey], [NameOf], etc.
         //      are replaced with the code located into AgencyDbContext
 
-        
+        public ObservableCollection<EstateKeyword> DescribedEstates
+        {
+            get { return GetProperty<ObservableCollection<EstateKeyword>>(); }
+            set { SetProperty(value); }
+        }
 
         #endregion
 
