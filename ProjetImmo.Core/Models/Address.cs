@@ -26,15 +26,15 @@ namespace ProjetImmo.Core.Models
         // Foreign Key links with [ForeignKey], [InverseForeignKey], [NameOf], etc.
         //      are replaced with the code located into AgencyDbContext
 
-        public Estate AddressedEstate
+        public ObservableCollection<Estate> AddressedEstates
         {
-            get { return GetProperty<Estate>(); }
+            get { return GetProperty<ObservableCollection<Estate>>(); }
             set { SetProperty(value); }
         }
 
-        public Person AddressedPerson
+        public ObservableCollection<Person> AddressedPersons
         {
-            get { return GetProperty<Person>(); }
+            get { return GetProperty<ObservableCollection<Person>>(); }
             set { SetProperty(value); }
         }
 
@@ -73,6 +73,16 @@ namespace ProjetImmo.Core.Models
         }
 
         #endregion
+
+        /*public Address()
+        {
+            //this.ID = default(int);
+            this.PostalAddress = default(String);
+            this.ZIP = default(String);
+            this.City = default(String);
+            this.Longitude = default(double);
+            this.Latitude = default(double);
+        }*/
 
     }
 }

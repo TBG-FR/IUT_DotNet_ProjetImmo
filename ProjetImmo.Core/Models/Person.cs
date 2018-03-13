@@ -69,5 +69,16 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
+        /*public Person()
+        {
+            //this.ID = default(int);
+            this.Type = PersonType.NATURAL;
+            this.Firstname = default(String);
+            this.Lastname = default(String);
+            this.Address = default(Address);
+            this.OwnedEstates = new ObservableCollection<Estate>();
+            this.ManagedEstates = new ObservableCollection<Estate>();
+        }*/
+
     }
 }

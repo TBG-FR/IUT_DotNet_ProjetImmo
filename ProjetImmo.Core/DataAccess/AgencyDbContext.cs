@@ -9,7 +9,7 @@ namespace ProjetImmo.Core.DataAccess
 {
 
     /*
-     * Migration (in Nu-Get console) : 'add-migration MIGRATION_NAME -project ProjetImmo.Core -verbose'
+     * Migration (in Nu-Get console) : 'Add-Migration *MIGRATION_NAME* -Project ProjetImmo.Core -Verbose'
      */
 
     public class AgencyDbContext : DbContext
@@ -75,9 +75,13 @@ namespace ProjetImmo.Core.DataAccess
         public DbSet<Models.Person> Person { get; set; }
         public DbSet<Models.Address> Address { get; set; }
         public DbSet<Models.Picture> Picture { get; set; }
+
         public DbSet<Models.Keyword> Keyword { get; set; }
         public DbSet<Models.Keyword> EstateKeyword { get; set; }
+
         public DbSet<Models.Transaction> Transaction { get; set; }
+        public DbSet<Models.RentalTransaction> RentalTransaction { get; set; }
+        public DbSet<Models.SaleTransaction> SaleTransaction { get; set; }
 
         #endregion
 
@@ -93,11 +97,11 @@ namespace ProjetImmo.Core.DataAccess
             // ESTATE : #OWNER [One Estate has One Owner (Person), One Owner has Many Estates]
             modelBuilder.Entity<Models.Estate>().HasOne<Models.Person>(e => e.Owner).WithMany(p => p.OwnedEstates);
 
-            // ESTATE : #ADDRESS [One Estate has One Address, One Address has One Estate]
-            modelBuilder.Entity<Models.Estate>().HasOne<Models.Address>(e => e.Address).WithOne(a => a.AddressedEstate);
+            // ESTATE : #ADDRESS [One Estate has One Address, One Address has MANY Estates] (Old : One Address has One Estate)
+            modelBuilder.Entity<Models.Estate>().HasOne<Models.Address>(e => e.Address).WithMany(a => a.AddressedEstates);
 
-            // PERSON : #ADDRESS [One Person has One Address, One Address has One Person]
-            modelBuilder.Entity<Models.Person>().HasOne<Models.Address>(p => p.Address).WithOne(a => a.AddressedPerson);
+            // PERSON : #ADDRESS [One Person has One Address, One Address has MANY Persons] (Old : One Address has One Person)
+            modelBuilder.Entity<Models.Person>().HasOne<Models.Address>(p => p.Address).WithMany(a => a.AddressedPersons);
 
             // ESTATE -> PICTURES [One Estate has Many Pictures, One Picture has One Estate]
             modelBuilder.Entity<Models.Estate>().HasMany<Models.Picture>(e => e.Pictures).WithOne(p => p.RelatedEstate);

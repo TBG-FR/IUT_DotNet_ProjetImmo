@@ -32,8 +32,8 @@ namespace ProjetImmo.Core.Models
             get { return GetProperty<Estate>(); }
             set { SetProperty(value); }
         }
+        
 
-        []
         public Person RelatedCustomer // Buyer, Occupant, Occupier, Leaseholder
         {
             get { return GetProperty<Person>(); }
@@ -56,15 +56,27 @@ namespace ProjetImmo.Core.Models
             set { SetProperty(value); }
         }
 
+        public double Price
+        {
+            get { return GetProperty<double>(); }
+            set { SetProperty(value); }
+        }
+
+        public double Fees
+        {
+            get { return GetProperty<double>(); }
+            set { SetProperty(value); }
+        }
+
         public DateTime CreationDate
         {
             get { return GetProperty<DateTime>(); }
             set { SetProperty(value); }
         }
 
-        public DateTime TransactionDate
+        public DateTime? TransactionDate
         {
-            get { return GetProperty<DateTime>(); }
+            get { return GetProperty<DateTime?>(); }
             set { SetProperty(value); }
         }
 

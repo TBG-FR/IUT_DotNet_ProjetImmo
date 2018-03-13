@@ -111,5 +111,10 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
+        /*public Estate()
+        {
+            this.ID = default(int);
+            this.
+        }*/
     }
 }
