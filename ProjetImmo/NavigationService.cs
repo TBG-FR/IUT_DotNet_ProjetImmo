@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace EstateAgencyManager.Wpf
 {
     public static class NavigationService
     {
         private static Dictionary<Type, Window> _windowsCache = new Dictionary<Type, Window>();
+        private static Dictionary<Type, Page> _pagesCache = new Dictionary<Type, Page>();
         private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelCache = new Dictionary<Type, BaseNotifyPropertyChanged>();
 
         private static TViewModel GetViewModelInstance<TViewModel>(params object[] viewModelParameters)
@@ -42,6 +44,22 @@ namespace EstateAgencyManager.Wpf
             }
             return win;
         }
+        private static TPage GetPageInstance<TPage>(object viewModel)
+            where TPage : Page
+        {
+            TPage page = null;
+            Type pageType = typeof(TPage);
+            if (_pagesCache.ContainsKey(pageType))
+                page = (TPage)_pagesCache[pageType];
+            else
+            {
+                page = (TPage)Activator.CreateInstance(pageType);
+                page.DataContext = viewModel;
+                _pagesCache[pageType] = page;
+            }
+            return page;
+        }
+
 
         public static void Show<TWindow, TViewModel>(params object[] viewModelParameters)
             where TWindow : Window
@@ -57,6 +75,13 @@ namespace EstateAgencyManager.Wpf
         {
             var win = GetWindowInstance<TWindow>(GetViewModelInstance<TViewModel>(viewModelParameters));
             return win.ShowDialog();
+        }
+
+        public static Page GetPage<TPage, TViewModel>(params object[] viewModelParameters)
+            where TPage : Page
+            where TViewModel : BaseNotifyPropertyChanged
+        {
+            return GetPageInstance<TPage>(GetViewModelInstance<TViewModel>(viewModelParameters));
         }
 
     }
