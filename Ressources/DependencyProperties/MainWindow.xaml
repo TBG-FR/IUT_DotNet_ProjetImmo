@@ -1,0 +1,53 @@
+﻿<Window x:Class="DependencyProperties.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DependencyProperties"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="local:CustomButton">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+
+        <Button Content="Bouton normal" />
+
+        <local:CustomButton BorderBrush="Black"
+                BorderThickness="2"
+                Background="Black"
+                Foreground="White"
+                InBorderBrush="{Binding CouleurBordureInterieure}"
+                InBorderThickness="2">
+            <Button.Content>
+                <Border BorderBrush="{Binding Path=InBorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomButton}}" BorderThickness="{Binding Path=InBorderThickness, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomButton}}" Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CustomButton}}" SnapsToDevicePixels="True" Margin="0">
+                    <TextBlock Text="Bouton avec dependency property"/>
+                </Border>
+            </Button.Content>
+        </local:CustomButton>
+
+        <Button BorderBrush="Black"
+                BorderThickness="2"
+                Background="Black"
+                Foreground="White"
+                local:Button.InBorderBrush="{Binding CouleurBordureInterieure}"
+                local:Button.InBorderThickness="2">
+            <Button.Content>
+                <Border BorderBrush="{Binding Path=(local:Button.InBorderBrush), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" BorderThickness="{Binding Path=(local:Button.InBorderThickness), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" SnapsToDevicePixels="True" Margin="0">
+                    <TextBlock Text="Bouton avec attached property"/>
+                </Border>
+            </Button.Content>
+        </Button>
+        
+    </StackPanel>
+    
+</Window>

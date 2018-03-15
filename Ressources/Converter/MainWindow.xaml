@@ -1,0 +1,86 @@
+﻿<Window x:Class="Converter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Converter"
+        xmlns:c="clr-namespace:Converter.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="800">
+
+    <Window.Resources>
+        <c:BoolToVisibilityConverter x:Key="simpleConverter" />
+        <c:BoolToVisibilityMultiConverter x:Key="multiConverter" />
+        <Style TargetType="ContentControl">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="Texte" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="None" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="Titre" TargetType="TextBlock" BasedOn="{StaticResource Texte}">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="5" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Converter simple" Style="{StaticResource Titre}" />
+        <Rectangle Grid.Column="1" Grid.Row="2" Height="1" Stroke="Black" />
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="Affichez-moi ou masquez-moi !" Style="{StaticResource Texte}" Visibility="{Binding ElementName=chkSimple, Path=IsChecked, Converter={StaticResource simpleConverter}}" />
+        <CheckBox Grid.Column="1" Grid.Row="5" x:Name="chkSimple" Content="" HorizontalAlignment="Center" IsChecked="True">
+            <CheckBox.RenderTransform>
+                <ScaleTransform ScaleX="3" ScaleY="3" />
+            </CheckBox.RenderTransform>
+        </CheckBox>
+
+        <Rectangle Grid.Column="2" Grid.Row="1" Grid.RowSpan="5" Width="1" Stroke="Black" />
+
+        <TextBlock Grid.Column="3" Grid.Row="1" Text="Converter multiple" Style="{StaticResource Titre}" />
+        <Rectangle Grid.Column="3" Grid.Row="2" Height="1" Stroke="Black" />
+        <TextBlock Grid.Column="3" Grid.Row="3" Text="Affichez-moi ou masquez-moi !" Style="{StaticResource Texte}">
+            <TextBlock.Visibility>
+                <MultiBinding Converter="{StaticResource multiConverter}">
+                    <MultiBinding.Bindings>
+                        <Binding ElementName="chkMultiple1" Path="IsChecked"/>
+                        <Binding ElementName="chkMultiple2" Path="IsChecked"/>
+                    </MultiBinding.Bindings>
+                </MultiBinding>
+            </TextBlock.Visibility>
+        </TextBlock>
+        <StackPanel Grid.Column="3" Grid.Row="5"  Orientation="Horizontal" Width="135">
+            <CheckBox x:Name="chkMultiple1" Content="" HorizontalAlignment="Center" IsChecked="True">
+                <CheckBox.RenderTransform>
+                    <ScaleTransform ScaleX="3" ScaleY="3" />
+                </CheckBox.RenderTransform>
+            </CheckBox>
+            <TextBlock Text="ET" Margin="35,0,5,0" Style="{StaticResource Texte}" />
+            <CheckBox x:Name="chkMultiple2" Content="" HorizontalAlignment="Center" IsChecked="True">
+                <CheckBox.RenderTransform>
+                    <ScaleTransform ScaleX="3" ScaleY="3" />
+                </CheckBox.RenderTransform>
+            </CheckBox>
+        </StackPanel>
+
+    </Grid>
+</Window>

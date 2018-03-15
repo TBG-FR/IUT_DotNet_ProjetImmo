@@ -1,0 +1,53 @@
+﻿<Window x:Class="Commandes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Commandes"
+        xmlns:viewmodels="clr-namespace:Commandes.ViewModels"
+        mc:Ignorable="d"
+        Title="Test des commandes" Height="350" Width="525" FontSize="20">
+    
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="ContentControl">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Titre">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource Titre}" Text="Texte à affecter :"/>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TexteAAffecter, Mode=TwoWay}" />
+
+        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Content="V   Affecter le texte   V" Command="{Binding CommandeAffecterTexte}" />
+
+        <TextBlock Grid.Column="1" Grid.Row="5" Style="{StaticResource Titre}" Text="Texte affecté :"/>
+        <TextBlock Grid.Column="3" Grid.Row="5" Text="{Binding TexteAffecte}" />
+    </Grid>
+    
+    
+</Window>
