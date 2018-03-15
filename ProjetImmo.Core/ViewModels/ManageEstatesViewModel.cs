@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProjetImmo.Core.ViewModels.ManageEstatesPage
+namespace ProjetImmo.Core.ViewModels
 {
     public class ManageEstatesViewModel : BaseNotifyPropertyChanged
     {
