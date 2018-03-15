@@ -1,4 +1,5 @@
 ﻿using ProjetImmo.Core.Models.Enums;
+using ProjetImmo.Core.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace ProjetImmo.Core.Models
 {
-    public class Transaction : ViewModels.BaseNotifyPropertyChanged
+    public class Transaction : BaseNotifyPropertyChanged
     {
 
         #region Model.Transaction - ID

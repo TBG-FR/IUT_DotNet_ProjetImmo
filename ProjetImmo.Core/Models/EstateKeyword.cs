@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ProjetImmo.Core.Tools;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ProjetImmo.Core.Models
 {
-    public class EstateKeyword : ViewModels.BaseNotifyPropertyChanged
+    public class EstateKeyword : BaseNotifyPropertyChanged
     {
 
         #region Model.EstateKeyword - ID

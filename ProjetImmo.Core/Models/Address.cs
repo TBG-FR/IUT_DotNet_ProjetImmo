@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetImmo.Core.Tools;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ProjetImmo.Core.Models
 {
-    public class Address : ViewModels.BaseNotifyPropertyChanged
+    public class Address : BaseNotifyPropertyChanged
     {
 
         #region Model.Address - ID
