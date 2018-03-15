@@ -130,7 +130,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NavigationService.cs" />
+    <Compile Include="Converters\Base64StringToBitmapImageConverter.cs" />
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
     </Compile>

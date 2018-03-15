@@ -10,9 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjetImmo.Core.Models;
+using ProjetImmo.WPF;
 
 namespace ProjetImmo
 {
@@ -23,7 +23,14 @@ namespace ProjetImmo
     {
         public MainWindow()
         {
+
             InitializeComponent();
+
+            /*
+            MainWindow = NavigationService.GetWindow<MainWindow, MainViewModel>();
+            MainWindow.Show();
+
+            this.DataContext = NavigationService.GetViewModelInstance()*/
 
             /* Pas de code ici, tout dans le ViewModel 'MainViewModel' */
 

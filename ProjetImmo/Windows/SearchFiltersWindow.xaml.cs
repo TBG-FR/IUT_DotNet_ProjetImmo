@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetImmo.WPF
+namespace ProjetImmo.WPF.Windows
 {
     /// <summary>
     /// Logique d'interaction pour SearchFiltersWindow.xaml

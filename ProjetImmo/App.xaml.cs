@@ -7,8 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using ProjetImmo.Core.ViewModels;
+using System.Windows.Controls;
+using ProjetImmo.Core;
+using ProjetImmo.Core.Tools;
 
-namespace ProjetImmo
+namespace ProjetImmo.WPF
 {
     /// <summary>
     /// Logique d'interaction pour App.xaml
@@ -22,7 +25,7 @@ namespace ProjetImmo
             base.OnStartup(e);
             await Core.DataAccess.AgencyDbContext.Initialize();
 
-            MainWindow = NavigationService.GetWindow<MainWindow, MainViewModel>();
+            MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(DisplayStatsPage));
             MainWindow.Show();
 
         }
