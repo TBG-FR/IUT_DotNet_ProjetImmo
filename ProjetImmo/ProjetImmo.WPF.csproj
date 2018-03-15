@@ -131,7 +131,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="NavigationService.cs" />
-    <Compile Include="OLD_NavigationService.cs" />
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
     </Compile>

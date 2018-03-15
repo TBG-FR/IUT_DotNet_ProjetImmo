@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EstateAgencyManager.Wpf
+namespace ProjetImmo.WPF
 {
     public static class NavigationService
     {
+
+        // "Cache" => Une seule Window/Page/ViewModel de chaque type à la fois (Dictionnaire)
         private static Dictionary<Type, Window> _windowsCache = new Dictionary<Type, Window>();
         private static Dictionary<Type, Page> _pagesCache = new Dictionary<Type, Page>();
         private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelCache = new Dictionary<Type, BaseNotifyPropertyChanged>();
 
+        // Get<T>Instance => Récupérer l'instance existante ou la créer
         private static TViewModel GetViewModelInstance<TViewModel>(params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
@@ -60,7 +63,13 @@ namespace EstateAgencyManager.Wpf
             return page;
         }
 
-
+        // =>
+        public static TWindow GetWindow<TWindow, TViewModel>(params object[] viewModelParameters)
+            where TWindow : Window
+            where TViewModel : BaseNotifyPropertyChanged
+        {
+            return GetWindowInstance<TWindow>(GetViewModelInstance<TViewModel>(viewModelParameters));
+        }
         public static void Show<TWindow, TViewModel>(params object[] viewModelParameters)
             where TWindow : Window
             where TViewModel : BaseNotifyPropertyChanged
@@ -68,7 +77,6 @@ namespace EstateAgencyManager.Wpf
             var win = GetWindowInstance<TWindow>(GetViewModelInstance<TViewModel>(viewModelParameters));
             win.Show();
         }
-
         public static bool? ShowDialog<TWindow, TViewModel>(params object[] viewModelParameters)
             where TWindow : Window
             where TViewModel : BaseNotifyPropertyChanged
@@ -76,7 +84,6 @@ namespace EstateAgencyManager.Wpf
             var win = GetWindowInstance<TWindow>(GetViewModelInstance<TViewModel>(viewModelParameters));
             return win.ShowDialog();
         }
-
         public static Page GetPage<TPage, TViewModel>(params object[] viewModelParameters)
             where TPage : Page
             where TViewModel : BaseNotifyPropertyChanged
