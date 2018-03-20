@@ -11,7 +11,8 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class BrowseEstatesViewModel : BaseNotifyPropertyChanged
     {
-        public ObservableCollection<Estate> Estates => new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+        public ObservableCollection<Estate> Estates { get; set; }
+
         public Estate SelectedItem
         {
             get { return GetProperty<Estate>(); }
@@ -24,6 +25,8 @@ namespace ProjetImmo.Core.ViewModels
             }
 
         }
+
+        public BrowseEstatesViewModel() { Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray()); }
 
     }
 }
