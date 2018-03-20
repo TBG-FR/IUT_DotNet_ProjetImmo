@@ -36,6 +36,13 @@ namespace ProjetImmo.Core.ViewModels
             DataAccess.AgencyDbContext.Current.Estate.Where((e) => e.Referent.ID == 2).Include(e => e.Referent).Include([...]).ToList();
             */
 
+            /*
+             *
+             string Titre {get; set; }
+             RECHERCHE BDD : [...].where(x => (titre != "" && x.Title == titre)&&(price != 0 && x.Price == price)
+             *
+             */
+
         }
 
     }

@@ -66,7 +66,31 @@
             </Grid.ColumnDefinitions>
 
             <!-- ListView contenant les Offres -->
-            <ListView Grid.Column="0">
+            <ListView Grid.Column="0" ItemsSource="{Binding Estates}" SelectedItem="{Binding SelectedItem}">
+                
+                <!-- Template affichage des items -->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type :" />
+                                <TextBlock Text="{Binding Type}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Address :" />
+                                <TextBlock Text="{Binding Address.PostalAddress}" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Address.ZIP}" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding Address.City}" />
+                                <TextBlock Text=")" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
 
             </ListView>
 
@@ -77,6 +101,44 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="2.5*" />
                 </Grid.RowDefinitions>
+
+                <!-- Image Bien Immo -->
+                <TextBlock Grid.Row="0" Text="{Binding SelectedItem.ID}" />
+                
+                <TextBlock Grid.Row="1" Text="Détails:" />
+                
+                <!-- Détails Bien Immo -->
+                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Type :" />
+                        <TextBlock Text="{Binding SelectedItem.Surface}" />
+                        <TextBlock Text=" m²" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre de Chambre(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.RoomsCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre d'Étage(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.FloorCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Charges Anuelles :" />
+                        <TextBlock Text="{Binding SelectedItem.AnnualCharges}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Taxe d'Habitation :" />
+                        <TextBlock Text="{Binding SelectedItem.PropertyTax}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                </StackPanel>
 
                 <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
                 <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
