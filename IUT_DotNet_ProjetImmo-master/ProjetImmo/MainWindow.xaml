@@ -1,0 +1,43 @@
+﻿<Window x:Class="ProjetImmo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetImmo.WPF"
+        xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
+        Height="550" Width="800"
+        Title="MainWindow">
+    
+    <!-- RESSOURCES : DANS APP.XAML -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <!-- Grid contenant le menu de navigation entres les Pages -->
+        <Grid Grid.Row="0">
+
+        </Grid>
+
+        <!-- Grid contenant la Page actuelle -->
+        <Grid Grid.Row="1">
+
+            <Frame Content="{Binding CurrentPage}" />
+
+        </Grid>
+
+        <!-- Grid contenant le menu du bas (trucs divers à définir) -->
+        <Grid Grid.Row="2">
+            <Button Content="Ouvrir subfenetre"
+                    Command="{Binding OpenNewWindowCommand}"
+                    CommandParameter="{x:Type windows:SearchFiltersWindow}"
+                    Width="100"
+                    />
+        </Grid>
+
+    </Grid>
+
+</Window>
