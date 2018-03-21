@@ -63,8 +63,84 @@
 
             <!-- Chiffres actuels -->
             <Grid Grid.Column="0">
-                
-                
+
+                <StackPanel Orientation="Vertical">
+
+                    <!-- Chiffres actuels concernant les ventes -->
+                    <StackPanel Orientation="Vertical">
+
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                            <TextBlock Text="Nombre de biens à la vente actuellement :"/>
+                            <TextBlock Text="{Binding CurrentSales.count}"/>
+                        </StackPanel>
+
+                        <ListView ItemsSource="{Binding CurrentSales}">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Maisons (HOUSE) : "/>
+                                            <TextBlock Text="{Binding Houses}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Appartements (FLAT) : "/>
+                                            <TextBlock Text="{Binding Flats}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Champs (Fields) : "/>
+                                            <TextBlock Text="{Binding Fields}"/>
+                                        </StackPanel>
+                                        
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            
+                        </ListView>
+
+                    </StackPanel>
+                    
+                    <!-- Chiffres actuels concernant les locations -->
+                    <StackPanel Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                <TextBlock Text="Nombre de biens à la location actuellement :"/>
+                                <TextBlock Text="{Binding CountToRent}"/>
+                        </StackPanel>
+
+                        <ListView ItemsSource="{Binding CurrentRentals}">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Maisons (HOUSE) : "/>
+                                            <TextBlock Text="{Binding Houses}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Appartements (FLAT) : "/>
+                                            <TextBlock Text="{Binding Flats}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
+                                            <TextBlock Text="Champs (Fields) : "/>
+                                            <TextBlock Text="{Binding Fields}"/>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                        </ListView>
+
+                    </StackPanel>
+
+                    </StackPanel>
                 
             </Grid>
 

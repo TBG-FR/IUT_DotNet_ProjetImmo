@@ -7,5 +7,12 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class DisplayStatsViewModel : BaseNotifyPropertyChanged
     {
+
+        //CurrentRentals
+        //CountToRent
+
+        //CurrentSales
+        //CountToSale
+
     }
 }
