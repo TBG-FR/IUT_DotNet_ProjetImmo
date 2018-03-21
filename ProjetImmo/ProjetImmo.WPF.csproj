@@ -131,6 +131,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\Base64StringToBitmapImageConverter.cs" />
+    <Compile Include="Pages\CreateEstatesPage.xaml.cs">
+      <DependentUpon>CreateEstatesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
     <Compile Include="Windows\SearchFiltersWindow.xaml.cs">
       <DependentUpon>SearchFiltersWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Pages\CreateEstatesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\DisplayStatsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

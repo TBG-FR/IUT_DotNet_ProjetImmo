@@ -10,6 +10,7 @@ using ProjetImmo.Core.ViewModels;
 using System.Windows.Controls;
 using ProjetImmo.Core;
 using ProjetImmo.Core.Tools;
+using ProjetImmo.WPF.Pages;
 
 namespace ProjetImmo.WPF
 {

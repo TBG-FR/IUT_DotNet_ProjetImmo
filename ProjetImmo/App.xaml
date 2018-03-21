@@ -1,7 +1,10 @@
 ﻿<Application x:Class="ProjetImmo.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ProjetImmo.WPF">
+             xmlns:local="clr-namespace:ProjetImmo.WPF"
+             xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"        
+             xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
+             >
     <!-- StartupUri="MainWindow.xaml" -->
     
     <Application.Resources>

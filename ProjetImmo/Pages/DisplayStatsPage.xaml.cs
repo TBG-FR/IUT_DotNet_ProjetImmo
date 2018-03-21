@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProjetImmo.WPF
+namespace ProjetImmo.WPF.Pages
 {
     /// <summary>
     /// Logique d'interaction pour DisplayStatsPage.xaml

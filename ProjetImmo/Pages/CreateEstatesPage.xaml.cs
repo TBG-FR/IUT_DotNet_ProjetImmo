@@ -18,15 +18,31 @@ namespace ProjetImmo.WPF.Pages
     /// <summary>
     /// Logique d'interaction pour SearchPage.xaml
     /// </summary>
-    public partial class CreateEstatesPage : Page
+    public partial class BrowseEstatesPage : Page
     {
-        public CreateEstatesPage()
+        public BrowseEstatesPage()
         {
             InitializeComponent();
             
             /* Pas de code ici, tout dans le ViewModel 'BrowseEstatesViewModel' */
 
         }
+
+        /*
+        private void ComboBox_OrderBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Filters_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }*/
 
     }
 
