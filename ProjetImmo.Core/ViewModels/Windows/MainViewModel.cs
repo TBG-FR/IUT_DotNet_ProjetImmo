@@ -10,7 +10,12 @@ namespace ProjetImmo.Core.ViewModels
     public class MainViewModel<TPage> : BaseNotifyPropertyChanged
     {
 
-        public TPage CurrentPage { get; set; }
+        public TPage CurrentPage
+        {
+            get { return GetProperty<TPage>(); }
+
+            set { SetProperty<TPage>(value); }
+        }
 
         public MainViewModel(Type defaultPageType)
         {
@@ -68,11 +73,15 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
-        public BaseCommand<Type> OpenNewWindowCommand
+        public BaseCommand<Type> OpenNewWindowCommand // Démo/Test
         {
 
             get => new BaseCommand<Type>((type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
 
+        }
+        public BaseCommand<Type> OpenCreateEstatePageCommand
+        {
+            get => new BaseCommand<Type>((pageType) => { this.CurrentPage = (TPage) NavigationService.GetView<CreateEstatesViewModel>(pageType); });
         }
 
     }
