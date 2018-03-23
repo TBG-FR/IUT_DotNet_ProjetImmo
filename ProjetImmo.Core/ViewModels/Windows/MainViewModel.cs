@@ -18,6 +18,7 @@ namespace ProjetImmo.Core.ViewModels
             this.CurrentPage = (TPage)NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
 
             /* -------------------------------------------------------- */
+            #region TestValues_DB
 
             Person Bob = new Person();
             Address BobAd = new Address();
@@ -39,7 +40,6 @@ namespace ProjetImmo.Core.ViewModels
 
             //génération d'estates 
             Estate est1 = new Estate();
-
             est1.Surface = 300;
             est1.Type = Models.Enums.EstateType.FLAT;
             est1.RoomsCount = 0;
@@ -49,7 +49,6 @@ namespace ProjetImmo.Core.ViewModels
             est1.FloorCount = 0;
 
             Estate est2 = new Estate();
-
             est2.Surface = 300;
             est2.Type = Models.Enums.EstateType.HOUSE;
             est2.RoomsCount = 6;
@@ -58,12 +57,36 @@ namespace ProjetImmo.Core.ViewModels
             est2.FloorNumber = 1;
             est2.FloorCount = 3;
 
+            SaleTransaction T1 = new SaleTransaction();
+            RentalTransaction T2 = new RentalTransaction();
+
+            T1.Title = "VenteT1";
+            T1.Description = "Ceci est une vente";
+            T1.CreationDate = new DateTime();
+            T1.TransactionDate = null;
+            T1.Price = 0;
+            T1.Fees = 0;
+
+            T2.Title = "LocationT2";
+            T2.Description = "Ceci est une location";
+            T2.CreationDate = new DateTime();
+            T2.TransactionDate = null;
+            T2.Price = 0;
+            T2.Fees = 0;
+            T2.Furnished = false;
+
             Core.DataAccess.AgencyDbContext.Current.Address.Add(BobAd);
             Core.DataAccess.AgencyDbContext.Current.Person.Add(Bob);
+            Core.DataAccess.AgencyDbContext.Current.Transaction.Add(T1);
+            Core.DataAccess.AgencyDbContext.Current.Transaction.Add(T2);
             Core.DataAccess.AgencyDbContext.Current.Estate.Add(est1);
             Core.DataAccess.AgencyDbContext.Current.Estate.Add(est2);
+
+            //est1.Transactions.Add(T1);
+            //est2.Transactions.Add(T2);
             Core.DataAccess.AgencyDbContext.Current.SaveChanges();
 
+            #endregion
             /* -------------------------------------------------------- */
 
         }

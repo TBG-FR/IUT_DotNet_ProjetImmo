@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjetImmo.WPF"
+      xmlns:model="clr-namespace:ProjetImmo.Core.Models.Enums;assembly=ProjetImmo.Core"
       Height="450" Width="800"
       Title="DisplayStatsPage">
 
@@ -48,8 +49,8 @@
 
                 <TextBlock Grid.Row="0" />
 
-                <!-- GRAPHIQUE VENTES Grid.Row="1" -->                
-                
+                <!-- GRAPHIQUE VENTES Grid.Row="1" -->
+
             </Grid>
 
         </Grid>
@@ -63,91 +64,99 @@
 
             <!-- Chiffres actuels -->
             <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Vertical">
+                <!-- Chiffres actuels concernant les ventes -->
+                <StackPanel Orientation="Vertical" Grid.Row="0">
 
-                    <!-- Chiffres actuels concernant les ventes -->
-                    <StackPanel Orientation="Vertical">
+                    <Label ContentStringFormat="Nombre de biens à la vente actuellement : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSales.Count"/>
+                        </Label.Content>
+                    </Label>
 
-                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                            <TextBlock Text="Nombre de biens à la vente actuellement :"/>
-                            <TextBlock Text="{Binding CurrentSales.count}"/>
-                        </StackPanel>
+                    <Label ContentStringFormat="Maisons : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSalesDetails[(model:EstateType)HOUSE]" />
+                        </Label.Content>
+                    </Label>
 
-                        <ListView ItemsSource="{Binding CurrentSales}">
+                    <Label ContentStringFormat="Appartements : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSalesDetails[(model:EstateType)FLAT]" />
+                        </Label.Content>
+                    </Label>
 
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
+                    <Label ContentStringFormat="Locaux Commerciaux : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSalesDetails[(model:EstateType)COMMERCIAL]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Maisons (HOUSE) : "/>
-                                            <TextBlock Text="{Binding Houses}"/>
-                                        </StackPanel>
+                    <Label ContentStringFormat="Garages : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSalesDetails[(model:EstateType)GARAGE]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Appartements (FLAT) : "/>
-                                            <TextBlock Text="{Binding Flats}"/>
-                                        </StackPanel>
+                    <Label ContentStringFormat="Terrains : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentSalesDetails[(model:EstateType)FIELD]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Champs (Fields) : "/>
-                                            <TextBlock Text="{Binding Fields}"/>
-                                        </StackPanel>
-                                        
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            
-                        </ListView>
+                </StackPanel>
 
-                    </StackPanel>
-                    
-                    <!-- Chiffres actuels concernant les locations -->
-                    <StackPanel Orientation="Vertical">
+                <!-- Chiffres actuels concernant les locations -->
+                <StackPanel Orientation="Vertical" Grid.Row="1">
 
-                            <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                <TextBlock Text="Nombre de biens à la location actuellement :"/>
-                                <TextBlock Text="{Binding CountToRent}"/>
-                        </StackPanel>
+                    <Label ContentStringFormat="Nombre de biens à la location actuellement : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentals.Count"/>
+                        </Label.Content>
+                    </Label>
 
-                        <ListView ItemsSource="{Binding CurrentRentals}">
+                    <Label ContentStringFormat="Maisons : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentalsDetails[(model:EstateType)HOUSE]" />
+                        </Label.Content>
+                    </Label>
 
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
+                    <Label ContentStringFormat="Appartements : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentalsDetails[(model:EstateType)FLAT]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Maisons (HOUSE) : "/>
-                                            <TextBlock Text="{Binding Houses}"/>
-                                        </StackPanel>
+                    <Label ContentStringFormat="Locaux Commerciaux : {0}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentalsDetails[(model:EstateType)COMMERCIAL]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Appartements (FLAT) : "/>
-                                            <TextBlock Text="{Binding Flats}"/>
-                                        </StackPanel>
+                    <Label ContentStringFormat="Garages : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentalsDetails[(model:EstateType)GARAGE]" />
+                        </Label.Content>
+                    </Label>
 
-                                        <StackPanel Orientation="Horizontal" Style="{StaticResource CountLine}">
-                                            <TextBlock Text="Champs (Fields) : "/>
-                                            <TextBlock Text="{Binding Fields}"/>
-                                        </StackPanel>
+                    <Label ContentStringFormat="Terrains : {0}" Style="{StaticResource CurrentDetailsLabel}">
+                        <Label.Content>
+                            <Binding Path="CurrentRentalsDetails[(model:EstateType)FIELD]" />
+                        </Label.Content>
+                    </Label>
 
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
+                </StackPanel>
 
-                        </ListView>
-
-                    </StackPanel>
-
-                    </StackPanel>
-                
             </Grid>
 
             <!-- Tableau des chiffres -->
             <Grid Grid.Column="2">
-                
-                
+
+
 
             </Grid>
 

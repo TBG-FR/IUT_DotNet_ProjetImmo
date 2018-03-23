@@ -8,7 +8,7 @@ namespace ProjetImmo.Core.Models.Enums
     {
         HOUSE, // FR : MAISON
         FLAT, // FR : APPARTEMENT
-        FIELD, // FR : CHAMP
+        FIELD, // FR : TERRAIN
         GARAGE, // FR : GARAGE
         COMMERCIAL, // FR : LOCAL COMMERCIAL
     }
