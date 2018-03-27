@@ -94,7 +94,14 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type> OpenNewWindowCommand
         {
 
-            get => new BaseCommand<Type>((type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
+            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
+
+        }
+
+        public BaseCommand<object> CloseViewCommand //CloseWindowCommand
+        {
+
+            get => new BaseCommand<object>(/*async*/(view) => { NavigationService.Close(view); });
 
         }
 

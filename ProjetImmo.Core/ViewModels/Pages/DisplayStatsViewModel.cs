@@ -45,7 +45,7 @@ namespace ProjetImmo.Core.ViewModels
 
             CurrentSalesDetails = new Dictionary<EstateType, int>
             {
-                { EstateType.HOUSE, 150 },
+                { EstateType.HOUSE, 0 },
                 { EstateType.FLAT, 0 },
                 { EstateType.COMMERCIAL, 0 },
                 { EstateType.GARAGE, 0 },
@@ -54,7 +54,7 @@ namespace ProjetImmo.Core.ViewModels
 
             CurrentRentalsDetails = new Dictionary<EstateType, int>
             {
-                { EstateType.HOUSE, 150 },
+                { EstateType.HOUSE, 0 },
                 { EstateType.FLAT, 0 },
                 { EstateType.COMMERCIAL, 0 },
                 { EstateType.GARAGE, 0 },
@@ -97,7 +97,7 @@ namespace ProjetImmo.Core.ViewModels
             //CurrentSales.Count();
             //CurrentRentals.Count();
 
-            CurrentSales.Where((e) => e.GetType().Equals(EstateType.HOUSE)).Count();
+            //CurrentSales.Where((e) => e.GetType().Equals(EstateType.HOUSE)).Count();
 
         }
 
@@ -117,6 +117,60 @@ namespace ProjetImmo.Core.ViewModels
                 else if(e.Transactions.Last().GetType() == typeof(SaleTransaction)) { CurrentSales.Add(e);  }
                 else { /* TODO : Ajouter dans l'un des deux ? Ajouter un message log ? */ }
 
+            }
+
+            /* TODO : RESET CurrentRentalsDetails */
+            foreach (Estate e in CurrentRentals)
+            {
+                switch(e.Type)
+                {
+                    case EstateType.HOUSE:
+                        CurrentRentalsDetails[EstateType.HOUSE] += 1; 
+                        break;
+
+                    case EstateType.FLAT:
+                        CurrentRentalsDetails[EstateType.FLAT] += 1;
+                        break;
+
+                    case EstateType.COMMERCIAL:
+                        //
+                        break;
+
+                    case EstateType.GARAGE:
+                        //
+                        break;
+
+                    case EstateType.FIELD:
+                        //
+                        break;
+                }
+            }
+
+            /* TODO : RESET CurrentSalesDetails */
+            foreach (Estate e in CurrentSales)
+            {
+                switch (e.Type)
+                {
+                    case EstateType.HOUSE:
+                        //
+                        break;
+
+                    case EstateType.FLAT:
+                        //
+                        break;
+
+                    case EstateType.COMMERCIAL:
+                        //
+                        break;
+
+                    case EstateType.GARAGE:
+                        //
+                        break;
+
+                    case EstateType.FIELD:
+                        //
+                        break;
+                }
             }
         }
 
