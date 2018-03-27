@@ -79,10 +79,6 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>((type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
 
         }
-        public BaseCommand<Type> OpenCreateEstatePageCommand
-        {
-            get => new BaseCommand<Type>((pageType) => { this.CurrentPage = (TPage) NavigationService.GetView<CreateEstatesViewModel>(pageType); });
-        }
 
     }
 }
