@@ -1,0 +1,63 @@
+﻿<Window x:Class="ProjetImmo.WPF.Windows.EditEstateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetImmo.WPF.Windows"
+        mc:Ignorable="d"
+        Title="EditEstateWindow" Height="300" Width="500">
+
+    <!-- RESSOURCES : DANS APP.XAML -->
+
+        <!-- Grid contenant les Infos de l'Offres Sélectionnée -->
+    <Grid  Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="248">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+            <!-- Image Bien Immo -->
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Ajouter une Vente :" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Surface : " />
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Type : " />
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Nombre de chambres : " />
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Charges Annuelles : "/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Taxe de propriété : "/>
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Numéro de l'étage : "/>
+            <TextBlock Grid.Column="0" Grid.Row="7" Text="Nombre d'étages : "/>
+
+            <TextBox Grid.Column="1" Grid.Row="0" />
+            <TextBox Grid.Column="1" Grid.Row="1" />
+            <TextBox Grid.Column="1" Grid.Row="2" />
+            <TextBox Grid.Column="1" Grid.Row="3" />
+            <TextBox Grid.Column="1" Grid.Row="4" />
+            <TextBox Grid.Column="1" Grid.Row="5" />
+            <TextBox Grid.Column="1" Grid.Row="6" />
+            <TextBox Grid.Column="1" Grid.Row="7" />
+            <TextBox Grid.Column="1" Grid.Row="8" />
+
+        <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
+            <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
+
+        </Grid>
+        <Button Grid.Row="1" Content="Valider" />
+    </Grid>
+
+</Window>

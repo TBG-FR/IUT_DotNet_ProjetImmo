@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
+      xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
       Height="450" Width="800"
       Title="BrowseEstatePage">
 
@@ -156,7 +157,7 @@
                 <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom" Command="{Binding OpenCreateEstatePageCommand}" CommandParameter="{x:Type local:CreateEstatesPage}"/>
+            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom" Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
 
         </Grid>
 

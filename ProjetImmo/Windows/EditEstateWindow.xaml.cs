@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProjetImmo.WPF.Pages
+namespace ProjetImmo.WPF.Windows
 {
     /// <summary>
-    /// Logique d'interaction pour SearchPage.xaml
+    /// Logique d'interaction pour EditEstateWindow.xaml
     /// </summary>
-    public partial class BrowseEstatesPage : Page
+    public partial class EditEstateWindow : Window
     {
-        public BrowseEstatesPage()
+        public EditEstateWindow()
         {
             InitializeComponent();
-            
-            /* Pas de code ici, tout dans le ViewModel 'BrowseEstatesViewModel' */
-
         }
-
     }
-
 }

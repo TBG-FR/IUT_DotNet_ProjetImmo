@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\p1506012\AppData\Local\Temp\vsB2A2.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\p1506012\AppData\Local\Temp\vsB2A2.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Data.Sqlite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -131,9 +133,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\Base64StringToBitmapImageConverter.cs" />
-    <Compile Include="Pages\CreateEstatesPage.xaml.cs">
-      <DependentUpon>CreateEstatesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
     </Compile>
@@ -143,13 +142,12 @@
     <Compile Include="Pages\ManageEstatesPage.xaml.cs">
       <DependentUpon>ManageEstatesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EditEstateWindow.xaml.cs">
+      <DependentUpon>EditEstateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SearchFiltersWindow.xaml.cs">
       <DependentUpon>SearchFiltersWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\CreateEstatesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\DisplayStatsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +172,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\EditEstateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\SearchFiltersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
