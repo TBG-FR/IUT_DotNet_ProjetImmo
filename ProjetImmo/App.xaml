@@ -31,8 +31,8 @@
 
         <Style x:Key="CurrentDetailsLabel" TargetType="{x:Type Label}">
 
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="-8"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="-2"/>
 
         </Style>
 

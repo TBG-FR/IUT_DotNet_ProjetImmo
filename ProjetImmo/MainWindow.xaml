@@ -5,21 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetImmo.WPF"
         xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
-        Height="550" Width="800"
+        xmlns:vm="clr-namespace:ProjetImmo.Core.ViewModels;assembly=ProjetImmo.Core"
+        Height="700" Width="1250"
         Title="MainWindow">
     
     <!-- RESSOURCES : DANS APP.XAML -->
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
 
         <!-- Grid contenant le menu de navigation entres les Pages -->
         <Grid Grid.Row="0">
 
+            <StackPanel Orientation="Horizontal">
+                
+                <Button Content="Random Button" Width="100" />
+                
+                <Button Content="Random Button" Width="100" />
+                
+                <Button Content="Random Button" Width="100" />
+
+            </StackPanel>
+            
         </Grid>
 
         <!-- Grid contenant la Page actuelle -->
@@ -31,11 +42,37 @@
 
         <!-- Grid contenant le menu du bas (trucs divers à définir) -->
         <Grid Grid.Row="2">
+
+            <StackPanel Orientation="Horizontal">
+            
             <Button Content="Ouvrir subfenetre"
                     Command="{Binding OpenNewWindowCommand}"
                     CommandParameter="{x:Type windows:SearchFiltersWindow}"
                     Width="100"
                     />
+
+                <Button Content="Fermer fenêtre"
+                    Command="{Binding CloseViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                    Width="100"
+                    />
+                <!--
+                <Button Content="Afficher fenêtre"
+                    Command="{Binding ShowWindowCommand}"
+                    Width="100">
+                    <Button.CommandParameter>
+                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
+                            <x:Type Type="local:WINDOW_HERE" />
+                            <x:Type Type="vm:VIEWMODEL_HERE" />
+                        </x:Array>                        
+                    </Button.CommandParameter>
+                </Button>
+                -->
+
+                <Button Content="Random Button" Width="100" />
+
+            </StackPanel>
+
         </Grid>
 
     </Grid>
