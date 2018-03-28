@@ -13,9 +13,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="6*" />
             <RowDefinition Height="50*" />
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
 
         <!-- Grid contenant le menu de navigation entres les Pages -->
@@ -23,11 +23,11 @@
 
             <StackPanel Orientation="Horizontal">
                 
-                <Button Content="Random Button" Width="100" />
-                
-                <Button Content="Random Button" Width="100" />
-                
-                <Button Content="Random Button" Width="100" />
+                <Button Content="Random Button" Width="100" Height="50" />
+
+                <Button Content="Random Button" Width="100" Height="50" />
+
+                <Button Content="Random Button" Width="100" Height="50" />
 
             </StackPanel>
             
@@ -69,7 +69,7 @@
                 </Button>
                 -->
 
-                <Button Content="Random Button" Width="100" />
+                <Button Content="Random Button" Width="100" Height="50" />
 
             </StackPanel>
 
