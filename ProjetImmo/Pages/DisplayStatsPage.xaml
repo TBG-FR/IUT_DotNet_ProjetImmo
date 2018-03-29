@@ -31,14 +31,23 @@
                     <RowDefinition Height="250*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" />
+                <Label Grid.Row="0" Content="VENTES" Style="{StaticResource ChartTitle}" />
 
                 <!-- GRAPHIQUE VENTES Grid.Row="1" -->
 
-            </Grid>
+                </Grid>
 
             <!-- Graphiques : Boutons -->
-            <Grid Grid.Column="1"></Grid>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+
+                <Label Content="Période" Style="{StaticResource ChartControlTitle}" />
+                <Button Content="Total (A)" Style="{StaticResource ChartControl}" />
+                <Button Content="Année (Y)" Style="{StaticResource ChartControl}" />
+                <Button Content="Mois (M)" Style="{StaticResource ChartControl}" />
+                <Button Content="Semaine (W)" Style="{StaticResource ChartControl}" />
+                <Button Content="24H (T)" Style="{StaticResource ChartControl}" />
+
+            </StackPanel>
 
             <!-- Graphique des Locations -->
             <Grid Grid.Column="2">
@@ -47,7 +56,7 @@
                     <RowDefinition Height="250*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" />
+                <Label Grid.Row="0" Content="LOCATIONS" Style="{StaticResource ChartTitle}" />
 
                 <!-- GRAPHIQUE VENTES Grid.Row="1" -->
 

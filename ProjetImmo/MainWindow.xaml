@@ -36,7 +36,8 @@
         <!-- Grid contenant la Page actuelle -->
         <Grid Grid.Row="1">
 
-            <Frame Content="{Binding CurrentPage}" />
+            <Frame Content="{Binding CurrentPage}" BorderThickness="1" BorderBrush="Black"/>
+            <!-- TODO : Better border ? -->
 
         </Grid>
 

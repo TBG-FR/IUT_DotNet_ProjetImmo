@@ -29,12 +29,44 @@
 
         </Style>
 
-        <Style x:Key="CurrentDetailsLabel" TargetType="{x:Type Label}">
+        <!-- https://msdn.microsoft.com/en-us/library/ms753328(v=vs.100).aspx -->
+        <Style x:Key="ChartTitle" TargetType="{x:Type Label}">
 
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Margin" Value="-2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+
+            <Setter Property="FontSize" Value="35" />
 
         </Style>
+
+        <Style x:Key="ChartControl" TargetType="{x:Type Control}">
+
+            <!--<Setter Property="Width" Value="*" />-->
+            <Setter Property="Height" Value="50" />
+            
+            <Setter Property="FontSize" Value="17" />
+            
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+
+        </Style>
+
+        <!-- https://msdn.microsoft.com/en-us/library/ms753328(v=vs.100).aspx -->
+        <Style x:Key="ChartControlTitle" TargetType="{x:Type Control}" BasedOn="{StaticResource ChartControl}">
+
+            <Setter Property="FontSize" Value="20" />            
+            <Setter Property="Background" Value="Gray" />
+
+        </Style>
+        
+        <!--
+        <Style TargetType="Button" x:Key="BaseButtonStyle">
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style TargetType="Button" x:Key="RedButtonStyle" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+        -->
 
     </Application.Resources>
     
