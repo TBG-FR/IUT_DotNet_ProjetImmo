@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
       xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
-      Height="450" Width="800"
+      Height="450" Width="1250"
       Title="BrowseEstatePage">
 
     <!-- RESSOURCES : DANS APP.XAML -->

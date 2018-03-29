@@ -33,6 +33,14 @@
 
         </Style>
 
+        <DataTemplate x:Key="templateComboPers">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ID}"/>
+                <TextBlock Text="{Binding Firstname}" Margin="5,0,5,0"/>
+                <TextBlock Text="{Binding Lastname}"/>
+            </StackPanel>
+        </DataTemplate>
+
     </Application.Resources>
     
 </Application>

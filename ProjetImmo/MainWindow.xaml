@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjetImmo.WPF"
         xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
         xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
-        Height="550" Width="800"
+        Height="700" Width="1250"
         Title="MainWindow">
     
     <!-- RESSOURCES : DANS APP.XAML -->
