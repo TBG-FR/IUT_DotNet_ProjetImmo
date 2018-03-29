@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjetImmo.WPF"
       xmlns:model="clr-namespace:ProjetImmo.Core.Models.Enums;assembly=ProjetImmo.Core"
+      xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       Height="500" Width="1250"
       Title="DisplayStatsPage">
 
@@ -34,8 +35,9 @@
                 <Label Grid.Row="0" Content="VENTES" Style="{StaticResource ChartTitle}" />
 
                 <!-- GRAPHIQUE VENTES Grid.Row="1" -->
+                <charts:CartesianChart Series="{Binding SalesChartValues[A]}" Grid.Row="1" />
 
-                </Grid>
+            </Grid>
 
             <!-- Graphiques : Boutons -->
             <StackPanel Grid.Column="1" Orientation="Vertical">
@@ -45,7 +47,7 @@
                 <Button Content="Année (Y)" Style="{StaticResource ChartControl}" />
                 <Button Content="Mois (M)" Style="{StaticResource ChartControl}" />
                 <Button Content="Semaine (W)" Style="{StaticResource ChartControl}" />
-                <Button Content="24H (T)" Style="{StaticResource ChartControl}" />
+                <Button Content="Jour (D)" Style="{StaticResource ChartControl}" />
 
             </StackPanel>
 
@@ -58,7 +60,8 @@
 
                 <Label Grid.Row="0" Content="LOCATIONS" Style="{StaticResource ChartTitle}" />
 
-                <!-- GRAPHIQUE VENTES Grid.Row="1" -->
+                <!-- GRAPHIQUE LOCATIONS Grid.Row="1" -->
+                <charts:CartesianChart Series="{Binding RentalsChartValues[(model:PeriodType)YEAR]}" Grid.Row="1" />
 
             </Grid>
 
