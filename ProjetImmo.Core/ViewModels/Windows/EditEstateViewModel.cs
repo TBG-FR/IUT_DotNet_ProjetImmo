@@ -5,6 +5,8 @@ using ProjetImmo.Core.Tools;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.IO;
+
 
 namespace ProjetImmo.Core.ViewModels
 {
@@ -187,16 +189,55 @@ namespace ProjetImmo.Core.ViewModels
                 }
             }
         }
+        public string ConcatKeyWords
+        {
+            get { return GetProperty<string>(); }
+
+            set
+            {
+                if (SetProperty(value))
+                {
+
+                }
+            }
+        }
 
         public BaseCommand<object> InsertIntoBD //Insérer dans la BD et fermer la fenêtre
         {    
 
             get => new BaseCommand<object>(/*async*/(view) => {
+
+                //On retires les espaces après les séparetreurs
+                ConcatKeyWords= ConcatKeyWords.Replace(", ", ",");
+                ConcatKeyWords = ConcatKeyWords.Replace(" ,", ",");
+                ConcatKeyWords = ConcatKeyWords.Replace("; ", ";");
+                ConcatKeyWords = ConcatKeyWords.Replace(" ;", ";");
+
+                //On remplace les espaces simples par des virgules
+                ConcatKeyWords = ConcatKeyWords.Replace(" ", ",");
+
+                //On crée une observable collection des mots clés
+                string[] separatingChars = { ",", ";" };
+                ObservableCollection<string> listKeyWordsStr = new ObservableCollection<string>(ConcatKeyWords.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries).ToArray());
+
+                //On crée une observable collection de EstateKeywords à partir des strings dans listKeyWordsStr
+                ObservableCollection<EstateKeyword> listKeys = new ObservableCollection<EstateKeyword>();
+                foreach(string keyStr in listKeyWordsStr)
+                {
+                    if (!keyStr.Equals(""))
+                    {
+                        listKeys.Add(new EstateKeyword() { Keyword = new Keyword() { Name = keyStr } });
+                    }
+                }
+
+
+                //On crée la nouvelle addresse
                 Address addr = new Address();
                 addr.PostalAddress = Address;
                 addr.ZIP = ZIP;
                 addr.City = City;
 
+                //On crée le nouvel Estate
                 Estate est1 = new Estate();
                 est1.Surface = Surface;
                 est1.Type = SelectedType;
@@ -207,7 +248,10 @@ namespace ProjetImmo.Core.ViewModels
                 est1.FloorCount = FloorCount;
                 est1.Owner = selectedPerson;
                 est1.Address = addr;
+                est1.Keywords = listKeys;
 
+
+                //On evoies crée les nouvelles tables dans la DB
                 Core.DataAccess.AgencyDbContext.Current.Estate.Add(est1);
                 Core.DataAccess.AgencyDbContext.Current.SaveChanges();
 

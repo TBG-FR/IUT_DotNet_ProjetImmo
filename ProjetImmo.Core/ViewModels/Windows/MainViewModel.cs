@@ -55,5 +55,6 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
+
     }
 }
