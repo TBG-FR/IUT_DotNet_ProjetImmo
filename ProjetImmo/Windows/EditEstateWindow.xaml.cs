@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProjetImmo.WPF.Pages
+namespace ProjetImmo.WPF.Windows
 {
     /// <summary>
-    /// Logique d'interaction pour ManageEstatesPage.xaml
+    /// Logique d'interaction pour EditEstateWindow.xaml
     /// </summary>
-    public partial class ManageEstatesPage : Page
+    public partial class EditEstateWindow : Window
     {
-        public ManageEstatesPage()
+        public EditEstateWindow()
         {
             InitializeComponent();
         }

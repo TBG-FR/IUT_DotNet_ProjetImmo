@@ -28,6 +28,22 @@ namespace ProjetImmo.WPF.Pages
 
         }
 
+        /*
+        private void ComboBox_OrderBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Filters_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }*/
+
     }
 
 }

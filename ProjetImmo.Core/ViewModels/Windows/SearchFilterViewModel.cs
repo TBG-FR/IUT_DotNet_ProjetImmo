@@ -1,10 +1,14 @@
-﻿using System;
+﻿using ProjetImmo.Core.Tools;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ProjetImmo.Core.ViewModels
 {
-    class SearchFilterViewModel
+    public class SearchFilterViewModel : BaseNotifyPropertyChanged
     {
+
+        /**/
+
     }
 }

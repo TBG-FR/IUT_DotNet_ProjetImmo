@@ -1,10 +1,11 @@
-﻿<Window x:Class="ProjetImmo.MainWindow"
+<Window x:Class="ProjetImmo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetImmo.WPF"
         xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
+        xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
         xmlns:vm="clr-namespace:ProjetImmo.Core.ViewModels;assembly=ProjetImmo.Core"
         Height="700" Width="1250"
         Title="MainWindow">
@@ -22,12 +23,29 @@
         <Grid Grid.Row="0">
 
             <StackPanel Orientation="Horizontal">
-                
-                <Button Content="Random Button" Width="100" Height="50" />
 
-                <Button Content="Random Button" Width="100" Height="50" />
+                <Button Content="Accueil (Statistiques)"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:DisplayStatsPage}"
+                        Style="{StaticResource NavbarButton}"/>
 
-                <Button Content="Random Button" Width="100" Height="50" />
+                <Button Content="Consulter les Biens"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:BrowseEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Gestion des Biens"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:ManageEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Fermer le programme"
+                        Command="{Binding CloseViewCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Random Button"
+                        Style="{StaticResource NavbarButton}"/>
 
             </StackPanel>
             
@@ -45,18 +63,13 @@
         <Grid Grid.Row="2">
 
             <StackPanel Orientation="Horizontal">
-            
-            <Button Content="Ouvrir subfenetre"
+
+                <Button Content="Ouvrir subfenetre"
                     Command="{Binding OpenNewWindowCommand}"
                     CommandParameter="{x:Type windows:SearchFiltersWindow}"
                     Width="100"
                     />
-
-                <Button Content="Fermer fenêtre"
-                    Command="{Binding CloseViewCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                    Width="100"
-                    />
+              
                 <!--
                 <Button Content="Afficher fenêtre"
                     Command="{Binding ShowWindowCommand}"
