@@ -1,0 +1,77 @@
+﻿<Window x:Class="ProjetImmo.WPF.Windows.EditEstateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetImmo.WPF.Windows"
+        mc:Ignorable="d"
+        Title="EditEstateWindow" Height="310" Width="500">
+
+    <!-- RESSOURCES : DANS APP.XAML -->
+
+        <!-- Grid contenant les Infos de l'Offres Sélectionnée -->
+    <Grid  Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="248">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Image Bien Immo -->
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Surface : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Type : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Nombre de chambres : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Charges Annuelles : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Taxe de propriété : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Numéro de l'étage : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Nombre d'étages : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="7" Text="Addresse : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="8" Text="Code Postal : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="9" Text="Ville : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="10" Text="Propriétaire : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="11" Text="Ajouter une Image : " VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="12" Text="Des mots clés : " VerticalAlignment="Center" />
+
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Surface}" />
+            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Type}" SelectedIndex="0" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding RoomsCount}" />
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Chrages}" />
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Taxe}" />
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding FloorNum}" />
+            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding FloorCount}" />
+            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Address}"/>
+            <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding ZIP}"/>
+            <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding City}"/>
+            <ComboBox Grid.Column="1" Grid.Row="10" ItemsSource="{Binding Persons}" ItemTemplate="{StaticResource templateComboPers}" SelectedItem="{Binding selectedPerson}" SelectedIndex="0"/>
+            <Button Grid.Column="1" Grid.Row="11" Name="btnOpenFile" >Impoter un Fichier</Button>
+            <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding ConcatKeyWords}"/>
+
+            <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
+            <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
+
+        </Grid>
+        <Button Grid.Row="1" Content="Valider" Command="{Binding InsertIntoBD}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+    </Grid>
+
+</Window>

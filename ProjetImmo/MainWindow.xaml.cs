@@ -26,12 +26,6 @@ namespace ProjetImmo
 
             InitializeComponent();
 
-            /*
-            MainWindow = NavigationService.GetWindow<MainWindow, MainViewModel>();
-            MainWindow.Show();
-
-            this.DataContext = NavigationService.GetViewModelInstance()*/
-
             /* Pas de code ici, tout dans le ViewModel 'MainViewModel' */
 
         }

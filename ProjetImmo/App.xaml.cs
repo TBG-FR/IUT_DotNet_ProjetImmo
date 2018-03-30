@@ -10,6 +10,7 @@ using ProjetImmo.Core.ViewModels;
 using System.Windows.Controls;
 using ProjetImmo.Core;
 using ProjetImmo.Core.Tools;
+using ProjetImmo.WPF.Pages;
 
 namespace ProjetImmo.WPF
 {
@@ -25,10 +26,12 @@ namespace ProjetImmo.WPF
             base.OnStartup(e);
             await Core.DataAccess.AgencyDbContext.Initialize();
 
-            MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(DisplayStatsPage));
+            MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(BrowseEstatesPage));
             MainWindow.Show();
 
         }
+
+
 
     }
     

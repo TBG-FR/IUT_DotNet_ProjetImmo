@@ -2,22 +2,25 @@
 using ProjetImmo.Core.Models;
 using ProjetImmo.Core.Tools;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProjetImmo.Core.ViewModels
 {
     public class MainViewModel<TPage> : BaseNotifyPropertyChanged
     {
 
-        public TPage CurrentPage { get; set; }
+        public TPage CurrentPage
+        {
+            get { return GetProperty<TPage>(); }
+
+            set { SetProperty<TPage>(value); }
+        }
 
         public MainViewModel(Type defaultPageType)
         {
 
+            //this.CurrentPage = (TPage) NavigationService.GetView<BrowseEstatesViewModel>(defaultPageType);
             this.CurrentPage = (TPage)NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
-
-            /* -------------------------------------------------------- */
+            
             #region TestValues_DB
 
             Person Bob = new Person();
@@ -37,8 +40,13 @@ namespace ProjetImmo.Core.ViewModels
             Bob.Firstname = "Bob";
             Bob.Lastname = "Dylan";
             Bob.Address = BobAd;
-
-            //génération d'estates 
+            
+            Core.DataAccess.AgencyDbContext.Current.Address.Add(BobAd);
+            Core.DataAccess.AgencyDbContext.Current.Person.Add(Bob);
+            Core.DataAccess.AgencyDbContext.Current.SaveChanges();
+            
+            //génération d'estates
+            /*
             Estate est1 = new Estate();
             est1.Surface = 300;
             est1.Type = Models.Enums.EstateType.FLAT;
@@ -85,9 +93,8 @@ namespace ProjetImmo.Core.ViewModels
             //est1.Transactions.Add(T1);
             //est2.Transactions.Add(T2);
             Core.DataAccess.AgencyDbContext.Current.SaveChanges();
-
+            */
             #endregion
-            /* -------------------------------------------------------- */
 
         }
 
@@ -97,7 +104,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
 
         }
-
+        
         public BaseCommand<object> CloseViewCommand //CloseWindowCommand
         {
 
