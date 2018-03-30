@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetImmo.WPF.Windows"
         mc:Ignorable="d"
-        Title="SearchFiltersWindow" Height="200" Width="300">
+        Title="SearchFiltersWindow"
+        Height="500" Width="1050"
+        >
     
     <Grid>
         

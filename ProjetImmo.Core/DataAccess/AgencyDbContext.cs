@@ -112,7 +112,7 @@ namespace ProjetImmo.Core.DataAccess
             modelBuilder.Entity<Models.Estate>().HasMany<Models.EstateKeyword>(e => e.Keywords).WithOne(ek => ek.Estate).HasForeignKey(ek => ek.EstateID);
             modelBuilder.Entity<Models.Keyword>().HasMany<Models.EstateKeyword>(k => k.DescribedEstates).WithOne(ek => ek.Keyword).HasForeignKey(ek => ek.KeywordID);
 
-            // ESTATE -> TRANSACTIONS [One Estate has Many Transactions, One Transcation has One Estate] => PERSON CAN BE NULL
+            // ESTATE -> TRANSACTIONS [One Estate has Many Transactions, One Transaction has One Estate] => PERSON CAN BE NULL
             modelBuilder.Entity<Models.Estate>().HasMany<Models.Transaction>(e => e.Transactions).WithOne(t => t.RelatedEstate);//.IsOptional() -- .HasOptional()
 
         }

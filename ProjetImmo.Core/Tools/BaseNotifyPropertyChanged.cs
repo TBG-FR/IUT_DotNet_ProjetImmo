@@ -1,10 +1,8 @@
-﻿using System;
+﻿using ProjetImmo.Core.Commandes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetImmo.Core.Tools
 {
@@ -36,5 +34,12 @@ namespace ProjetImmo.Core.Tools
             return false;
         }
         
+        
+        public BaseCommand<Type, Type> ShowWindowCommand //OpenWindow
+        {
+            get => new BaseCommand<Type, Type>((tView, tViewModel) => { NavigationService.Show(tView, tViewModel);  });
+        }
+        
+
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,10 +10,8 @@ namespace ProjetImmo.Core.Tools
         public static string ContextPropertyName = "DataContext";
 
         // "Cache" => Un seul objet (Window/Page/ViewModel/...) de chaque type à la fois (Dictionnaire) => SAUF POUR LES WINDOWS
-        private static Dictionary<Type, object> _viewsCache =
-            new Dictionary<Type, object>();
-        private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelsCache =
-            new Dictionary<Type, BaseNotifyPropertyChanged>();
+        private static Dictionary<Type, object> _viewsCache = new Dictionary<Type, object>();
+        private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelsCache = new Dictionary<Type, BaseNotifyPropertyChanged>();
 
         // Get[_]Instance[_] => Fonctions utilisées pour récupérer (ou créer) les Instances demandées
         private static TViewModel GetViewModelInstance<TViewModel>(params object[] viewModelParameters)
@@ -43,6 +41,7 @@ namespace ProjetImmo.Core.Tools
         {
             object view = null;
             bool isWindow = tView.BaseType.Name == "Window";
+
             if (!isWindow && _viewsCache.ContainsKey(tView))
                 view = _viewsCache[tView];
             else
@@ -50,7 +49,7 @@ namespace ProjetImmo.Core.Tools
                 view = Activator.CreateInstance(tView);
                 var prop = tView.GetProperty(ContextPropertyName);
                 prop?.SetValue(view, viewModel);
-                if (!isWindow)
+                if(!isWindow)
                     _viewsCache[tView] = view;
             }
             return view;
@@ -61,24 +60,16 @@ namespace ProjetImmo.Core.Tools
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
         {
-            return GetViewInstance<TView>(
-                GetViewModelInstance<TViewModel>(viewModelParameters));
+            return GetViewInstance<TView>(GetViewModelInstance<TViewModel>(viewModelParameters));
         }
         public static object GetView<TViewModel>(Type tView, params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
-            return GetViewInstance(
-                tView,
-                GetViewModelInstance<TViewModel>(viewModelParameters));
-        }
-        public static object GetView(Type tView, Type tViewModel, params object[] viewModelParameters)
-        {
-            return GetViewInstance(
-                tView,
-                GetViewModelInstance(tViewModel, viewModelParameters));
+            return GetViewInstance(tView, GetViewModelInstance<TViewModel>(viewModelParameters));
         }
 
-        // Show/ShowDialog => Récupérer/Afficher une Fenêtre/Page/ViewModel (ShowDialog freeze la fenetre appellante)
+
+        // Show/ShowDialog => Récupérer/Afficher une Fenêtre/Page/ViewModel
         public static void Show<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
@@ -99,16 +90,7 @@ namespace ProjetImmo.Core.Tools
             var method = win.GetType().GetMethod("Show");
             method?.Invoke(win, null);
         }
-        public static void Show(Type tView, Type tViewModel, params object[] viewModelParameters)
-        {
-            var win = GetViewInstance(
-                tView,
-                GetViewModelInstance(tViewModel, viewModelParameters));
-
-            var method = win.GetType().GetMethod("Show");
-            method?.Invoke(win, null);
-        }
-
+        
         public static bool? ShowDialog<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
@@ -129,15 +111,6 @@ namespace ProjetImmo.Core.Tools
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);
         }
-        public static bool? ShowDialog(Type tView, Type tViewModel, params object[] viewModelParameters)
-        {
-            var win = GetViewInstance(
-                tView,
-                GetViewModelInstance(tViewModel, viewModelParameters));
-
-            var method = win.GetType().GetMethod("ShowDialog");
-            return (bool?)method?.Invoke(win, null);
-        }
 
         // Close/GetResult => Récupérer le résultat et fermer la Fenêtre/Page
         public static void Close(object view, bool? result = null)
@@ -147,6 +120,7 @@ namespace ProjetImmo.Core.Tools
                 var property = view.GetType().GetProperty("DialogResult");
                 property?.SetValue(view, result);
             }
+
             var method = view.GetType().GetMethod("Close");
             method?.Invoke(view, null);
         }
@@ -156,7 +130,6 @@ namespace ProjetImmo.Core.Tools
             var property = view.GetType().GetProperty("DialogResult");
             return (bool?)property?.GetValue(view);
         }
-
 
     }
 }
