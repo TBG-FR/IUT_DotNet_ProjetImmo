@@ -78,7 +78,7 @@ namespace ProjetImmo.Core.Tools
                 GetViewModelInstance(tViewModel, viewModelParameters));
         }
 
-        // Show/ShowDialog => Récupérer/Afficher une Fenêtre/Page/ViewModel
+        // Show/ShowDialog => Récupérer/Afficher une Fenêtre/Page/ViewModel (ShowDialog freeze la fenetre appellante)
         public static void Show<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
