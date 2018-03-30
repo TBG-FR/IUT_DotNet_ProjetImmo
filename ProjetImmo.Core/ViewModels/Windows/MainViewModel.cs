@@ -11,15 +11,14 @@ namespace ProjetImmo.Core.ViewModels
         public TPage CurrentPage
         {
             get { return GetProperty<TPage>(); }
-
             set { SetProperty<TPage>(value); }
         }
 
         public MainViewModel(Type defaultPageType)
         {
 
-            //this.CurrentPage = (TPage) NavigationService.GetView<BrowseEstatesViewModel>(defaultPageType);
-            this.CurrentPage = (TPage)NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
+            this.CurrentPage = (TPage) NavigationService.GetView<BrowseEstatesViewModel>(defaultPageType);
+            //this.CurrentPage = (TPage) NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
             
             #region TestValues_DB
 
@@ -104,11 +103,18 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
 
         }
-        
+
         public BaseCommand<object> CloseViewCommand //CloseWindowCommand
         {
 
             get => new BaseCommand<object>(/*async*/(view) => { NavigationService.Close(view); });
+
+        }
+
+        public BaseCommand<Type> ChangeViewCommand //ChangeWindowCommand
+        {
+
+            get => new BaseCommand<Type>(/*async*/(type) => { this.CurrentPage = (TPage) NavigationService.GetView<MainViewModel<TPage>>(type); });
 
         }
 

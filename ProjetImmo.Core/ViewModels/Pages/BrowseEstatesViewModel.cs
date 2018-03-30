@@ -14,14 +14,7 @@ namespace ProjetImmo.Core.ViewModels
     {
         public ObservableCollection<Estate> Estates {
             get { return GetProperty<ObservableCollection<Estate>>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { /**/ } }
         }
 
         public BrowseEstatesViewModel() { Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray()); }
@@ -29,14 +22,7 @@ namespace ProjetImmo.Core.ViewModels
         public Estate SelectedItem
         {
             get { return GetProperty<Estate>(); }
-
-            set {
-                if (SetProperty(value))
-                {
-                    
-                }
-            }
-
+            set { if (SetProperty(value)) { /**/ } }
         }
 
         public BaseCommand<Type> OpenEditEstateWindowCommand
@@ -47,6 +33,13 @@ namespace ProjetImmo.Core.ViewModels
                 NavigationService.ShowDialog<EditEstateViewModel>(type);
                 Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
             });
+
+        }
+
+        public BaseCommand<Type> OpenSearchFilterWindowCommand
+        {
+
+            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
 
         }
 

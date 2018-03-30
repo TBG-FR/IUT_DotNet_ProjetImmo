@@ -38,12 +38,16 @@
 
             <!-- Boutton de Recherche -->
             <Button Grid.Column="1" Content="Recherche"
-                    Style="{StaticResource SearchbarControl}" />
+                    Style="{StaticResource SearchbarControl}"
+                    />
             <!-- Click="Button_Search_Click" -->
 
             <!-- Boutton des Filtres -->
             <Button Grid.Column="2" Content="Filtres"
-                    Style="{StaticResource SearchbarControl}" />
+                    Style="{StaticResource SearchbarControl}"
+                    Command="{Binding OpenSearchFilterWindowCommand}"
+                    CommandParameter="{x:Type windows:SearchFiltersWindow}"
+                    />
             <!-- Click="Button_Filters_Click" -->
 
             <!-- Menu de Tri de la Recherche -->
@@ -157,7 +161,8 @@
                 <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom" Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
+            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom"
+                    Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
 
         </Grid>
 

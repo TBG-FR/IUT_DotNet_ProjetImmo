@@ -27,6 +27,7 @@ namespace ProjetImmo.WPF
             await Core.DataAccess.AgencyDbContext.Initialize();
 
             MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(BrowseEstatesPage));
+            //MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(DisplayStatsPage));
             MainWindow.Show();
 
         }

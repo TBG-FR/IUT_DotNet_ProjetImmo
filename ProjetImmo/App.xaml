@@ -12,6 +12,11 @@
         <Color x:Key="Color1">#FF444343</Color>
         <Color x:Key="Color2">#FFB2B2B2</Color>
 
+        <Style x:Key="NavbarButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
         <Style x:Key="SearchbarControl" TargetType="{x:Type Control}">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Open Sans"/>
@@ -56,14 +61,8 @@
         <!-- https://msdn.microsoft.com/en-us/library/ms753328(v=vs.100).aspx -->
         <Style x:Key="ChartControlTitle" TargetType="{x:Type Control}" BasedOn="{StaticResource ChartControl}">
 
-            <Setter Property="FontSize" Value="20" />            
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="Background" Value="Gray" />
-
-        </Style>
-
-        <Style x:Key="ListViewItem" TargetType="{x:Type StackPanel}">
-
-            <Setter Property="Margin" Value="5px"/>
 
         </Style>
 

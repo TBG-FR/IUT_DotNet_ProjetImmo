@@ -23,12 +23,29 @@
         <Grid Grid.Row="0">
 
             <StackPanel Orientation="Horizontal">
-                
-                <Button Content="Random Button" Width="100" Height="50" />
 
-                <Button Content="Random Button" Width="100" Height="50" />
+                <Button Content="Accueil (Statistiques)"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:DisplayStatsPage}"
+                        Style="{StaticResource NavbarButton}"/>
 
-                <Button Content="Random Button" Width="100" Height="50" />
+                <Button Content="Consulter les Biens"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:BrowseEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Gestion des Biens"
+                        Command="{Binding ChangeViewCommand}"
+                        CommandParameter="{x:Type pages:ManageEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Fermer le programme"
+                        Command="{Binding CloseViewCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource NavbarButton}"/>
+
+                <Button Content="Random Button"
+                        Style="{StaticResource NavbarButton}"/>
 
             </StackPanel>
             
@@ -46,16 +63,10 @@
         <Grid Grid.Row="2">
 
             <StackPanel Orientation="Horizontal">
-            
-            <Button Content="Ouvrir subfenetre"
+
+                <Button Content="Ouvrir subfenetre"
                     Command="{Binding OpenNewWindowCommand}"
                     CommandParameter="{x:Type windows:SearchFiltersWindow}"
-                    Width="100"
-                    />
-
-                <Button Content="Fermer fenêtre"
-                    Command="{Binding CloseViewCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                     Width="100"
                     />
               

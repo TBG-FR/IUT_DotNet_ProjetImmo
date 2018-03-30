@@ -25,181 +25,89 @@ namespace ProjetImmo.Core.ViewModels
             }
             Type = tmp;
         }
+
         public double Surface
         {
             get { return GetProperty<double>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public ObservableCollection<Models.Enums.EstateType> Type
         {
             get { return GetProperty<ObservableCollection<Models.Enums.EstateType>>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public Models.Enums.EstateType SelectedType
         {
             get { return GetProperty<Models.Enums.EstateType>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public int RoomsCount
         {
             get { return GetProperty<int>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public double Chrages
         {
             get { return GetProperty<double>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
 
         }
+
         public double Taxe
         {
             get { return GetProperty<double>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
         public int FloorNum
         {
             get { return GetProperty<int>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public int FloorCount
         {
             get { return GetProperty<int>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
-
+            set { if (SetProperty(value)) { } }
         }
+
         public ObservableCollection<Person> Persons
         {
             get { return GetProperty<ObservableCollection<Person>>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
+
         public Person selectedPerson
         {
             get { return GetProperty<Person>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
+
         public string Address
         {
             get { return GetProperty<string>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
+
         public string ZIP
         {
             get { return GetProperty<string>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
+
         public string City
         {
             get { return GetProperty<string>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
+
         public string ConcatKeyWords
         {
             get { return GetProperty<string>(); }
-
-            set
-            {
-                if (SetProperty(value))
-                {
-
-                }
-            }
+            set { if (SetProperty(value)) { } }
         }
 
         public BaseCommand<object> InsertIntoBD //Insérer dans la BD et fermer la fenêtre
@@ -208,7 +116,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<object>(/*async*/(view) => {
 
                 //On retires les espaces après les séparetreurs
-                ConcatKeyWords= ConcatKeyWords.Replace(", ", ",");
+                ConcatKeyWords = ConcatKeyWords.Replace(", ", ",");
                 ConcatKeyWords = ConcatKeyWords.Replace(" ,", ",");
                 ConcatKeyWords = ConcatKeyWords.Replace("; ", ";");
                 ConcatKeyWords = ConcatKeyWords.Replace(" ;", ";");
