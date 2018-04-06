@@ -13,3 +13,6 @@ https://stackoverflow.com/questions/19112922/sort-observablecollectionstring-c-s
 ## Multi-Values Dictionnary
 https://stackoverflow.com/questions/1500835/c-sharp-dictionary-with-two-values-per-key  
 https://stackoverflow.com/questions/569903/multi-value-dictionary  
+
+## Graphics
+https://lvcharts.net/App/examples/v1/wpf/Basic%20Line%20Chart  
