@@ -2,23 +2,24 @@
 using ProjetImmo.Core.Models;
 using ProjetImmo.Core.Tools;
 using System;
+using System.Collections.ObjectModel;
 
 namespace ProjetImmo.Core.ViewModels
 {
     public class MainViewModel<TPage> : BaseNotifyPropertyChanged
     {
 
-        public TPage CurrentPage
+        public object CurrentPage
         {
-            get { return GetProperty<TPage>(); }
-            set { SetProperty<TPage>(value); }
+            get { return GetProperty<object>(); }
+            set { SetProperty<object>(value); }
         }
 
         public MainViewModel(Type defaultPageType)
         {
 
-            this.CurrentPage = (TPage) NavigationService.GetView<BrowseEstatesViewModel>(defaultPageType);
-            //this.CurrentPage = (TPage) NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
+            //this.CurrentPage = (TPage) NavigationService.GetView<BrowseEstatesViewModel>(defaultPageType);
+            this.CurrentPage = (TPage) NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
             
             #region TestValues_DB
 
@@ -45,7 +46,7 @@ namespace ProjetImmo.Core.ViewModels
             Core.DataAccess.AgencyDbContext.Current.SaveChanges();
             
             //génération d'estates
-            /*
+            
             Estate est1 = new Estate();
             est1.Surface = 300;
             est1.Type = Models.Enums.EstateType.FLAT;
@@ -54,6 +55,7 @@ namespace ProjetImmo.Core.ViewModels
             est1.PropertyTax = 200;
             est1.FloorNumber = 0;
             est1.FloorCount = 0;
+            est1.Transactions = new ObservableCollection<Transaction>();
 
             Estate est2 = new Estate();
             est2.Surface = 300;
@@ -63,36 +65,39 @@ namespace ProjetImmo.Core.ViewModels
             est2.PropertyTax = 1500;
             est2.FloorNumber = 1;
             est2.FloorCount = 3;
+            est2.Transactions = new ObservableCollection<Transaction>();
 
             SaleTransaction T1 = new SaleTransaction();
             RentalTransaction T2 = new RentalTransaction();
 
             T1.Title = "VenteT1";
             T1.Description = "Ceci est une vente";
-            T1.CreationDate = new DateTime();
-            T1.TransactionDate = null;
+            T1.CreationDate = new DateTime(2018,03,05);
+            T1.TransactionDate = new DateTime(2018,03,15);
             T1.Price = 0;
             T1.Fees = 0;
 
             T2.Title = "LocationT2";
             T2.Description = "Ceci est une location";
-            T2.CreationDate = new DateTime();
-            T2.TransactionDate = null;
+            T2.CreationDate = new DateTime(2018,02,01);
+            T2.TransactionDate = new DateTime(2018,04,05);
             T2.Price = 0;
             T2.Fees = 0;
             T2.Furnished = false;
 
-            Core.DataAccess.AgencyDbContext.Current.Address.Add(BobAd);
-            Core.DataAccess.AgencyDbContext.Current.Person.Add(Bob);
+            //Core.DataAccess.AgencyDbContext.Current.Address.Add(BobAd);
+            //Core.DataAccess.AgencyDbContext.Current.Person.Add(Bob);
             Core.DataAccess.AgencyDbContext.Current.Transaction.Add(T1);
             Core.DataAccess.AgencyDbContext.Current.Transaction.Add(T2);
+            est1.Transactions.Add(T1);
+            est1.Transactions.Add(T2);
             Core.DataAccess.AgencyDbContext.Current.Estate.Add(est1);
             Core.DataAccess.AgencyDbContext.Current.Estate.Add(est2);
 
             //est1.Transactions.Add(T1);
             //est2.Transactions.Add(T2);
             Core.DataAccess.AgencyDbContext.Current.SaveChanges();
-            */
+
             #endregion
 
         }
@@ -111,10 +116,10 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
-        public BaseCommand<Type> ChangeViewCommand //ChangeWindowCommand
+        public BaseCommand<Type, Type> ChangeViewCommand //ChangeWindowCommand
         {
 
-            get => new BaseCommand<Type>(/*async*/(type) => { this.CurrentPage = (TPage) NavigationService.GetView<MainViewModel<TPage>>(type); });
+            get => new BaseCommand<Type, Type>(/*async*/(tView, tViewModel) => { this.CurrentPage = NavigationService.GetView(tView, tViewModel); });
 
         }
 
