@@ -9,16 +9,16 @@ using System.Windows;
 
 namespace ProjetImmo.Core.ViewModels
 {
-    public class EditEstateViewModel : BaseNotifyPropertyChanged
+    public class ModifyEstateViewModel : BaseNotifyPropertyChanged
     {
-        
-        public EditEstateViewModel()
+
+        public ModifyEstateViewModel()
         {
             //Chargement des données
             loadData();
 
             ObservableCollection<Models.Enums.EstateType> tmp = new ObservableCollection<Models.Enums.EstateType>();
-            foreach(var value in Enum.GetValues(typeof(Models.Enums.EstateType)))
+            foreach (var value in Enum.GetValues(typeof(Models.Enums.EstateType)))
             {
                 tmp.Add((Models.Enums.EstateType)value);
             }
@@ -111,7 +111,7 @@ namespace ProjetImmo.Core.ViewModels
         }
 
         public BaseCommand<object> InsertIntoBD //Insérer dans la BD et fermer la fenêtre
-        {    
+        {
 
             get => new BaseCommand<object>(/*async*/(view) =>
             {
@@ -169,8 +169,8 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     errors.Add("Les mots clés sont nulls");
                 }
-                
-                if(errors.Count == 0)
+
+                if (errors.Count == 0)
                 {
 
                     //On retires les espaces après les séparetreurs
@@ -228,7 +228,7 @@ namespace ProjetImmo.Core.ViewModels
                 else
                 {
                     string text = "";
-                    foreach(string error in errors)
+                    foreach (string error in errors)
                     {
                         text += "- " + error + "\n";
                     }
@@ -247,3 +247,4 @@ namespace ProjetImmo.Core.ViewModels
 
     }
 }
+

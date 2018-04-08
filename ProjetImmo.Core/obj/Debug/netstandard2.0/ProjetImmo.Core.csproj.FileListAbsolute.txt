@@ -1,0 +1,10 @@
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\bin\Debug\netstandard2.0\ProjetImmo.Core.deps.json
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\bin\Debug\netstandard2.0\ProjetImmo.Core.dll
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\bin\Debug\netstandard2.0\ProjetImmo.Core.pdb
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\bin\Debug\netstandard2.0\PresentationFramework.dll
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csprojResolveAssemblyReference.cache
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csproj.CoreCompileInputs.cache
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.AssemblyInfoInputs.cache
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.AssemblyInfo.cs
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.dll
+C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.pdb
