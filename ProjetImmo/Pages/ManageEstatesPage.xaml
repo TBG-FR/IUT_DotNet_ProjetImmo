@@ -4,10 +4,172 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
-      Height="500" Width="1250"
+      xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
+      Height="450" Width="1250"
       Title="ManageEstatesPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Grid contenant la Barre de Recherche -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.4*" />
+                <ColumnDefinition Width="1.4*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Input de Recherche -->
+            <TextBox Grid.Column="0" Text="Rechercher..." RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" Foreground="#FFCFCFCF">
+                <TextBox.SelectionBrush>
+                    <SolidColorBrush Color="Gray"/>
+                </TextBox.SelectionBrush>
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="DarkGray"/>
+                </TextBox.BorderBrush>
+            </TextBox>
+
+            <!-- Boutton de Recherche -->
+            <Button Grid.Column="1" Content="Recherche"
+                    Style="{StaticResource SearchbarControl}"
+                    />
+            <!-- Click="Button_Search_Click" -->
+
+            <!-- Boutton des Filtres -->
+            <Button Grid.Column="2" Content="Filtres"
+                    Style="{StaticResource SearchbarControl}"
+                    Command="{Binding OpenSearchFilterWindowCommand}"
+                    CommandParameter="{x:Type windows:SearchFiltersWindow}"
+                    />
+            <!-- Click="Button_Filters_Click" -->
+
+            <!-- Menu de Tri de la Recherche -->
+            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}">
+
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date" IsSelected="True"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Prix"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Superficie"/>
+                
+            </ComboBox>
+
+
+                <!-- SelectionChanged="ComboBox_OrderBy_SelectionChanged" -->
+
+        </Grid>
+
+        <!-- Grid contenant les Offres Immobilières -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.25*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ListView contenant les Offres -->
+            <ListView Grid.Column="0" ItemsSource="{Binding Estates}" SelectedItem="{Binding SelectedItem}">
+
+                <!-- Template affichage des items -->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type :" />
+                                <TextBlock Text="{Binding Type}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Address :" />
+                                <TextBlock Text="{Binding Address.PostalAddress}" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Address.ZIP}" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding Address.City}" />
+                                <TextBlock Text=")" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ListView>
+
+            <!-- Grid contenant les Infos de l'Offres Sélectionnée -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2.5*" />
+                </Grid.RowDefinitions>
+
+                <!-- Image Bien Immo -->
+                <TextBlock Grid.Row="0" Text="{Binding SelectedItem.ID}" />
+
+                <TextBlock Grid.Row="1" Text="Détails:" />
+
+                <!-- Détails Bien Immo -->
+                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Type :" />
+                        <TextBlock Text="{Binding SelectedItem.Surface}" />
+                        <TextBlock Text=" m²" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre de Chambre(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.RoomsCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre d'Étage(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.FloorCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Charges Anuelles :" />
+                        <TextBlock Text="{Binding SelectedItem.AnnualCharges}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Taxe d'Habitation :" />
+                        <TextBlock Text="{Binding SelectedItem.PropertyTax}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
+                <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
+
+            </Grid>
+
+        </Grid>
+
+        <!-- Grid contenant la Barre du Menu -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom"
+                    Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
+
+            <Button Grid.Column="1" Content="Supprimer Selection" Height="41" VerticalAlignment="Bottom"
+                    Command="{Binding DeleteSelectedEstateCommand}"/>
+
+            <Button Grid.Column="2" Content="Modifier Selection" Height="41" VerticalAlignment="Bottom"
+                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
+            
+        </Grid>
+
     </Grid>
 </Page>
