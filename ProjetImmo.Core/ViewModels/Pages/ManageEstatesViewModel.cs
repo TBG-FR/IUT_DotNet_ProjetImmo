@@ -70,7 +70,7 @@ namespace ProjetImmo.Core.ViewModels
             {
                 if (SelectedItem != null)
                 {
-                    NavigationService.ShowDialog<ModifyEstateViewModel>(type);
+                    NavigationService.ShowDialog<ModifyEstateViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManageEstate
                     Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());

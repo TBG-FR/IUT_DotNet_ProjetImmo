@@ -12,8 +12,10 @@ namespace ProjetImmo.Core.ViewModels
     public class ModifyEstateViewModel : BaseNotifyPropertyChanged
     {
 
-        public ModifyEstateViewModel()
+        public ModifyEstateViewModel(Estate SelectedItem)
         {
+            this.SelectedItem = SelectedItem;
+
             //Chargement des données
             loadData();
 
@@ -23,6 +25,24 @@ namespace ProjetImmo.Core.ViewModels
                 tmp.Add((Models.Enums.EstateType)value);
             }
             Type = tmp;
+
+            this.Surface = SelectedItem.Surface;
+            this.SelectedType = SelectedItem.Type;
+            this.RoomsCount = SelectedItem.RoomsCount;
+            this.Charges = SelectedItem.AnnualCharges;
+            this.Taxe = SelectedItem.PropertyTax;
+            this.FloorNum = SelectedItem.FloorNumber;
+            this.FloorCount = SelectedItem.FloorCount;
+            this.selectedPerson = SelectedItem.Owner;
+            this.Address = SelectedItem.Address.PostalAddress;
+            this.ZIP = SelectedItem.Address.ZIP;
+            this.City = SelectedItem.Address.City;
+        }
+
+        public Estate SelectedItem
+        {
+            get { return GetProperty<Estate>(); }
+            set { if (SetProperty(value)) { } }
         }
 
         public double Surface
@@ -110,7 +130,7 @@ namespace ProjetImmo.Core.ViewModels
             set { if (SetProperty(value)) { } }
         }
 
-        public BaseCommand<object> InsertIntoBD //Insérer dans la BD et fermer la fenêtre
+        public BaseCommand<object> ModifySelected //Insérer dans la BD et fermer la fenêtre
         {
 
             get => new BaseCommand<object>(/*async*/(view) =>
@@ -203,22 +223,21 @@ namespace ProjetImmo.Core.ViewModels
                     addr.ZIP = ZIP;
                     addr.City = City;
 
-                    //On crée le nouvel Estate
-                    Estate est1 = new Estate();
-                    est1.Surface = Surface;
-                    est1.Type = SelectedType;
-                    est1.RoomsCount = RoomsCount;
-                    est1.AnnualCharges = Charges;
-                    est1.PropertyTax = Taxe;
-                    est1.FloorNumber = FloorNum;
-                    est1.FloorCount = FloorCount;
-                    est1.Owner = selectedPerson;
-                    est1.Address = addr;
-                    est1.Keywords = listKeys;
+                    //On selectionne l'Estate à modifier
+                    Estate target = (Estate)Core.DataAccess.AgencyDbContext.Current.Estate.Where(e => e.ID == SelectedItem.ID).ToArray().GetValue(0);
+                    Core.DataAccess.AgencyDbContext.Current.Estate.Update(SelectedItem);
 
+                    target.Surface = Surface;
+                    target.Type = SelectedType;
+                    target.RoomsCount = RoomsCount;
+                    target.AnnualCharges = Charges;
+                    target.PropertyTax = Taxe;
+                    target.FloorNumber = FloorNum;
+                    target.FloorCount = FloorCount;
+                    target.Owner = selectedPerson;
+                    target.Address = addr;
+                    target.Keywords = listKeys;
 
-                    //On evoies crée les nouvelles tables dans la DB
-                    Core.DataAccess.AgencyDbContext.Current.Estate.Add(est1);
                     Core.DataAccess.AgencyDbContext.Current.SaveChanges();
 
                     NavigationService.Close(view);

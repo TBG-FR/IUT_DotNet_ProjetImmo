@@ -50,9 +50,9 @@
             <TextBlock Grid.Column="0" Grid.Row="12" Text="Des mots clés : " VerticalAlignment="Center" />
 
             <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Surface}" />
-            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Type}" SelectedIndex="0" />
+            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Type}" SelectedItem="{Binding SelectedType}" />
             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding RoomsCount}" />
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Chrages}" />
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Charges}" />
             <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Taxe}" />
             <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding FloorNum}" />
             <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding FloorCount}" />
@@ -67,7 +67,7 @@
             <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
 
         </Grid>
-        <Button Grid.Row="1" Content="Valider" Command="{Binding InsertIntoBD}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+        <Button Grid.Row="1" Content="Valider" Command="{Binding ModifySelected}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
     </Grid>
     
 </Window>

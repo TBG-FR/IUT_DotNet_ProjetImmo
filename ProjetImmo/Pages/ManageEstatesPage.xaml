@@ -167,7 +167,7 @@
                     Command="{Binding DeleteSelectedEstateCommand}"/>
 
             <Button Grid.Column="2" Content="Modifier Selection" Height="41" VerticalAlignment="Bottom"
-                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:EditEstateWindow}"/>
+                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:ModifyEstateWindow}"/>
             
         </Grid>
 
