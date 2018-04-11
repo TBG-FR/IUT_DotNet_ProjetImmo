@@ -23,6 +23,7 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { SetProperty<ObservableCollection<Estate>>(value); }
         }
+
         public ObservableCollection<Estate> CurrentRentals
         {
             get { return GetProperty<ObservableCollection<Estate>>(); }
@@ -30,11 +31,6 @@ namespace ProjetImmo.Core.ViewModels
         }
 
         public Dictionary<EstateType, int> CurrentSalesDetails
-        {
-            get { return GetProperty<Dictionary<EstateType, int>>(); }
-            set { SetProperty<Dictionary<EstateType, int>>(value); }
-        }
-        public Dictionary<EstateType, int> CurrentRentalsDetails
         {
             get { return GetProperty<Dictionary<EstateType, int>>(); }
             set { SetProperty<Dictionary<EstateType, int>>(value); }
@@ -51,16 +47,16 @@ namespace ProjetImmo.Core.ViewModels
             set { SetProperty<Dictionary<PeriodType, SeriesCollection>>(value); }
         }
 
-        public SeriesCollection TEST
+        public Dictionary<EstateType, int> CurrentRentalsDetails
         {
-            get { return GetProperty<SeriesCollection>(); }
-            set { SetProperty<SeriesCollection>(value); }
+            get { return GetProperty<Dictionary<EstateType, int>>(); }
+            set { SetProperty<Dictionary<EstateType, int>>(value); }
         }
 
         public DisplayStatsViewModel()
         {
             //Assembly.LoadWithPartialName("PresentationFramework");
-            //Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+            Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
             CurrentSales = new ObservableCollection<Estate>();
             CurrentRentals = new ObservableCollection<Estate>();
@@ -144,7 +140,7 @@ namespace ProjetImmo.Core.ViewModels
         public void refreshStats()
         {
 
-            #region CurrentEstates : Get all Estates from the Database
+            #region CurrentEstats : Get all Estates from the Database
 
             ObservableCollection<Estate> CurrentEstates = 
                 new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate
@@ -235,7 +231,7 @@ namespace ProjetImmo.Core.ViewModels
             }
 
             #endregion
-            /*
+
             SalesChartValues.ResetValues();
             SalesChartValues[PeriodType.ALL] = new SeriesCollection(generateChartValues(PeriodType.ALL, typeof(SaleTransaction)));
             SalesChartValues[PeriodType.YEAR] = new SeriesCollection(generateChartValues(PeriodType.YEAR, typeof(SaleTransaction)));
@@ -244,13 +240,11 @@ namespace ProjetImmo.Core.ViewModels
             SalesChartValues[PeriodType.DAY] = new SeriesCollection(generateChartValues(PeriodType.DAY, typeof(SaleTransaction)));
 
             RentalsChartValues.ResetValues();
-            RentalsChartValues[PeriodType.ALL] = new SeriesCollection(generateChartValues(PeriodType.ALL, typeof(RentalTransaction)));
-            RentalsChartValues[PeriodType.YEAR] = new SeriesCollection(generateChartValues(PeriodType.YEAR, typeof(RentalTransaction)));
-            RentalsChartValues[PeriodType.MONTH] = new SeriesCollection(generateChartValues(PeriodType.MONTH, typeof(RentalTransaction)));
-            RentalsChartValues[PeriodType.WEEK] = new SeriesCollection(generateChartValues(PeriodType.WEEK, typeof(RentalTransaction)));
-            RentalsChartValues[PeriodType.DAY] = new SeriesCollection(generateChartValues(PeriodType.DAY, typeof(RentalTransaction)));
-            */
-            CurrentSalesDetails.Count();
+            RentalsChartValues[PeriodType.ALL] = new SeriesCollection(generateChartValues(PeriodType.ALL, typeof(SaleTransaction)));
+            RentalsChartValues[PeriodType.YEAR] = new SeriesCollection(generateChartValues(PeriodType.YEAR, typeof(SaleTransaction)));
+            RentalsChartValues[PeriodType.MONTH] = new SeriesCollection(generateChartValues(PeriodType.MONTH, typeof(SaleTransaction)));
+            RentalsChartValues[PeriodType.WEEK] = new SeriesCollection(generateChartValues(PeriodType.WEEK, typeof(SaleTransaction)));
+            RentalsChartValues[PeriodType.DAY] = new SeriesCollection(generateChartValues(PeriodType.DAY, typeof(SaleTransaction)));
 
         }
 
@@ -290,9 +284,7 @@ namespace ProjetImmo.Core.ViewModels
                                                                     CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(11),
                                                                     CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12)};
 
-                        // Data : SaleTransactions of the 
-                        var TEMP = DataAccess.AgencyDbContext.Current.SaleTransaction.ToArray();
-
+                        // Data : SaleTransactions of the Year
                         var a = DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Year == DateTime.Now.Year).ToArray();
                         ObservableCollection<SaleTransaction> matchingTransactions = new ObservableCollection<SaleTransaction>(a);
                         
@@ -313,7 +305,9 @@ namespace ProjetImmo.Core.ViewModels
                                                                     values[9], values[10], values[11]};
 
                         // Return the complete Dataset
-                        return new SeriesCollection { ligValues, colValues };
+                        var tobby = new SeriesCollection();// { ligValues, colValues };
+                        return tobby;
+
                         break;
 
                     case PeriodType.MONTH:
@@ -342,79 +336,8 @@ namespace ProjetImmo.Core.ViewModels
             else if (transactionType == typeof(RentalTransaction))
             {
 
-                switch (period)
-                {
-
-                    case PeriodType.ALL:
-                        // TODO
-                        return new SeriesCollection();
-                        break;
-
-                    case PeriodType.YEAR:
-
-                        // Chart Columns : Months of a Year
-                        //colValues.Values = new ChartValues<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-                        colValues.Values = new ChartValues<string> { CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(2),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(3),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(4),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(5),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(6),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(7),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(8),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(10),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(11),
-                                                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12)};
-
-                        // Data : SaleTransactions of the Year
-                        var a = DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Year == DateTime.Now.Year).ToArray();
-                        ObservableCollection<RentalTransaction> matchingTransactions = new ObservableCollection<RentalTransaction>(a);
-
-
-                        // Data : Sales per Month
-                        int[] values = new int[12];
-                        foreach (RentalTransaction t in matchingTransactions)
-                        {
-                            int m = t.TransactionDate.Value.Month;
-                            values[m - 1]++;
-                        }
-
-                        // Chart Lines : Sales per Month
-                        //ligValues.Values = new ChartValues<> { 0, 0, 0 };
-                        ligValues.Values = new ChartValues<int> { values[0], values[1], values[2],
-                                                                    values[3], values[4], values[5],
-                                                                    values[6], values[7], values[8],
-                                                                    values[9], values[10], values[11]};
-
-                        // Return the complete Dataset
-
-                        var tobby = new SeriesCollection { ligValues, colValues };
-                        return tobby;
-
-                        break;
-
-                    case PeriodType.MONTH:
-                        // TODO
-                        return new SeriesCollection();
-                        break;
-
-                    case PeriodType.WEEK:
-                        // TODO
-                        return new SeriesCollection();
-                        break;
-
-                    case PeriodType.DAY:
-                        // TODO
-                        return new SeriesCollection();
-                        break;
-
-                    default:
-                        // TODO
-                        return null;
-                        break;
-
-                }
+                // TODO : Copy and Adapt code for SaleTransaction
+                return new SeriesCollection();
 
             }
             else { return null; /* TODO : return special values ? Add error message/log ? */ }
