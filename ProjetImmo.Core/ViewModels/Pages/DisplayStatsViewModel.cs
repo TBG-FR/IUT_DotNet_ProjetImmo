@@ -249,7 +249,7 @@ namespace ProjetImmo.Core.ViewModels
             //RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
 
             CurrentSalesDetails.Count();
-
+            
         }
 
         public Pair<List<string>, SeriesCollection> generateChartValues(PeriodType period, Type transactionType)

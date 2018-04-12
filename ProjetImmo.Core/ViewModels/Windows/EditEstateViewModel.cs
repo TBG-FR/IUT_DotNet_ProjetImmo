@@ -214,7 +214,7 @@ namespace ProjetImmo.Core.ViewModels
                     est1.FloorCount = FloorCount;
                     est1.Owner = selectedPerson;
                     est1.Address = addr;
-                    est1.Keywords = null; //select * form keyword where ID = EstateKeywords.keywordID
+                    est1.Keywords = listKeys;
 
 
                     //On evoies crée les nouvelles tables dans la DB

@@ -1,4 +1,4 @@
-﻿using ProjetImmo.Core.Commandes;
+using ProjetImmo.Core.Commandes;
 using ProjetImmo.Core.Models;
 using ProjetImmo.Core.Tools;
 using System;
@@ -8,17 +8,18 @@ namespace ProjetImmo.Core.ViewModels
     public class MainViewModel<TPage> : BaseNotifyPropertyChanged
     {
 
-        public TPage CurrentPage
+        public object CurrentPage
         {
-            get { return GetProperty<TPage>(); }
-            set { SetProperty<TPage>(value); }
+            get { return GetProperty<object>(); }
+            set { SetProperty<object>(value); }
         }
 
         public MainViewModel(Type defaultPageType)
         {
 
-            this.CurrentPage = (TPage) NavigationService.GetView<ManageEstatesViewModel>(defaultPageType);
-            //this.CurrentPage = (TPage) NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
+            //this.CurrentPage = (TPage) NavigationService.GetView<ManageEstatesViewModel>(defaultPageType);
+            this.CurrentPage = (TPage) NavigationService.GetView<DisplayStatsViewModel>(defaultPageType);
+
             #region TestValues_DB
 
             Person Bob = new Person();
@@ -38,13 +39,11 @@ namespace ProjetImmo.Core.ViewModels
             Bob.Firstname = "Bob";
             Bob.Lastname = "Dylan";
             Bob.Address = BobAd;
-            Bob.Password = "passBOB";
-            Bob.Admin = false;
             
             Core.DataAccess.AgencyDbContext.Current.Address.Add(BobAd);
             Core.DataAccess.AgencyDbContext.Current.Person.Add(Bob);
             Core.DataAccess.AgencyDbContext.Current.SaveChanges();
-            
+
             //génération d'estates
             /*
             Estate est1 = new Estate();
@@ -112,10 +111,11 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
-        public BaseCommand<Type> ChangeViewCommand //ChangeWindowCommand
+        public BaseCommand<Type, Type> ChangeViewCommand //ChangeWindowCommand
         {
 
-            get => new BaseCommand<Type>(/*async*/(type) => { this.CurrentPage = (TPage) NavigationService.GetView<MainViewModel<TPage>>(type); });
+            get => new BaseCommand<Type, Type>(/*async*/(tView, tViewModel) => { this.CurrentPage = NavigationService.GetView(tView, tViewModel); });
+
         }
 
     }
