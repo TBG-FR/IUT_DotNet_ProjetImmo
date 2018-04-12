@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
-      xmlns:model="clr-namespace:ProjetImmo.Core.Models.Enums;assembly=ProjetImmo.Core"
+      xmlns:enum="clr-namespace:ProjetImmo.Core.Models.Enums;assembly=ProjetImmo.Core"
       xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       Height="500" Width="1250"
       Title="DisplayStatsPage">
@@ -46,7 +46,6 @@
             <StackPanel Grid.Column="1" Orientation="Vertical">
 
                 <Label Content="{ Binding Path=Toto[(enum:PeriodType)YEAR].First }" Style="{StaticResource ChartControlTitle}" />
-                <Label Content="Période" Style="{StaticResource ChartControlTitle}"/>
                 <Button Content="Total (A)" Style="{StaticResource ChartControl}"/>
                 <Button Content="Année (Y)" Style="{StaticResource ChartControl}"/>
                 <Button Content="Mois (M)" Style="{StaticResource ChartControl}"/>
@@ -92,11 +91,11 @@
                 <StackPanel Orientation="Vertical" Grid.Row="0">
 
                     <TextBlock Text="{Binding Path=CurrentSales.Count, StringFormat='Nombre de biens à la vente actuellement : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(model:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(model:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(model:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(model:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(model:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
                     
                 </StackPanel>
 
@@ -104,11 +103,11 @@
                 <StackPanel Orientation="Vertical" Grid.Row="1">
 
                     <TextBlock Text="{Binding Path=CurrentRentals.Count, StringFormat='Nombre de biens à la location actuellement : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(model:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(model:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(model:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(model:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(model:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
+                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
 
                 </StackPanel>
 
