@@ -23,6 +23,7 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { SetProperty<ObservableCollection<Estate>>(value); }
         }
+
         public ObservableCollection<Estate> CurrentRentals
         {
             get { return GetProperty<ObservableCollection<Estate>>(); }
@@ -34,6 +35,7 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<Dictionary<EstateType, int>>(); }
             set { SetProperty<Dictionary<EstateType, int>>(value); }
         }
+
         public Dictionary<EstateType, int> CurrentRentalsDetails
         {
             get { return GetProperty<Dictionary<EstateType, int>>(); }
@@ -54,7 +56,7 @@ namespace ProjetImmo.Core.ViewModels
         public DisplayStatsViewModel()
         {
             //Assembly.LoadWithPartialName("PresentationFramework");
-            //Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+            Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
             CurrentSales = new ObservableCollection<Estate>();
             CurrentRentals = new ObservableCollection<Estate>();
@@ -140,7 +142,7 @@ namespace ProjetImmo.Core.ViewModels
         public void refreshStats()
         {
 
-            #region CurrentEstates : Get all Estates from the Database
+            #region CurrentEstats : Get all Estates from the Database
 
             ObservableCollection<Estate> CurrentEstates = 
                 new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate
@@ -247,7 +249,7 @@ namespace ProjetImmo.Core.ViewModels
             //RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
 
             CurrentSalesDetails.Count();
-
+            
         }
 
         public Pair<List<string>, SeriesCollection> generateChartValues(PeriodType period, Type transactionType)
@@ -411,7 +413,6 @@ namespace ProjetImmo.Core.ViewModels
             }
             else if (transactionType == typeof(RentalTransaction))
             {
-
                 switch (period)
                 {
                     #region case PeriodType.ALL:

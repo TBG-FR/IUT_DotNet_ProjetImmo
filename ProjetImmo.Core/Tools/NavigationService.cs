@@ -10,8 +10,10 @@ namespace ProjetImmo.Core.Tools
         public static string ContextPropertyName = "DataContext";
 
         // "Cache" => Un seul objet (Window/Page/ViewModel/...) de chaque type à la fois (Dictionnaire) => SAUF POUR LES WINDOWS
-        private static Dictionary<Type, object> _viewsCache = new Dictionary<Type, object>();
-        private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelsCache = new Dictionary<Type, BaseNotifyPropertyChanged>();
+        private static Dictionary<Type, object> _viewsCache =
+            new Dictionary<Type, object>();
+        private static Dictionary<Type, BaseNotifyPropertyChanged> _viewModelsCache =
+            new Dictionary<Type, BaseNotifyPropertyChanged>();
 
         // Get[_]Instance[_] => Fonctions utilisées pour récupérer (ou créer) les Instances demandées
         private static TViewModel GetViewModelInstance<TViewModel>(params object[] viewModelParameters)
@@ -55,8 +57,6 @@ namespace ProjetImmo.Core.Tools
         }
 
         // GetView => Renvoyer l'instance de la Page/Window, avec son ViewModel lié
-        #region GetView : 3 Méthodes
-
         public static TView GetView<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
@@ -64,7 +64,6 @@ namespace ProjetImmo.Core.Tools
             return GetViewInstance<TView>(
                 GetViewModelInstance<TViewModel>(viewModelParameters));
         }
-
         public static object GetView<TViewModel>(Type tView, params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
@@ -72,7 +71,6 @@ namespace ProjetImmo.Core.Tools
                 tView,
                 GetViewModelInstance<TViewModel>(viewModelParameters));
         }
-
         public static object GetView(Type tView, Type tViewModel, params object[] viewModelParameters)
         {
             return GetViewInstance(
@@ -80,11 +78,7 @@ namespace ProjetImmo.Core.Tools
                 GetViewModelInstance(tViewModel, viewModelParameters));
         }
 
-        #endregion
-
         // Show/ShowDialog => Récupérer/Afficher une Fenêtre/Page/ViewModel (ShowDialog freeze la fenetre appellante)
-        #region Show : 3 Méthodes
-
         public static void Show<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
@@ -115,10 +109,6 @@ namespace ProjetImmo.Core.Tools
             method?.Invoke(win, null);
         }
 
-        #endregion
-
-        #region ShowDialog : 4 Méthodes
-
         public static bool? ShowDialog<TView, TViewModel>(params object[] viewModelParameters)
             where TView : class
             where TViewModel : BaseNotifyPropertyChanged
@@ -129,7 +119,6 @@ namespace ProjetImmo.Core.Tools
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);
         }
-
         public static bool? ShowDialog<TViewModel>(Type tView, params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
@@ -140,7 +129,6 @@ namespace ProjetImmo.Core.Tools
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);
         }
-
         public static bool? ShowDialog(Type tView, Type tViewModel, params object[] viewModelParameters)
         {
             var win = GetViewInstance(
@@ -150,17 +138,6 @@ namespace ProjetImmo.Core.Tools
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);
         }
-
-            // Version sans le passage par le cache
-        public static bool? ShowDialog(Type tView, BaseNotifyPropertyChanged viewModel)
-        {
-            var win = GetViewInstance(tView, viewModel);
-
-            var method = win.GetType().GetMethod("ShowDialog");
-            return (bool?)method?.Invoke(win, null);
-        }
-
-        #endregion
 
         // Close/GetResult => Récupérer le résultat et fermer la Fenêtre/Page
         public static void Close(object view, bool? result = null)

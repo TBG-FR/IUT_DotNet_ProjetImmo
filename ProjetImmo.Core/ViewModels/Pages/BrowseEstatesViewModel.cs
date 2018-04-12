@@ -25,15 +25,25 @@ namespace ProjetImmo.Core.ViewModels
             set { if (SetProperty(value)) { /**/ } }
         }
 
-        public BaseCommand<Type> OpenEditEstateWindowCommand
+        public String SelectedFilter
         {
+            get { return GetProperty<String>(); }
+            set { if (SetProperty(value)) {
+                    switch (SelectedFilter)
+                    {
+                        case "Date":
+                            //Estates = new ObservableCollection<Estate>(Estates.OrderBy(e => e.Transactions)
+                            break;
+                        case "Prix":
+                            break;
+                        case "Superficie":
+                            break;
+                        default:
+                            break;
 
-            get => new BaseCommand<Type>((type) => 
-            {
-                NavigationService.ShowDialog<EditEstateViewModel>(type);
-                Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
-            });
 
+                    }
+            } }
         }
 
         public BaseCommand<Type> OpenSearchFilterWindowCommand

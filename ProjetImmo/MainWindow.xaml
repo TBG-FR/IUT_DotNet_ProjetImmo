@@ -26,36 +26,18 @@
 
                 <Button Content="Accueil (Statistiques)"
                         Command="{Binding ChangeViewCommand}"
-                        Style="{StaticResource NavbarButton}">
-                    <Button.CommandParameter>
-                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
-                            <x:Type Type="pages:DisplayStatsPage"/>
-                            <x:Type Type="vm:DisplayStatsViewModel"/>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+                        CommandParameter="{x:Type pages:DisplayStatsPage}"
+                        Style="{StaticResource NavbarButton}"/>
 
                 <Button Content="Consulter les Biens"
                         Command="{Binding ChangeViewCommand}"
-                        Style="{StaticResource NavbarButton}">
-                    <Button.CommandParameter>
-                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
-                            <x:Type Type="pages:BrowseEstatesPage"/>
-                            <x:Type Type="vm:BrowseEstatesViewModel"/>
-                        </x:Array>
-                    </Button.CommandParameter>                    
-                </Button>
+                        CommandParameter="{x:Type pages:BrowseEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
 
                 <Button Content="Gestion des Biens"
                         Command="{Binding ChangeViewCommand}"
-                        Style="{StaticResource NavbarButton}">
-                    <Button.CommandParameter>
-                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
-                            <x:Type Type="pages:ManageEstatesPage"/>
-                            <x:Type Type="vm:ManageEstatesViewModel"/>
-                        </x:Array>
-                    </Button.CommandParameter>
-                </Button>
+                        CommandParameter="{x:Type pages:ManageEstatesPage}"
+                        Style="{StaticResource NavbarButton}"/>
 
                 <Button Content="Fermer le programme"
                         Command="{Binding CloseViewCommand}"
