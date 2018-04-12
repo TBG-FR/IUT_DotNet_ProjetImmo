@@ -23,6 +23,7 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { SetProperty<ObservableCollection<Estate>>(value); }
         }
+
         public ObservableCollection<Estate> CurrentRentals
         {
             get { return GetProperty<ObservableCollection<Estate>>(); }
@@ -34,6 +35,7 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<Dictionary<EstateType, int>>(); }
             set { SetProperty<Dictionary<EstateType, int>>(value); }
         }
+
         public Dictionary<EstateType, int> CurrentRentalsDetails
         {
             get { return GetProperty<Dictionary<EstateType, int>>(); }
@@ -54,7 +56,7 @@ namespace ProjetImmo.Core.ViewModels
         public DisplayStatsViewModel()
         {
             //Assembly.LoadWithPartialName("PresentationFramework");
-            //Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+            Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
             CurrentSales = new ObservableCollection<Estate>();
             CurrentRentals = new ObservableCollection<Estate>();
@@ -140,7 +142,7 @@ namespace ProjetImmo.Core.ViewModels
         public void refreshStats()
         {
 
-            #region CurrentEstates : Get all Estates from the Database
+            #region CurrentEstats : Get all Estates from the Database
 
             ObservableCollection<Estate> CurrentEstates = 
                 new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate
@@ -298,6 +300,7 @@ namespace ProjetImmo.Core.ViewModels
 
                         // Chart Columns : Months of a Year
                         //colValues.Values = new ChartValues<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                        
                         //colValues.Values = new ChartValues<string> { CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1), ... };
                         for (int i = 0; i < 12; i++) { labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i + 1)); }
 
@@ -411,7 +414,6 @@ namespace ProjetImmo.Core.ViewModels
             }
             else if (transactionType == typeof(RentalTransaction))
             {
-
                 switch (period)
                 {
                     #region case PeriodType.ALL:

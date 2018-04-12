@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\TBG\AppData\Local\Temp\vs2478.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,7 +34,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\TBG\AppData\Local\Temp\vs2478.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
@@ -138,6 +136,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConnexionWindow.xaml.cs">
+      <DependentUpon>ConnexionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\Base64StringToBitmapImageConverter.cs" />
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
@@ -151,9 +152,16 @@
     <Compile Include="Windows\EditEstateWindow.xaml.cs">
       <DependentUpon>EditEstateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ModifyEstateWindow.xaml.cs">
+      <DependentUpon>ModifyEstateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SearchFiltersWindow.xaml.cs">
       <DependentUpon>SearchFiltersWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConnexionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DisplayStatsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +187,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\EditEstateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ModifyEstateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
