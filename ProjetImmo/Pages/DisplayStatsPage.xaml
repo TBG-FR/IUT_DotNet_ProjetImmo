@@ -1,126 +1,567 @@
-﻿<Page x:Class="ProjetImmo.WPF.Pages.DisplayStatsPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
-      xmlns:enum="clr-namespace:ProjetImmo.Core.Models.Enums;assembly=ProjetImmo.Core"
-      xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-      Height="500" Width="1250"
-      Title="DisplayStatsPage">
+using Microsoft.EntityFrameworkCore;
+using ProjetImmo.Core.Models;
+using ProjetImmo.Core.Models.Enums;
+using ProjetImmo.Core.Tools;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System.Globalization;
+using System.Reflection;
 
-    <!-- RESSOURCES : DANS APP.XAML -->
+namespace ProjetImmo.Core.ViewModels
+{
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="300*" />
-            <RowDefinition Height="200*" />
-        </Grid.RowDefinitions>
+    public class DisplayStatsViewModel : BaseNotifyPropertyChanged
+    {
 
-        <!-- Grid contenant les Graphiques -->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="350*" />
-                <ColumnDefinition Width="100*" />
-                <ColumnDefinition Width="350*" />
-            </Grid.ColumnDefinitions>
+        public ObservableCollection<Estate> CurrentSales
+        {
+            get { return GetProperty<ObservableCollection<Estate>>(); }
+            set { SetProperty<ObservableCollection<Estate>>(value); }
+        }
 
-            <!-- Graphique des Ventes -->
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50*" />
-                    <RowDefinition Height="250*" />
-                </Grid.RowDefinitions>
+        public ObservableCollection<Estate> CurrentRentals
+        {
+            get { return GetProperty<ObservableCollection<Estate>>(); }
+            set { SetProperty<ObservableCollection<Estate>>(value); }
+        }
 
-                <Label Grid.Row="0" Content="VENTES" Style="{StaticResource ChartTitle}" />
+        public Dictionary<EstateType, int> CurrentSalesDetails
+        {
+            get { return GetProperty<Dictionary<EstateType, int>>(); }
+            set { SetProperty<Dictionary<EstateType, int>>(value); }
+        }
 
-                <!-- GRAPHIQUE VENTES Grid.Row="1" -->
-                <charts:CartesianChart Series="{Binding Path=SalesChartValues[(enum:PeriodType)YEAR].Second}" LegendLocation="None" Grid.Row="1">
-                    <charts:CartesianChart.AxisY> <charts:Axis Title="Ventes"> <!-- LabelFormatter="{Binding YFormatter}" --> </charts:Axis> </charts:CartesianChart.AxisY>
-                    <charts:CartesianChart.AxisX> <charts:Axis Title="Mois" Labels="{Binding Path=SalesChartValues[(enum:PeriodType)YEAR].First}"> </charts:Axis> </charts:CartesianChart.AxisX>
-                </charts:CartesianChart>
+        public Dictionary<EstateType, int> CurrentRentalsDetails
+        {
+            get { return GetProperty<Dictionary<EstateType, int>>(); }
+            set { SetProperty<Dictionary<EstateType, int>>(value); }
+        }
 
-            </Grid>
+        public Dictionary<PeriodType, Pair<List<string>, SeriesCollection>> SalesChartValues
+        {
+            get { return GetProperty<Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>>(); }
+            set { SetProperty<Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>>(value); }
+        }
+        public Dictionary<PeriodType, Pair<List<string>, SeriesCollection>> RentalsChartValues
+        {
+            get { return GetProperty<Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>>(); }
+            set { SetProperty<Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>>(value); }
+        }
 
-            <!-- Graphiques : Boutons -->
-            <StackPanel Grid.Column="1" Orientation="Vertical">
+        public DisplayStatsViewModel()
+        {
+            //Assembly.LoadWithPartialName("PresentationFramework");
+            Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
-                <Label Content="{ Binding Path=Toto[(enum:PeriodType)YEAR].First }" Style="{StaticResource ChartControlTitle}" />
-                <Button Content="Total (A)" Style="{StaticResource ChartControl}"/>
-                <Button Content="Année (Y)" Style="{StaticResource ChartControl}"/>
-                <Button Content="Mois (M)" Style="{StaticResource ChartControl}"/>
-                <Button Content="Semaine (W)" Style="{StaticResource ChartControl}" />
-                <Button Content="Jour (D)" Style="{StaticResource ChartControl}" />
+            CurrentSales = new ObservableCollection<Estate>();
+            CurrentRentals = new ObservableCollection<Estate>();
 
-            </StackPanel>
+            CurrentSalesDetails = new Dictionary<EstateType, int>
+            {
+                { EstateType.HOUSE, 0 },
+                { EstateType.FLAT, 0 },
+                { EstateType.COMMERCIAL, 0 },
+                { EstateType.GARAGE, 0 },
+                { EstateType.FIELD, 0 }
+            };
+            CurrentRentalsDetails = new Dictionary<EstateType, int>
+            {
+                { EstateType.HOUSE, 0 },
+                { EstateType.FLAT, 0 },
+                { EstateType.COMMERCIAL, 0 },
+                { EstateType.GARAGE, 0 },
+                { EstateType.FIELD, 0 }
+            };
 
-            <!-- Graphique des Locations -->
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50*" />
-                    <RowDefinition Height="250*" />
-                </Grid.RowDefinitions>
+            SalesChartValues = new Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>
+            {
+                { PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.YEAR, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.MONTH, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.WEEK, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.DAY, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) }
+            };
+            RentalsChartValues = new Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>
+            {
+                { PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.YEAR, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.MONTH, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.WEEK, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                { PeriodType.DAY, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) }
+            };
 
-                <Label Grid.Row="0" Content="LOCATIONS" Style="{StaticResource ChartTitle}" />
+            refreshStats();
 
-                <!-- GRAPHIQUE LOCATIONS Grid.Row="1" -->
-                <charts:CartesianChart Series="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].Second}" LegendLocation="None" Grid.Row="1">
-                    <charts:CartesianChart.AxisY> <charts:Axis Title="Ventes"> <!-- LabelFormatter="{Binding YFormatter}" --> </charts:Axis></charts:CartesianChart.AxisY>
-                    <charts:CartesianChart.AxisX> <charts:Axis Title="Mois" Labels="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].First}"> </charts:Axis> </charts:CartesianChart.AxisX>
-                </charts:CartesianChart>
+            #region TEMP
+            //refreshGraphs();
 
-            </Grid>
+            //CurrentSalesNumbers.(EstateType.HOUSE, 15);
+            //CurrentSalesNumbers.ElementAt(Convert.ChangeType(EstateType.HOUSE, EstateType.HOUSE.GetTypeCode());
 
-        </Grid>
+            /*
+            foreach (Estate e in CurrentSales)
+            {
 
-        <!-- Grid affichant les données numériques -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                DateTime? D1 = e.Transactions.Last().TransactionDate;
 
-            <!-- Chiffres actuels -->
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                if(D1 == null) {
 
-                <!-- Chiffres actuels concernant les ventes -->
-                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    String S1 = D1.ToString();
+                    Boolean B1 = D1.HasValue;
 
-                    <TextBlock Text="{Binding Path=CurrentSales.Count, StringFormat='Nombre de biens à la vente actuellement : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
-                    
-                </StackPanel>
+                    S1.ToUpper();
+                }
 
-                <!-- Chiffres actuels concernant les locations -->
-                <StackPanel Orientation="Vertical" Grid.Row="1">
+            }
+            */
 
-                    <TextBlock Text="{Binding Path=CurrentRentals.Count, StringFormat='Nombre de biens à la location actuellement : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)FLAT], StringFormat='    Appartements : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
-                    <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
+            /*
+            CurrentSales.Add(DataAccess.AgencyDbContext.Current.Estate
+                .Where((e) => e.Transactions.Count() != 0)
+                .Where((e) => e.Transactions.Last().TransactionDate.Equals(null))
+                .Where((e) => e.Transactions.Last().GetType() == typeof(SaleTransaction)).ToArray());
 
-                </StackPanel>
+            CurrentRentals.Add(DataAccess.AgencyDbContext.Current.Estate
+                .Where((e) => e.Transactions.Count() != 0)
+                .Where((e) => e.Transactions.Last().TransactionDate.Equals(null))
+                .Where((e) => e.Transactions.Last().GetType() == typeof(RentalTransaction)).ToArray());
+            */
+            //CurrentSales.Count();
+            //CurrentRentals.Count();
 
-            </Grid>
+            //CurrentSales.Where((e) => e.GetType().Equals(EstateType.HOUSE)).Count();
+            #endregion
 
-            <!-- Tableau des chiffres -->
-            <Grid Grid.Column="2">
+        }
 
+        public void refreshStats()
+        {
 
+            #region CurrentEstats : Get all Estates from the Database
 
-            </Grid>
+            ObservableCollection<Estate> CurrentEstates = 
+                new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate
+                    .Where((e) => e.Transactions.Count() != 0)/*
+                    .Where((e) => e.Transactions.Last().TransactionDate.Equals())*/
+                    .Include((e) => e.Transactions).ToArray());
 
-        </Grid>
+            //Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
 
-    </Grid>
-</Page>
+            #endregion
+
+            #region CurrentRentals/CurrentSales : Extract from CurrentEstates
+
+            foreach (Estate e in CurrentEstates) {
+
+                if(e.Transactions.Last().GetType() == typeof(RentalTransaction)) { CurrentRentals.Add(e);  }
+                else if(e.Transactions.Last().GetType() == typeof(SaleTransaction)) { CurrentSales.Add(e);  }
+                else { /* TODO : Ajouter dans l'un des deux ? Ajouter un message log ? */ }
+
+            }
+
+            #endregion
+
+            #region CurrentRentalsDetails : Reset values and re-calculate them
+
+            CurrentRentalsDetails.ResetValues();
+
+            foreach (Estate e in CurrentRentals)
+            {
+                switch(e.Type)
+                {
+                    case EstateType.HOUSE:
+                        //CurrentRentalsDetails[EstateType.HOUSE] += 1; 
+                        CurrentRentalsDetails[EstateType.HOUSE] = 120; // TEMP
+                        break;
+
+                    case EstateType.FLAT:
+                        //CurrentRentalsDetails[EstateType.FLAT] += 1;
+                        CurrentRentalsDetails[EstateType.FLAT] = 21; // TEMP
+                        break;
+
+                    case EstateType.COMMERCIAL:
+                        CurrentRentalsDetails[EstateType.COMMERCIAL] += 1;
+                        break;
+
+                    case EstateType.GARAGE:
+                        CurrentRentalsDetails[EstateType.GARAGE] += 1;
+                        break;
+
+                    case EstateType.FIELD:
+                        CurrentRentalsDetails[EstateType.FIELD] += 1;
+                        break;
+                }
+            }
+
+            #endregion
+
+            #region CurrentSalesDetails : Reset values and re-calculate them
+
+            CurrentSalesDetails.ResetValues();
+
+            foreach (Estate e in CurrentSales)
+            {
+                switch (e.Type)
+                {
+                    case EstateType.HOUSE:
+                        //CurrentSalesDetails[EstateType.HOUSE] += 1;
+                        CurrentSalesDetails[EstateType.HOUSE] = 170; // TEMP
+                        break;
+
+                    case EstateType.FLAT:
+                        //CurrentSalesDetails[EstateType.FLAT] += 1;
+                        CurrentSalesDetails[EstateType.FLAT] = 71; // TEMP
+                        break;
+
+                    case EstateType.COMMERCIAL:
+                        CurrentSalesDetails[EstateType.COMMERCIAL] += 1;
+                        break;
+
+                    case EstateType.GARAGE:
+                        CurrentSalesDetails[EstateType.GARAGE] += 1;
+                        break;
+
+                    case EstateType.FIELD:
+                        CurrentSalesDetails[EstateType.FIELD] += 1;
+                        break;
+                }
+            }
+
+            #endregion
+            
+            SalesChartValues.ResetValues();
+            //SalesChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(SaleTransaction));
+            SalesChartValues[PeriodType.YEAR] = generateChartValues(PeriodType.YEAR, typeof(SaleTransaction));
+            //SalesChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(SaleTransaction));
+            //SalesChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(SaleTransaction));
+            //SalesChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(SaleTransaction));
+
+            RentalsChartValues.ResetValues();
+            //RentalsChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(RentalTransaction));
+            RentalsChartValues[PeriodType.YEAR] = generateChartValues(PeriodType.YEAR, typeof(RentalTransaction));
+            //RentalsChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(RentalTransaction));
+            //RentalsChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(RentalTransaction));
+            //RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
+
+            CurrentSalesDetails.Count();
+            
+        }
+
+        public Pair<List<string>, SeriesCollection> generateChartValues(PeriodType period, Type transactionType)
+        {
+
+            // Data initialization
+            LineSeries allvalues = new LineSeries(); List<string> labels = new List<string>();
+            ObservableCollection<SaleTransaction> matchingSaleTransactions = new ObservableCollection<SaleTransaction>();
+            ObservableCollection<RentalTransaction> matchingRentalTransactions = new ObservableCollection<RentalTransaction>();
+            int[] values; ChartValues<int> chartvalues;
+
+            // Data generation
+            if (transactionType == typeof(SaleTransaction))
+            {
+
+                switch (period)
+                {
+                    #region case PeriodType.ALL:
+                    case PeriodType.ALL:
+
+                        int years = DateTime.Now.Year - 2015;
+
+                        // Chart Columns : Hours of the Day
+                        for (int i = years; i >= 0; i++) { labels.Add((DateTime.Now.Year - i).ToString()); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[years + 1];
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i <= years; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.YEAR:
+                    case PeriodType.YEAR:
+
+                        // Chart Columns : Months of a Year
+                        //colValues.Values = new ChartValues<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                        //colValues.Values = new ChartValues<string> { CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1), ... };
+                        for (int i = 0; i < 12; i++) { labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i + 1)); }
+
+                        // Data : SaleTransactions of the Year, per Month
+                        matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Year == DateTime.Now.Year).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[12];
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Month; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        //ligValues.Values = new ChartValues<> { 0, 0, 0 };
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 12; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.MONTH:
+                    case PeriodType.MONTH:
+
+                        // Chart Columns : Days of the Month
+                        int days = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                        for (int i = 0; i < days; i++) { labels.Add(i.ToString()); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Month == DateTime.Now.Month).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[days];
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Day; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Day
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < days; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.WEEK:
+                    case PeriodType.WEEK:
+
+                        // Chart Columns : Days of the Week
+                        for (int i = 0; i < 7; i++) { labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetDayName((DayOfWeek)i)); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue && (t.TransactionDate.Value.DayOfYear == DateTime.Now.DayOfYear || t.TransactionDate.Value.DayOfYear <= DateTime.Now.DayOfYear - 6)).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[7];
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = (int)t.TransactionDate.Value.DayOfWeek; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 7; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.DAY:
+                    case PeriodType.DAY:
+
+                        // Chart Columns : Hours of the Day
+                        for (int i = 0; i < 24; i++) { labels.Add(i + "H"); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Day == DateTime.Now.Day).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[24];
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Hour; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 24; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    default:
+                        // TODO
+                        return null;
+                        break;
+
+                }
+
+            }
+            else if (transactionType == typeof(RentalTransaction))
+            {
+                switch (period)
+                {
+                    #region case PeriodType.ALL:
+                    case PeriodType.ALL:
+
+                        int years = DateTime.Now.Year - 2015;
+
+                        // Chart Columns : Hours of the Day
+                        for (int i = years; i >= 0; i++) { labels.Add((DateTime.Now.Year - i).ToString()); }
+
+                        // Data : RentalTransactions of the Month, per Day
+                        matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[years + 1];
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i <= years; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.YEAR:
+                    case PeriodType.YEAR:
+
+                        // Chart Columns : Months of a Year
+                        //colValues.Values = new ChartValues<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                        //colValues.Values = new ChartValues<string> { CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1), ... };
+                        for (int i = 0; i < 12; i++) { labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i+1)); }
+
+                        // Data : SaleTransactions of the Year, per Month
+                        ObservableCollection<RentalTransaction> matchingTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Year == DateTime.Now.Year).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[12];
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Month; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        //ligValues.Values = new ChartValues<> { 0, 0, 0 };
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 12; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.MONTH:
+                    case PeriodType.MONTH:
+
+                        // Chart Columns : Days of the Month
+                        int days = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                        for(int i=0; i<days; i++) { labels.Add(i.ToString()); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Month == DateTime.Now.Month).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[days];
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Day; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Day
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < days; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.WEEK:
+                    case PeriodType.WEEK:
+
+                        // Chart Columns : Days of the Week
+                        for (int i = 0; i < 7; i++) { labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetDayName((DayOfWeek) i)); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue && (t.TransactionDate.Value.DayOfYear == DateTime.Now.DayOfYear || t.TransactionDate.Value.DayOfYear <= DateTime.Now.DayOfYear - 6)).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[7];
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = (int) t.TransactionDate.Value.DayOfWeek; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 7; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    #region case PeriodType.DAY:
+                    case PeriodType.DAY:
+
+                        // Chart Columns : Hours of the Day
+                        for (int i = 0; i < 24; i++) { labels.Add(i + "H"); }
+
+                        // Data : SaleTransactions of the Month, per Day
+                        matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue && t.TransactionDate.Value.Day == DateTime.Now.Day).ToArray());
+
+                        // Data : Sales per Month
+                        values = new int[24];
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Hour; values[m - 1]++; }
+
+                        // Chart Lines : Sales per Month
+                        chartvalues = new ChartValues<int>();
+                        for (int i = 0; i < 24; i++) { chartvalues.Add(values[i]); }
+
+                        allvalues.Values = chartvalues;
+                        allvalues.Name = "Ventes";
+
+                        // Return the complete Dataset
+                        // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
+                        return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
+                        break;
+                    #endregion
+
+                    default:
+                        // TODO
+                        return null;
+                        break;
+
+                }
+
+            }
+            else { return null; /* TODO : return special values ? Add error message/log ? */ }
+
+        }
+
+    }
+}

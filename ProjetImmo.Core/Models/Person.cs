@@ -68,6 +68,18 @@ namespace ProjetImmo.Core.Models
             set { SetProperty(value); }
         }
 
+        public String Password
+        {
+            get { return GetProperty<String>(); }
+            set { SetProperty(value); }
+        }
+
+        public bool Admin
+        {
+            get { return GetProperty<bool>(); }
+            set { SetProperty(value); }
+        }
+
         #endregion
 
         /*public Person()

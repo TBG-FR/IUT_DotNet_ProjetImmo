@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using ProjetImmo.Core;
 using ProjetImmo.Core.Tools;
 using ProjetImmo.WPF.Pages;
+using ProjetImmo.WPF.Windows;
+using ProjetImmo.Core.Commandes;
 
 namespace ProjetImmo.WPF
 {
@@ -28,11 +30,11 @@ namespace ProjetImmo.WPF
             
             //MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(BrowseEstatesPage));
             MainWindow = NavigationService.GetView<MainWindow, MainViewModel<Page>>(typeof(DisplayStatsPage));
+            //-----> MainWindow = NavigationService.GetView<ConnexionWindow, ConnexionWindowViewModel>();
+            
             MainWindow.Show();
 
         }
-
-
 
     }
     
