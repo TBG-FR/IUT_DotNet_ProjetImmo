@@ -79,5 +79,78 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
+        public BaseCommand<Type> SortListBySearchCommand
+        {
+
+            // --> !!! CRITICAL WARNING BEGIN !!! <-- //
+
+            //L'alogorithme qui va suivre peut entrainer des crises d'épilepsies ou de comas de durés indéteminées
+            // Nous nous dérésponsabilison de toute plaintes ou réclamations, suite à des dommages cérébraux ou perte de capacité motrices
+
+            //Bonne Chance à vous...
+
+
+
+            get => new BaseCommand<Type>(/*async*/(type) => {
+                //On crée une liste de keyWords et une liste qui va stocker les poids d'occurences (avec les keyWords) pour chaque Estate
+                List<string> motsCles = GenerateSlug(SearchContent);
+                List<int> occurencesEstates = new List<int>();
+
+                //On initialise la liste d'occurences à 0
+                foreach (Estate est in Estates)
+                {
+                    occurencesEstates.Add(0);
+                }
+
+                //On parcours les Estates (toutes les variables contenant estate dans leurs noms sont parcourues avec les i)
+                for (int i = 0; i < Estates.Count; i++)
+                {
+                    //On parcours les motsCles (toutes les variables contenant motCle dans leurs noms sont parcourues avec les j)
+                    for (int j = 0; j < motsCles.Count; j++)
+                    {
+                        if (Estates[i].Owner.Firstname.Equals(motsCles[j]))
+                        {
+                            occurencesEstates[i] += 3;
+                        }
+                        if (Estates[i].Owner.Lastname.Equals(motsCles[j]))
+                        {
+                            occurencesEstates[i] += 3;
+                        }
+                        //On parcours tous les mots clés de l'Estate courant
+                        foreach (EstateKeyword est in Estates[i].Keywords)
+                        {
+                            if (motsCles[j].Equals(est.Keyword.Name))
+                            {
+                                occurencesEstates[i] += 2;
+                            }
+                        }
+                    }
+                }
+
+                //On crée une nouvelle ObservableCollection d'Estates qui trira la liste courante
+                ObservableCollection<Estate> tmpSortEst = new ObservableCollection<Estate>();
+                //On parcours les valeurs de Min a Max de la Liste d'occurences
+                for (int i = occurencesEstates.Max(); i >= occurencesEstates.Min(); i--)
+                {
+                    //On parcours la Liste d'occurences
+                    for (int j = 0; j < occurencesEstates.Count; j++)
+                    {
+                        //Si l'occurence courrante est égale à i (i allant de min à max occurences)
+                        if (occurencesEstates[j].Equals(i))
+                        {
+                            //On ajoute l'Estate correspondant au numéro de l'occurence courante
+                            tmpSortEst.Add(Estates[j]);
+                        }
+                    }
+                }
+
+                //On copie tmpSortEst (la liste triée) dans Estates
+                Estates = tmpSortEst;
+
+                // --> !!! CRITICAL WARNING END !!! <-- //
+            });
+
+        }
+
     }
 }
