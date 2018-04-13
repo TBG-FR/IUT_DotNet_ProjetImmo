@@ -40,6 +40,7 @@ namespace ProjetImmo.Core.ViewModels
                         default:
                             break;
 
+
                     }
             } }
         }
@@ -52,7 +53,6 @@ namespace ProjetImmo.Core.ViewModels
 
         public BrowseEstatesViewModel() {
             Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
-            SearchContent = "Rechercher...";
         }
 
         public List<string> GenerateSlug(string phrase)
@@ -76,15 +76,6 @@ namespace ProjetImmo.Core.ViewModels
         {
 
             get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
-
-        }
-
-        public BaseCommand<Type> SearchClick
-        {
-
-            get => new BaseCommand<Type>(/*async*/(type) => {
-
-            });
 
         }
 

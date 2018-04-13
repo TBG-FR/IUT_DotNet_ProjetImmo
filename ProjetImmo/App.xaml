@@ -66,8 +66,8 @@
 
         </Style>
 
+        <!-- modification du text lors du focus sur la barre de recherche (de BrowseEstate et ManageEstate) -->
         <Style x:Key="BrowseSearchBar" TargetType="{x:Type TextBox}">
-            <!-- modification du text lors du focus -->
             <Setter Property="TextBox.Text" Value="Rechercher..." />
             <Setter Property="TextBox.Foreground" Value="#FFCFCFCF" />
             <Setter Property="TextBox.VerticalContentAlignment" Value="Center" />

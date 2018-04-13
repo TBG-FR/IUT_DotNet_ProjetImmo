@@ -36,8 +36,14 @@
 
                 <!-- GRAPHIQUE VENTES Grid.Row="1" -->
                 <charts:CartesianChart Series="{Binding Path=SalesChartValues[(enum:PeriodType)YEAR].Second}" LegendLocation="None" Grid.Row="1">
-                    <charts:CartesianChart.AxisY> <charts:Axis Title="Ventes"> <!-- LabelFormatter="{Binding YFormatter}" --> </charts:Axis> </charts:CartesianChart.AxisY>
-                    <charts:CartesianChart.AxisX> <charts:Axis Title="Mois" Labels="{Binding Path=SalesChartValues[(enum:PeriodType)YEAR].First}"> </charts:Axis> </charts:CartesianChart.AxisX>
+                    <charts:CartesianChart.AxisY>
+                        <charts:Axis Title="Ventes">
+                            <!-- LabelFormatter="{Binding YFormatter}" -->
+                        </charts:Axis>
+                    </charts:CartesianChart.AxisY>
+                    <charts:CartesianChart.AxisX>
+                        <charts:Axis Title="Mois" Labels="{Binding Path=SalesChartValues[(enum:PeriodType)YEAR].First}"></charts:Axis>
+                    </charts:CartesianChart.AxisX>
                 </charts:CartesianChart>
 
             </Grid>
@@ -45,7 +51,6 @@
             <!-- Graphiques : Boutons -->
             <StackPanel Grid.Column="1" Orientation="Vertical">
 
-                <Label Content="{ Binding Path=Toto[(enum:PeriodType)YEAR].First }" Style="{StaticResource ChartControlTitle}" />
                 <Button Content="Total (A)" Style="{StaticResource ChartControl}"/>
                 <Button Content="Année (Y)" Style="{StaticResource ChartControl}"/>
                 <Button Content="Mois (M)" Style="{StaticResource ChartControl}"/>
@@ -65,8 +70,14 @@
 
                 <!-- GRAPHIQUE LOCATIONS Grid.Row="1" -->
                 <charts:CartesianChart Series="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].Second}" LegendLocation="None" Grid.Row="1">
-                    <charts:CartesianChart.AxisY> <charts:Axis Title="Ventes"> <!-- LabelFormatter="{Binding YFormatter}" --> </charts:Axis></charts:CartesianChart.AxisY>
-                    <charts:CartesianChart.AxisX> <charts:Axis Title="Mois" Labels="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].First}"> </charts:Axis> </charts:CartesianChart.AxisX>
+                    <charts:CartesianChart.AxisY>
+                        <charts:Axis Title="Ventes">
+                            <!-- LabelFormatter="{Binding YFormatter}" -->
+                        </charts:Axis>
+                    </charts:CartesianChart.AxisY>
+                    <charts:CartesianChart.AxisX>
+                        <charts:Axis Title="Mois" Labels="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].First}"></charts:Axis>
+                    </charts:CartesianChart.AxisX>
                 </charts:CartesianChart>
 
             </Grid>
@@ -96,7 +107,7 @@
                     <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)COMMERCIAL], StringFormat='    Locaux Commerciaux : {0}'}"/>
                     <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)GARAGE], StringFormat='    Garages : {0}'}"/>
                     <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)FIELD], StringFormat='    Terrains : {0}'}"/>
-                    
+
                 </StackPanel>
 
                 <!-- Chiffres actuels concernant les locations -->
