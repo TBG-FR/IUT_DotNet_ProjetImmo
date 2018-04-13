@@ -15,4 +15,4 @@ https://stackoverflow.com/questions/1500835/c-sharp-dictionary-with-two-values-p
 https://stackoverflow.com/questions/569903/multi-value-dictionary  
 
 ## Graphics
-https://lvcharts.net/App/examples/v1/wpf/Basic%20Line%20Chart
+https://lvcharts.net/App/examples/v1/wpf/Basic%20Line%20Chart  

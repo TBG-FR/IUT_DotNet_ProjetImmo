@@ -109,13 +109,9 @@ namespace ProjetImmo.Core.Migrations
 
                     b.Property<int?>("AddressID");
 
-                    b.Property<bool>("Admin");
-
                     b.Property<string>("Firstname");
 
                     b.Property<string>("Lastname");
-
-                    b.Property<string>("Password");
 
                     b.Property<int>("Type");
 

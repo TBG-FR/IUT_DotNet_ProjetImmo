@@ -1,4 +1,4 @@
-using ProjetImmo.Core.Commandes;
+﻿using ProjetImmo.Core.Commandes;
 using ProjetImmo.Core.Models;
 using ProjetImmo.Core.Tools;
 using System;
@@ -100,7 +100,7 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type> OpenNewWindowCommand
         {
 
-            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<SearchFilterViewModel>(type); });
+            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
 
         }
 
@@ -114,7 +114,9 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type, Type> ChangeViewCommand //ChangeWindowCommand
         {
 
-            get => new BaseCommand<Type, Type>(/*async*/(tView, tViewModel) => { this.CurrentPage = NavigationService.GetView(tView, tViewModel); });
+            get => new BaseCommand<Type, Type>(/*async*/(tView, tViewModel) => {
+                this.CurrentPage = NavigationService.GetView(tView, tViewModel);
+            });
 
         }
 

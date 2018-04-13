@@ -66,6 +66,23 @@
 
         </Style>
 
+        <Style x:Key="BrowseSearchBar" TargetType="{x:Type TextBox}">
+            <!-- modification du text lors du focus -->
+            <Setter Property="TextBox.Text" Value="Rechercher..." />
+            <Setter Property="TextBox.Foreground" Value="#FFCFCFCF" />
+            <Setter Property="TextBox.VerticalContentAlignment" Value="Center" />
+
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="TextBox.IsFocused" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="TextBox.Text" Value="" />
+                    <Setter Property="TextBox.Foreground" Value="Black" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
         <DataTemplate x:Key="templateComboPers">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding ID}"/>

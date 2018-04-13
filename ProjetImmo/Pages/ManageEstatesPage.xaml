@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Input de Recherche -->
-            <TextBox Grid.Column="0" Text="Rechercher..." RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" Foreground="#FFCFCFCF">
+            <TextBox Grid.Column="0" Style="{StaticResource BrowseSearchBar}" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans">
                 <TextBox.SelectionBrush>
                     <SolidColorBrush Color="Gray"/>
                 </TextBox.SelectionBrush>
