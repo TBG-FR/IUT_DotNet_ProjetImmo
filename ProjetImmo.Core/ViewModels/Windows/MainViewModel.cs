@@ -100,7 +100,7 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type> OpenNewWindowCommand
         {
 
-            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<MainViewModel<TPage>>(type); });
+            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.Show<SearchFilterViewModel>(type); });
 
         }
 

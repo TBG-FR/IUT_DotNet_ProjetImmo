@@ -8,7 +8,6 @@ C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\
 C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.AssemblyInfo.cs
 C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.dll
 C:\Users\arnau\OneDrive\Bureau\IUT_DotNet_ProjetImmo-master\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.pdb
-D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csprojResolveAssemblyReference.cache
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csproj.CoreCompileInputs.cache
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.AssemblyInfoInputs.cache
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.AssemblyInfo.cs

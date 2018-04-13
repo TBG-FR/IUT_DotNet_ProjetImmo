@@ -6,9 +6,22 @@
         xmlns:local="clr-namespace:ProjetImmo.WPF"
         xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
         xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
+        xmlns:vm="clr-namespace:ProjetImmo.Core.ViewModels;assembly=ProjetImmo.Core"
         mc:Ignorable="d"
         Title="ConnexionWindow" Height="200" Width="300">
     <Grid>
-        <Button Content="se connecter" Command="{Binding OpenMainWindowCommand}" CommandParameter="{x:Type pages:ManageEstatesPage}" />
+
+        <Button Content="Accueil (Statistiques)" Command="{Binding OpenNewWindowCommand}" CommandParameter="{x:Type windows:SearchFiltersWindow}" >
+
+            <!--<Button.CommandParameter>
+                <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
+                    <x:Type Type="MainWindow"/>
+                    <x:Type Type="pages:ManageEstatesPage"/>
+                    <x:Type Type="vm:ManageEstatesViewModel"/>
+                </x:Array>
+            </Button.CommandParameter>-->
+
+        </Button>
+        
     </Grid>
 </Window>
