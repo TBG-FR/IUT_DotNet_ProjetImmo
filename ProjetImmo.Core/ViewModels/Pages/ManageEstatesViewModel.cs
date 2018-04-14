@@ -34,12 +34,18 @@ namespace ProjetImmo.Core.ViewModels
         public String SearchContent
         {
             get { return GetProperty<String>(); }
-            set { if (SetProperty(value)) { /**/ } }
+            set
+            {
+                if (SetProperty(value))
+                {
+                }
+            }
         }
 
         public ManageEstatesViewModel()
         {
             Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+            SearchContent = "";
         }
 
         public List<string> GenerateSlug(string phrase)

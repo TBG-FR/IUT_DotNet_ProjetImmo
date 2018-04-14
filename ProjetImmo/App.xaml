@@ -67,19 +67,19 @@
         </Style>
 
         <!-- modification du text lors du focus sur la barre de recherche (de BrowseEstate et ManageEstate) -->
-        <Style x:Key="BrowseSearchBar" TargetType="{x:Type TextBox}">
-            <Setter Property="TextBox.Text" Value="Rechercher..." />
-            <Setter Property="TextBox.Foreground" Value="#FFCFCFCF" />
-            <Setter Property="TextBox.VerticalContentAlignment" Value="Center" />
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.Text" Value=" Rechercher..." />
+            <Setter Property="TextBlock.Foreground" Value="#9E9DA2" />
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
 
             <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="TextBox.IsFocused" Value="True" />
-                    </MultiTrigger.Conditions>
-                    <Setter Property="TextBox.Text" Value="" />
-                    <Setter Property="TextBox.Foreground" Value="Black" />
-                </MultiTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SearchContent}" Value="" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="TextBox.Visibility" Value="Visible" />
+                </MultiDataTrigger>
             </Style.Triggers>
         </Style>
 
