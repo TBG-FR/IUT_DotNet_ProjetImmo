@@ -8,11 +8,10 @@ namespace ProjetImmo.Core.Tools
      * To be used with Dictionaries to make Dictionaries with 1 key and 2 entries
      */
 
-    public sealed class Pair<TFirst, TSecond>
-        : IEquatable<Pair<TFirst, TSecond>>
+    public sealed class Pair<TFirst, TSecond> : IEquatable<Pair<TFirst, TSecond>>
     {
-        private readonly TFirst first;
-        private readonly TSecond second;
+        private /*readonly*/ TFirst first;
+        private /*readonly*/ TSecond second;
 
         public Pair(TFirst first, TSecond second)
         {
@@ -23,11 +22,13 @@ namespace ProjetImmo.Core.Tools
         public TFirst First
         {
             get { return first; }
+            set { first = value; }
         }
 
         public TSecond Second
         {
             get { return second; }
+            set { second = value; }
         }
 
         public bool Equals(Pair<TFirst, TSecond> other)

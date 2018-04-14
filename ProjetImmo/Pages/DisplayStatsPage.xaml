@@ -85,7 +85,7 @@
         </Grid>
 
         <!-- Grid affichant les données numériques -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -93,13 +93,13 @@
 
             <!-- Chiffres actuels -->
             <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
                 <!-- Chiffres actuels concernant les ventes -->
-                <StackPanel Orientation="Vertical" Grid.Row="0">
+                <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
 
                     <TextBlock Text="{Binding Path=CurrentSales.Count, StringFormat='Nombre de biens à la vente actuellement : {0}'}"/>
                     <TextBlock Text="{Binding Path=CurrentSalesDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
@@ -111,7 +111,7 @@
                 </StackPanel>
 
                 <!-- Chiffres actuels concernant les locations -->
-                <StackPanel Orientation="Vertical" Grid.Row="1">
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
 
                     <TextBlock Text="{Binding Path=CurrentRentals.Count, StringFormat='Nombre de biens à la location actuellement : {0}'}"/>
                     <TextBlock Text="{Binding Path=CurrentRentalsDetails[(enum:EstateType)HOUSE], StringFormat='    Maisons : {0}'}"/>
@@ -127,7 +127,56 @@
             <!-- Tableau des chiffres -->
             <Grid Grid.Column="2">
 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+                    <!-- Première colonne : Période -->
+                    <Grid Width="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="1"  Text="Aujourd'hui" />
+                        <TextBlock Grid.Row="2"  Text="Ce mois-ci" />
+                        <TextBlock Grid.Row="3"  Text="Cette année" />
+
+                    </Grid>
+
+                    <!-- Deuxième colonne : Vendus -->
+                    <Grid Width="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"  Text="Vendus" />
+                        <TextBlock Grid.Row="1"  Text="{Binding Path=GridValues[(enum:PeriodType)DAY].First}" />
+                        <TextBlock Grid.Row="2"  Text="{Binding Path=GridValues[(enum:PeriodType)MONTH].First}" />
+                        <TextBlock Grid.Row="3"  Text="{Binding Path=GridValues[(enum:PeriodType)YEAR].First}" />
+
+                    </Grid>
+
+                    <!-- Troisième colonne : Loués -->
+                    <Grid Width="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"  Text="Loués" />
+                        <TextBlock Grid.Row="1"  Text="{Binding Path=GridValues[(enum:PeriodType)DAY].Second}" />
+                        <TextBlock Grid.Row="2"  Text="{Binding Path=GridValues[(enum:PeriodType)MONTH].Second}" />
+                        <TextBlock Grid.Row="3"  Text="{Binding Path=GridValues[(enum:PeriodType)YEAR].Second}" />
+
+                    </Grid>
+
+                </StackPanel>
 
             </Grid>
 

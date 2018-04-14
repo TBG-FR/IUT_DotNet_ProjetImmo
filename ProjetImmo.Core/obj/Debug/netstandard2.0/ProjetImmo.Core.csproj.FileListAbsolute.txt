@@ -21,3 +21,4 @@ D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\bin\Debug\netst
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\bin\Debug\netstandard2.0\System.Xaml.dll
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\bin\Debug\netstandard2.0\WindowsBase.dll
 D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csproj.CopyComplete
+D:\Sync\Repositories (HDD)\IUT_DotNet_ProjetImmo\ProjetImmo.Core\obj\Debug\netstandard2.0\ProjetImmo.Core.csprojResolveAssemblyReference.cache

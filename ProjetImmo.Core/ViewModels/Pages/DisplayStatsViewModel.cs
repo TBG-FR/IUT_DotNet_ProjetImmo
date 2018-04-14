@@ -53,10 +53,16 @@ namespace ProjetImmo.Core.ViewModels
             set { SetProperty<Dictionary<PeriodType, Pair<List<string>, SeriesCollection>>>(value); }
         }
 
+        public Dictionary<PeriodType, Pair<int, int>> GridValues
+        {
+            get { return GetProperty<Dictionary<PeriodType, Pair<int, int>>>(); }
+            set { SetProperty<Dictionary<PeriodType, Pair<int, int>>>(value); }
+        }
+
         public DisplayStatsViewModel()
         {
             //Assembly.LoadWithPartialName("PresentationFramework");
-            Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+            //Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
             CurrentSales = new ObservableCollection<Estate>();
             CurrentRentals = new ObservableCollection<Estate>();
@@ -93,6 +99,14 @@ namespace ProjetImmo.Core.ViewModels
                 { PeriodType.MONTH, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
                 { PeriodType.WEEK, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
                 { PeriodType.DAY, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) }
+            };
+
+            GridValues = new Dictionary<PeriodType, Pair<int, int>>
+            {
+                // Period   -       Sales   -   Rentals
+                { PeriodType.YEAR, new Pair<int, int>(0,0) },
+                { PeriodType.MONTH, new Pair<int, int>(0,0) },
+                { PeriodType.DAY, new Pair<int, int>(0,0) }
             };
 
             refreshStats();
@@ -233,20 +247,30 @@ namespace ProjetImmo.Core.ViewModels
             }
 
             #endregion
-            
+
+            // Reset Numeric Values (they will be updated with SalesChartValues & RentalsChartValues)
+            //GridValues.ResetValues();
+            GridValues = new Dictionary<PeriodType, Pair<int, int>>
+            {
+                // Period   -       Sales   -   Rentals
+                { PeriodType.YEAR, new Pair<int, int>(0,0) },
+                { PeriodType.MONTH, new Pair<int, int>(0,0) },
+                { PeriodType.DAY, new Pair<int, int>(0,0) }
+            };
+
             SalesChartValues.ResetValues();
-            //SalesChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(SaleTransaction));
+            SalesChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(SaleTransaction));
             SalesChartValues[PeriodType.YEAR] = generateChartValues(PeriodType.YEAR, typeof(SaleTransaction));
-            //SalesChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(SaleTransaction));
-            //SalesChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(SaleTransaction));
-            //SalesChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(SaleTransaction));
+            SalesChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(SaleTransaction));
+            SalesChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(SaleTransaction));
+            SalesChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(SaleTransaction));
 
             RentalsChartValues.ResetValues();
-            //RentalsChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(RentalTransaction));
+            RentalsChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(RentalTransaction));
             RentalsChartValues[PeriodType.YEAR] = generateChartValues(PeriodType.YEAR, typeof(RentalTransaction));
-            //RentalsChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(RentalTransaction));
-            //RentalsChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(RentalTransaction));
-            //RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
+            RentalsChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(RentalTransaction));
+            RentalsChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(RentalTransaction));
+            RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
 
             CurrentSalesDetails.Count();
             
@@ -265,6 +289,13 @@ namespace ProjetImmo.Core.ViewModels
             if (transactionType == typeof(SaleTransaction))
             {
 
+                /*
+                ===== Sales =====
+                GridValues[PeriodType.YEAR].First
+                GridValues[PeriodType.MONTH].First
+                GridValues[PeriodType.DAY].First
+                */
+
                 switch (period)
                 {
                     #region case PeriodType.ALL:
@@ -273,13 +304,14 @@ namespace ProjetImmo.Core.ViewModels
                         int years = DateTime.Now.Year - 2015;
 
                         // Chart Columns : Hours of the Day
-                        for (int i = years; i >= 0; i++) { labels.Add((DateTime.Now.Year - i).ToString()); }
+                        for (int i = years; i >= 0; i--) { labels.Add((DateTime.Now.Year - i).ToString()); }
 
                         // Data : SaleTransactions of the Month, per Day
                         matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
 
                         // Data : Sales per Month
                         values = new int[years + 1];
+                        for (int i = years; i >= 0; i--) { values[i] = 0; }
                         foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
 
                         // Chart Lines : Sales per Month
@@ -288,6 +320,9 @@ namespace ProjetImmo.Core.ViewModels
 
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
+
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.YEAR].First = values[years];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
@@ -318,6 +353,9 @@ namespace ProjetImmo.Core.ViewModels
 
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
+
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.MONTH].First = values[DateTime.Now.Month - 1];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
@@ -372,6 +410,9 @@ namespace ProjetImmo.Core.ViewModels
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
 
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.DAY].First = values[(int) DateTime.Now.DayOfWeek - 1];
+
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
                         return new Pair<List<string>, SeriesCollection>(labels, new SeriesCollection { allvalues });
@@ -414,6 +455,14 @@ namespace ProjetImmo.Core.ViewModels
             }
             else if (transactionType == typeof(RentalTransaction))
             {
+
+                /*
+                ===== Rentals =====
+                GridValues[PeriodType.YEAR].Second
+                GridValues[PeriodType.MONTH].Second
+                GridValues[PeriodType.DAY].Second
+                */
+
                 switch (period)
                 {
                     #region case PeriodType.ALL:
@@ -422,13 +471,14 @@ namespace ProjetImmo.Core.ViewModels
                         int years = DateTime.Now.Year - 2015;
 
                         // Chart Columns : Hours of the Day
-                        for (int i = years; i >= 0; i++) { labels.Add((DateTime.Now.Year - i).ToString()); }
+                        for (int i = years; i >= 0; i--) { labels.Add((DateTime.Now.Year - i).ToString()); }
 
                         // Data : RentalTransactions of the Month, per Day
                         matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
 
                         // Data : Sales per Month
                         values = new int[years + 1];
+                        for (int i = years; i >= 0; i--) { values[i] = 0; }
                         foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
 
                         // Chart Lines : Sales per Month
@@ -437,6 +487,9 @@ namespace ProjetImmo.Core.ViewModels
 
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
+
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.YEAR].First = values[years];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
@@ -466,6 +519,9 @@ namespace ProjetImmo.Core.ViewModels
 
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
+
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.MONTH].First = values[DateTime.Now.Month - 1];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
@@ -519,6 +575,9 @@ namespace ProjetImmo.Core.ViewModels
 
                         allvalues.Values = chartvalues;
                         allvalues.Name = "Ventes";
+
+                        // Update the corresponding GridValues field
+                        GridValues[PeriodType.DAY].Second = values[(int)DateTime.Now.DayOfWeek - 1];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
