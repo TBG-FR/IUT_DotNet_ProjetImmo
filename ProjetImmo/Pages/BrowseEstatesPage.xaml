@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Input de Recherche -->
-            <TextBox Grid.Column="0" Text="{Binding SearchContent, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" VerticalContentAlignment="Center">
+            <TextBox Grid.Column="0" Text="Rechercher..." RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" Foreground="#FFCFCFCF">
                 <TextBox.SelectionBrush>
                     <SolidColorBrush Color="Gray"/>
                 </TextBox.SelectionBrush>
@@ -35,12 +35,10 @@
                     <SolidColorBrush Color="DarkGray"/>
                 </TextBox.BorderBrush>
             </TextBox>
-            <TextBlock Grid.Column="0" Style="{StaticResource placeHolder}" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans"/>
 
             <!-- Boutton de Recherche -->
             <Button Grid.Column="1" Content="Recherche"
                     Style="{StaticResource SearchbarControl}"
-                    Command="{Binding SortListBySearchCommand}"
                     />
             <!-- Click="Button_Search_Click" -->
 
@@ -70,23 +68,27 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="694*" />
                 <ColumnDefinition Width="460*" />
-                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="95*" />
             </Grid.ColumnDefinitions>
 
             <!-- ListView contenant les Offres -->
             <ListView Grid.Column="0" ItemsSource="{Binding Estates}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0.4,0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="#f1f3f4" />
+                    </Style>
+                </ListView.ItemContainerStyle>
 
                 <!-- Template affichage des items -->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Style="{StaticResource ListViewItem}" >
-
-                            <StackPanel Orientation="Horizontal">
+                        <StackPanel Style="{StaticResource ListViewItem}">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
                                 <TextBlock Text="Type :" />
                                 <TextBlock Text="{Binding Type}" />
                             </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
                                 <TextBlock Text="Address :" />
                                 <TextBlock Text="{Binding Address.PostalAddress}" />
                                 <TextBlock Text=", " />
@@ -113,37 +115,45 @@
                 <!-- Image Bien Immo -->
                 <TextBlock Grid.Row="0" Text="{Binding SelectedItem.ID}" />
 
-                <TextBlock Grid.Row="1" Text="Détails:" />
+
+                <TextBlock Grid.Row="1" Text="Détails:" FontSize="45" FontFamily="Open Sans" FontStyle="Italic" VerticalAlignment="Center" Background="#384356" Foreground="Snow" Padding="5,0,0,0" />
+
+                <Separator Height="2" Background="#282828" Margin="0,59.4,0,0.2" Grid.Row="1"/>
 
                 <!-- Détails Bien Immo -->
-                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+                <StackPanel Grid.Row="1" Orientation="Vertical" Style="{StaticResource ListViewItem}" Background="#63797c" Margin="0,61.4,0,0" Grid.RowSpan="2" >
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Type :" />
-                        <TextBlock Text="{Binding SelectedItem.Surface}" />
-                        <TextBlock Text=" m²" />
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <Border Width="15"/>
+                        <TextBlock Text="Type : "  FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.Surface}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text=" m²" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Nombre de Chambre(s) :" />
-                        <TextBlock Text="{Binding SelectedItem.RoomsCount}" />
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <Border Width="15"/>
+                        <TextBlock Text="Nombre de Chambre(s) : " FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.RoomsCount}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Nombre d'Étage(s) :" />
-                        <TextBlock Text="{Binding SelectedItem.FloorCount}" />
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <Border Width="15"/>
+                        <TextBlock Text="Nombre d'Étage(s) :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.FloorCount}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Charges Anuelles :" />
-                        <TextBlock Text="{Binding SelectedItem.AnnualCharges}" />
-                        <TextBlock Text=" €" />
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <Border Width="15"/>
+                        <TextBlock Text="Charges Anuelles :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.AnnualCharges}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text=" €" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Taxe d'Habitation :" />
-                        <TextBlock Text="{Binding SelectedItem.PropertyTax}" />
-                        <TextBlock Text=" €" />
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <Border Width="15"/>
+                        <TextBlock Text="Taxe d'Habitation :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.PropertyTax}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text=" €" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
                 </StackPanel>
