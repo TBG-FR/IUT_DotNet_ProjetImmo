@@ -1,3 +1,4 @@
+using ProjetImmo.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +23,7 @@ namespace ProjetImmo.Core.Tools
         private static object GetViewModelInstance(Type tViewModel, params object[] viewModelParameters)
         {
             object vm = null;
-            if (_viewModelsCache.ContainsKey(tViewModel))
+            if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel) && tViewModel != typeof(UpsertTransactionViewModel))
                 vm = _viewModelsCache[tViewModel];
             else
             {
@@ -64,7 +65,6 @@ namespace ProjetImmo.Core.Tools
             return GetViewInstance<TView>(
                 GetViewModelInstance<TViewModel>(viewModelParameters));
         }
-
         public static object GetView<TViewModel>(Type tView, params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
@@ -72,7 +72,6 @@ namespace ProjetImmo.Core.Tools
                 tView,
                 GetViewModelInstance<TViewModel>(viewModelParameters));
         }
-
         public static object GetView(Type tView, Type tViewModel, params object[] viewModelParameters)
         {
             return GetViewInstance(
@@ -133,9 +132,7 @@ namespace ProjetImmo.Core.Tools
         public static bool? ShowDialog<TViewModel>(Type tView, params object[] viewModelParameters)
             where TViewModel : BaseNotifyPropertyChanged
         {
-            var win = GetViewInstance(
-                tView,
-                GetViewModelInstance<TViewModel>(viewModelParameters));
+            var win = GetViewInstance(tView, GetViewModelInstance<TViewModel>(viewModelParameters));
 
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);
@@ -143,9 +140,7 @@ namespace ProjetImmo.Core.Tools
 
         public static bool? ShowDialog(Type tView, Type tViewModel, params object[] viewModelParameters)
         {
-            var win = GetViewInstance(
-                tView,
-                GetViewModelInstance(tViewModel, viewModelParameters));
+            var win = GetViewInstance(tView, GetViewModelInstance(tViewModel, viewModelParameters));
 
             var method = win.GetType().GetMethod("ShowDialog");
             return (bool?)method?.Invoke(win, null);

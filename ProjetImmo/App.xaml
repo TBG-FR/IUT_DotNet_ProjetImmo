@@ -4,16 +4,42 @@
              xmlns:local="clr-namespace:ProjetImmo.WPF"
              xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"        
              xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
+             xmlns:converters="clr-namespace:ProjetImmo.WPF.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- StartupUri="MainWindow.xaml" -->
-    
+
     <Application.Resources>
+
+        <BooleanToVisibilityConverter x:Key="VisibilityOfBool" />
+        <converters:BoolToInverseConverter x:Key="BoolToInverseConverter" />
+
+        <!--
+        <converters:ConverterChain x:Key="convBoolToInverseToVisibility">
+            <conv:BoolToInverseConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
+        -->
+
+        <converters:ConverterChain x:Key="VisibilityFromBoolFromSale">
+            <converters:EstateSaleStatusToBoolConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
+
+        <converters:ConverterChain x:Key="VisibilityFromBoolFromRental">
+            <converters:EstateRentalStatusToBoolConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
 
         <Color x:Key="Color1">#FF444343</Color>
         <Color x:Key="Color2">#FFB2B2B2</Color>
 
         <Style x:Key="NavbarButton" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="InternalButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="45" />
             <Setter Property="Margin" Value="5" />
         </Style>
 
