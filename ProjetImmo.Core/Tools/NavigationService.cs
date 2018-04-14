@@ -23,7 +23,7 @@ namespace ProjetImmo.Core.Tools
         private static object GetViewModelInstance(Type tViewModel, params object[] viewModelParameters)
         {
             object vm = null;
-            if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel) && tViewModel != typeof(UpsertTransactionViewModel))
+            if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel))
                 vm = _viewModelsCache[tViewModel];
             else
             {
