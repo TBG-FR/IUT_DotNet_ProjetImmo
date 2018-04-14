@@ -140,6 +140,10 @@
       <DependentUpon>ConnexionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\Base64StringToBitmapImageConverter.cs" />
+    <Compile Include="Converters\BoolToInverseConverter.cs" />
+    <Compile Include="Converters\EstateSaleStatusToBoolConverter.cs" />
+    <Compile Include="Converters\EstateRentalStatusToBoolConverter.cs" />
+    <Compile Include="Converters\ConverterChain.cs" />
     <Compile Include="Pages\DisplayStatsPage.xaml.cs">
       <DependentUpon>DisplayStatsPage.xaml</DependentUpon>
     </Compile>
@@ -151,6 +155,9 @@
     </Compile>
     <Compile Include="Pages\ManageEstatesPage.xaml.cs">
       <DependentUpon>ManageEstatesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UpsertTransactionWindow.xaml.cs">
+      <DependentUpon>UpsertTransactionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UpsertEstateWindow.xaml.cs">
       <DependentUpon>UpsertEstateWindow.xaml</DependentUpon>
@@ -190,6 +197,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\UpsertTransactionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\UpsertEstateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

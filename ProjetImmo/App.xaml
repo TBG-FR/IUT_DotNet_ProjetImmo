@@ -4,16 +4,42 @@
              xmlns:local="clr-namespace:ProjetImmo.WPF"
              xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"        
              xmlns:pages="clr-namespace:ProjetImmo.WPF.Pages"
+             xmlns:converters="clr-namespace:ProjetImmo.WPF.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- StartupUri="MainWindow.xaml" -->
-    
+
     <Application.Resources>
+
+        <BooleanToVisibilityConverter x:Key="VisibilityOfBool" />
+        <converters:BoolToInverseConverter x:Key="BoolToInverseConverter" />
+
+        <!--
+        <converters:ConverterChain x:Key="convBoolToInverseToVisibility">
+            <conv:BoolToInverseConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
+        -->
+
+        <converters:ConverterChain x:Key="VisibilityFromBoolFromSale">
+            <converters:EstateSaleStatusToBoolConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
+
+        <converters:ConverterChain x:Key="VisibilityFromBoolFromRental">
+            <converters:EstateRentalStatusToBoolConverter />
+            <BooleanToVisibilityConverter />
+        </converters:ConverterChain>
 
         <Color x:Key="Color1">#FF444343</Color>
         <Color x:Key="Color2">#FFB2B2B2</Color>
 
         <Style x:Key="NavbarButton" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="InternalButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="45" />
             <Setter Property="Margin" Value="5" />
         </Style>
 
@@ -31,7 +57,9 @@
 
         <Style x:Key="ListViewItem" TargetType="{x:Type StackPanel}">
             <!-- A RENOMMER -->
+
             <Setter Property="Margin" Value="5px"/>
+
         </Style>
 
         <!-- https://msdn.microsoft.com/en-us/library/ms753328(v=vs.100).aspx -->
@@ -62,6 +90,23 @@
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Background" Value="Gray" />
 
+        </Style>
+
+        <!-- modification du text lors du focus sur la barre de recherche (de BrowseEstate et ManageEstate) -->
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.Text" Value=" Rechercher..." />
+            <Setter Property="TextBlock.Foreground" Value="#9E9DA2" />
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SearchContent}" Value="" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="TextBox.Visibility" Value="Visible" />
+                </MultiDataTrigger>
+            </Style.Triggers>
         </Style>
 
         <DataTemplate x:Key="templateComboPers">
