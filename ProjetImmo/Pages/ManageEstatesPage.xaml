@@ -38,6 +38,7 @@
             <!-- Boutton de Recherche -->
             <Button Grid.Column="1" Content="Recherche"
                     Style="{StaticResource SearchbarControl}"
+                    Command="{Binding SortListBySearchCommand}"
                     />
             <!-- Click="Button_Search_Click" -->
 
@@ -50,9 +51,9 @@
             <!-- Click="Button_Filters_Click" -->
 
             <!-- Menu de Tri de la Recherche -->
-            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}">
+            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}" SelectedItem="{Binding selectedFilter}">
 
-                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date" IsSelected="True"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Prix"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Superficie"/>
                 

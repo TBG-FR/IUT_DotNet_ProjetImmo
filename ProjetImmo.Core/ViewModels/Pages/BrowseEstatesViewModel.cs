@@ -56,7 +56,7 @@ namespace ProjetImmo.Core.ViewModels
         }
 
         public BrowseEstatesViewModel() {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
             SearchContent = "";
         }
 
@@ -64,9 +64,9 @@ namespace ProjetImmo.Core.ViewModels
         {
             string str = RemoveAccent(phrase).ToLower();
             // suppressions de caratères spéciaux          
-            str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
+            str = Regex.Replace(str, @"[^a-z0-9\,\;\s-]", "");
             // convertie les espace, virgules et points virgules en espace simple  
-            str = Regex.Replace(str, @"[\s,\,,;]+", " ").Trim();
+            str = Regex.Replace(str, @"[\s\,\;]+", " ");
             //on explose le chaine à chaque espace et on retourne la liste de string résultant   
             return str.Split(' ').ToList<string>();
         }
@@ -113,6 +113,7 @@ namespace ProjetImmo.Core.ViewModels
                     //On parcours les motsCles (toutes les variables contenant motCle dans leurs noms sont parcourues avec les j)
                     for (int j = 0; j < motsCles.Count; j++)
                     {
+                        //On selectionne l'Owner de l'Estate Courrant
                         if (Estates[i].Owner.Firstname.Equals(motsCles[j]))
                         {
                             occurencesEstates[i] += 3;
@@ -122,9 +123,10 @@ namespace ProjetImmo.Core.ViewModels
                             occurencesEstates[i] += 3;
                         }
                         //On parcours tous les mots clés de l'Estate courant
-                        foreach (EstateKeyword est in Estates[i].Keywords)
+                        foreach (EstateKeyword estKeyw in Estates[i].Keywords)
                         {
-                            if (motsCles[j].Equals(est.Keyword.Name))
+                            List<Keyword> keyword = new List<Keyword>(DataAccess.AgencyDbContext.Current.Keyword.Where((e) => e.ID == estKeyw.KeywordID).ToList());
+                            if (motsCles[j].Equals(keyword[0].Name))
                             {
                                 occurencesEstates[i] += 2;
                             }
