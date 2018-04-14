@@ -17,9 +17,9 @@ namespace ProjetImmo.WPF.Windows
     /// <summary>
     /// Logique d'interaction pour ModifyEstateWindow.xaml
     /// </summary>
-    public partial class ModifyEstateWindow : Window
+    public partial class UpsertEstateWindow : Window
     {
-        public ModifyEstateWindow()
+        public UpsertEstateWindow()
         {
             InitializeComponent();
         }

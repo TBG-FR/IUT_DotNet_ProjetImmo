@@ -14,7 +14,7 @@ namespace ProjetImmo.Core.ViewModels
         public ObservableCollection<Estate> Estates
         {
             get { return GetProperty<ObservableCollection<Estate>>(); }
-            set { if (SetProperty(value)) { /**/ } }
+            set { if (SetProperty(value)) { SetProperty(value); } }
         }
 
         public ManageEstatesViewModel() {
@@ -24,13 +24,13 @@ namespace ProjetImmo.Core.ViewModels
         public Estate SelectedItem
         {
             get { return GetProperty<Estate>(); }
-            set { if (SetProperty(value)) { /**/ } }
+            set { if (SetProperty(value)) { SetProperty(value); } }
         }
 
         public String selectedFilter
         {
             get { return GetProperty<String>(); }
-            set { if (SetProperty(value)) { } }
+            set { if (SetProperty(value)) { SetProperty(value); } }
         }
 
         public BaseCommand<Type> OpenEditEstateWindowCommand
@@ -38,7 +38,7 @@ namespace ProjetImmo.Core.ViewModels
 
             get => new BaseCommand<Type>((type) =>
             {
-                NavigationService.ShowDialog<EditEstateViewModel>(type);
+                NavigationService.ShowDialog<UpsertEstateViewModel>(type);
                 Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
             });
 
@@ -47,7 +47,7 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type> DeleteSelectedEstateCommand
         {
 
-            get => new BaseCommand<Type>((type) =>
+            get => new BaseCommand<Type>(async (type) =>
             {
                 if (SelectedItem != null)
                 {
@@ -70,7 +70,7 @@ namespace ProjetImmo.Core.ViewModels
             {
                 if (SelectedItem != null)
                 {
-                    NavigationService.ShowDialog<ModifyEstateViewModel>(type, SelectedItem);
+                    NavigationService.ShowDialog<UpsertEstateViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManageEstate
                     Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());

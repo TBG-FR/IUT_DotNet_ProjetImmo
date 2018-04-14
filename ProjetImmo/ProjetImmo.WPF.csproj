@@ -149,11 +149,8 @@
     <Compile Include="Pages\ManageEstatesPage.xaml.cs">
       <DependentUpon>ManageEstatesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\EditEstateWindow.xaml.cs">
-      <DependentUpon>EditEstateWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ModifyEstateWindow.xaml.cs">
-      <DependentUpon>ModifyEstateWindow.xaml</DependentUpon>
+    <Compile Include="Windows\UpsertEstateWindow.xaml.cs">
+      <DependentUpon>UpsertEstateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SearchFiltersWindow.xaml.cs">
       <DependentUpon>SearchFiltersWindow.xaml</DependentUpon>
@@ -186,11 +183,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\EditEstateWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ModifyEstateWindow.xaml">
+    <Page Include="Windows\UpsertEstateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
