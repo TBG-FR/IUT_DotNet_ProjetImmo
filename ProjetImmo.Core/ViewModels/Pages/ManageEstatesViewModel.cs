@@ -174,23 +174,34 @@ namespace ProjetImmo.Core.ViewModels
 
                 //On crée une nouvelle ObservableCollection d'Estates qui trira la liste courante
                 ObservableCollection<Estate> tmpSortEst = new ObservableCollection<Estate>();
-                //On parcours les valeurs de Min a Max de la Liste d'occurences
-                for (int i = occurencesEstates.Max(); i >= occurencesEstates.Min(); i--)
+
+                bool toChange = false;
+                foreach(int occ in occurencesEstates)
                 {
-                    //On parcours la Liste d'occurences
-                    for (int j = 0; j < occurencesEstates.Count; j++)
-                    {
-                        //Si l'occurence courrante est égale à i (i allant de min à max occurences)
-                        if (occurencesEstates[j].Equals(i))
-                        {
-                            //On ajoute l'Estate correspondant au numéro de l'occurence courante
-                            tmpSortEst.Add(Estates[j]);
-                        }
-                    }
+                    if (occ != 0)
+                        toChange = true;
                 }
 
-                //On copie tmpSortEst (la liste triée) dans Estates
-                Estates = tmpSortEst;
+                if (toChange)
+                {
+                    //On parcours les valeurs de Min a Max de la Liste d'occurences
+                    for (int i = occurencesEstates.Max(); i >= occurencesEstates.Min(); i--)
+                    {
+                        //On parcours la Liste d'occurences
+                        for (int j = 0; j < occurencesEstates.Count; j++)
+                        {
+                            //Si l'occurence courrante est égale à i (i allant de min à max occurences)
+                            if (occurencesEstates[j].Equals(i))
+                            {
+                                //On ajoute l'Estate correspondant au numéro de l'occurence courante
+                                tmpSortEst.Add(Estates[j]);
+                            }
+                        }
+                    }
+
+                    //On copie tmpSortEst (la liste triée) dans Estates
+                    Estates = tmpSortEst;
+                }
 
                 // --> !!! CRITICAL WARNING END !!! <-- //
 
