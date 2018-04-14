@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Input de Recherche -->
-            <TextBox Grid.Column="0" Text="Rechercher..." RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" Foreground="#FFCFCFCF">
+            <TextBox Grid.Column="0" Text="{Binding SearchContent, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" VerticalContentAlignment="Center">
                 <TextBox.SelectionBrush>
                     <SolidColorBrush Color="Gray"/>
                 </TextBox.SelectionBrush>
@@ -33,10 +33,12 @@
                     <SolidColorBrush Color="DarkGray"/>
                 </TextBox.BorderBrush>
             </TextBox>
+            <TextBlock Grid.Column="0" Style="{StaticResource placeHolder}" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans"/>
 
             <!-- Boutton de Recherche -->
             <Button Grid.Column="1" Content="Recherche"
                     Style="{StaticResource SearchbarControl}"
+                    Command="{Binding SortListBySearchCommand}"
                     />
             <!-- Click="Button_Search_Click" -->
 
@@ -49,9 +51,9 @@
             <!-- Click="Button_Filters_Click" -->
 
             <!-- Menu de Tri de la Recherche -->
-            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}">
+            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}" SelectedItem="{Binding selectedFilter}">
 
-                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date" IsSelected="True"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Prix"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Superficie"/>
                 

@@ -92,6 +92,23 @@
 
         </Style>
 
+        <!-- modification du text lors du focus sur la barre de recherche (de BrowseEstate et ManageEstate) -->
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.Text" Value=" Rechercher..." />
+            <Setter Property="TextBlock.Foreground" Value="#9E9DA2" />
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SearchContent}" Value="" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="TextBox.Visibility" Value="Visible" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <DataTemplate x:Key="templateComboPers">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding ID}"/>
