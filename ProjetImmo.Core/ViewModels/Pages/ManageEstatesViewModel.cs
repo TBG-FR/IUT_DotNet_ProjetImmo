@@ -19,6 +19,7 @@ namespace ProjetImmo.Core.ViewModels
 
         public ManageEstatesViewModel() {
             Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+            if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
         }
 
         public Estate SelectedItem
@@ -87,8 +88,88 @@ namespace ProjetImmo.Core.ViewModels
         {
 
             get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
-            
+
         }
+
+        #region Commandes liées aux Transactions
+
+        public BaseCommand<Type> ValidateSaleCommand
+        {
+
+            get => new BaseCommand<Type>((type) => {
+                if (SelectedItem != null)
+                {
+                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), true);
+
+                    //executé au retour sur la fentre ManageEstate
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                }
+            });
+
+        }
+
+        public BaseCommand<Type> ValidateRentalCommand
+        {
+
+            get => new BaseCommand<Type>((type) => {
+                if (SelectedItem != null)
+                {
+                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), false);
+
+                    //executé au retour sur la fentre ManageEstate
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                }
+            });
+
+        }
+
+        public BaseCommand<Type> NewSaleCommand
+        {
+
+            get => new BaseCommand<Type>((type) => {
+                if (SelectedItem != null)
+                {
+                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, true);
+
+                    //executé au retour sur la fentre ManageEstate
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                }
+            });
+
+        }
+
+        public BaseCommand<Type> NewRentalCommand
+        {
+
+            get => new BaseCommand<Type>((type) => {
+                if (SelectedItem != null)
+                {
+                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, false);
+
+                    //executé au retour sur la fentre ManageEstate
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                }
+            });
+
+        }
+
+        #endregion
 
     }
 }

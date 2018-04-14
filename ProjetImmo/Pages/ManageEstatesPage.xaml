@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="9*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*" />
         </Grid.RowDefinitions>
 
         <!-- Grid contenant la Barre de Recherche -->
@@ -69,15 +69,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--
-            omboBox ItemsSource="{Binding Categories}" 
-          SelectedValue="{Binding CategoryID, Mode=TwoWay}" 
-          SelectedValuePath="ID" 
-          DisplayMemberPath="Name" />
-            -->
-            
             <!-- ListView contenant les Offres -->
             <ListView Grid.Column="0" ItemsSource="{Binding Estates}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" >
+                
                 <!-- Template affichage des items -->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -110,6 +104,7 @@
                     <RowDefinition Height="2.5*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <!-- Image Bien Immo -->
@@ -150,6 +145,25 @@
 
                 </StackPanel>
 
+                <!-- Gestion des Transactions -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <Button Content="Valider la Vente" Style="{StaticResource InternalButton}"
+                    Command="{Binding ValidateSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromSale}}" />
+
+                    <Button Content="Valider la Location" Style="{StaticResource InternalButton}"
+                    Command="{Binding ValidateRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromRental}}" />
+
+                    <Button Content="Remettre en Vente" Style="{StaticResource InternalButton}"
+                    Command="{Binding NewSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+
+                    <Button Content="Remettre à la Location" Style="{StaticResource InternalButton}"
+                    Command="{Binding NewRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+                    
+                </StackPanel>
+
                 <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
                 <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
 
@@ -158,24 +172,18 @@
         </Grid>
 
         <!-- Grid contenant la Barre du Menu -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="7*" />
-            </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-            <Button Grid.Column="0" Content="Ajouter Vente" Height="41" VerticalAlignment="Bottom"
+            <Button Grid.Column="0" Content="Ajouter Vente" Style="{StaticResource InternalButton}"
                     Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
 
-            <Button Grid.Column="1" Content="Supprimer Selection" Height="41" VerticalAlignment="Bottom"
+            <Button Grid.Column="1" Content="Supprimer Selection" Style="{StaticResource InternalButton}"
                     Command="{Binding DeleteSelectedEstateCommand}"/>
 
-            <Button Grid.Column="2" Content="Modifier Selection" Height="41" VerticalAlignment="Bottom"
+            <Button Grid.Column="2" Content="Modifier Selection" Style="{StaticResource InternalButton}"
                     Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
-            
-        </Grid>
+
+        </StackPanel>
 
     </Grid>
 </Page>

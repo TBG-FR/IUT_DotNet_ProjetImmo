@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace ProjetImmo.Core.Models
@@ -117,5 +118,52 @@ namespace ProjetImmo.Core.Models
             this.ID = default(int);
             this.
         }*/
+
+        /*
+        public bool IsOnSale
+        {
+            get { return GetProperty<bool>(); }
+            set
+            {
+                if(Transactions == null || Transactions.Count == 0) { SetProperty(false); }
+                if (Transactions.Last().GetType().Equals(typeof(SaleTransaction)) && Transactions.Last().TransactionDate == null) { SetProperty(true); }
+                else { SetProperty(false); }
+            }
+        }
+
+        public bool IsToRent
+        {
+            get { return GetProperty<bool>(); }
+            set
+            {
+                if (Transactions == null || Transactions.Count == 0) { SetProperty(false); }
+                if (Transactions.Last().GetType().Equals(typeof(RentalTransaction)) && Transactions.Last().TransactionDate == null) { SetProperty(true); }
+                else { SetProperty(false); }
+            }
+        }
+        */
+        
+        /*
+        public bool IsOnSale
+        {
+            get
+            {
+                if (Transactions == null || Transactions.Count == 0) { return false; }
+                if (Transactions.Last().GetType().Equals(typeof(SaleTransaction)) && Transactions.Last().TransactionDate == null) { return true; }
+                else { return false; }
+            }
+        }
+
+        public bool IsToRent
+        {
+            get
+            {
+                if (Transactions == null || Transactions.Count == 0) { return false; }
+                if (Transactions.Last().GetType().Equals(typeof(RentalTransaction)) && Transactions.Last().TransactionDate == null) { return true; }
+                else { return false; }
+            }
+        }
+        */
+
     }
 }
