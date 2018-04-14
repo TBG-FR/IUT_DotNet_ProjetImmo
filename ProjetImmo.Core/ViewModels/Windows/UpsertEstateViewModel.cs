@@ -12,7 +12,7 @@ namespace ProjetImmo.Core.ViewModels
     public class UpsertEstateViewModel : BaseNotifyPropertyChanged
     {
 
-        public bool NewItem
+        public Boolean NewItem
         {
             get;
             set;
@@ -71,7 +71,8 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<object> UpsertSelected //Insérer dans la BD et fermer la fenêtre
         {
 
-            get => new BaseCommand<object>((view) =>
+            get => new BaseCommand<object>(/*async*/
+        (view) =>
             {
                 List<string> errors = new List<string>();
 
@@ -173,6 +174,7 @@ namespace ProjetImmo.Core.ViewModels
 
                             // On selectionne l'Estate à modifier
                             Estate target = (Estate)Core.DataAccess.AgencyDbContext.Current.Estate.Where(e => e.ID == SelectedItem.ID).ToArray().GetValue(0);
+                            Core.DataAccess.AgencyDbContext.Current.Estate.Update(SelectedItem);
 
                             // On modifie les champs de l'Estate en question
                             target.Surface = SelectedItem.Surface;
@@ -185,9 +187,6 @@ namespace ProjetImmo.Core.ViewModels
                             target.Owner = SelectedItem.Owner;
                             target.Address = addr;
                             target.Keywords = listKeys;
-
-                            // On update l'Estate modifié
-                            Core.DataAccess.AgencyDbContext.Current.Estate.Update(target);
 
                             break;
 

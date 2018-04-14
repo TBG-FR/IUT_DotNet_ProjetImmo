@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ProjetImmo.Core.Commandes;
 using ProjetImmo.Core.Models;
 using ProjetImmo.Core.Tools;
