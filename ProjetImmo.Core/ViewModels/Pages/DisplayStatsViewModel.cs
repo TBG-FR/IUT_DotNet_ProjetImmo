@@ -401,7 +401,7 @@ namespace ProjetImmo.Core.ViewModels
 
                         // Data : Sales per Month
                         values = new int[7];
-                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = (int)t.TransactionDate.Value.DayOfWeek; values[m - 1]++; }
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = (int)t.TransactionDate.Value.DayOfWeek; values[m]++; }
 
                         // Chart Lines : Sales per Month
                         chartvalues = new ChartValues<int>();
@@ -411,7 +411,7 @@ namespace ProjetImmo.Core.ViewModels
                         allvalues.Name = "Ventes";
 
                         // Update the corresponding GridValues field
-                        GridValues[PeriodType.DAY].First = values[(int) DateTime.Now.DayOfWeek - 1];
+                        GridValues[PeriodType.DAY].First = values[(int) DateTime.Now.DayOfWeek];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
@@ -567,7 +567,7 @@ namespace ProjetImmo.Core.ViewModels
 
                         // Data : Sales per Month
                         values = new int[7];
-                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = (int) t.TransactionDate.Value.DayOfWeek; values[m - 1]++; }
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = (int) t.TransactionDate.Value.DayOfWeek; values[m]++; }
 
                         // Chart Lines : Sales per Month
                         chartvalues = new ChartValues<int>();
@@ -577,7 +577,7 @@ namespace ProjetImmo.Core.ViewModels
                         allvalues.Name = "Ventes";
 
                         // Update the corresponding GridValues field
-                        GridValues[PeriodType.DAY].Second = values[(int)DateTime.Now.DayOfWeek - 1];
+                        GridValues[PeriodType.DAY].Second = values[(int)DateTime.Now.DayOfWeek];
 
                         // Return the complete Dataset
                         // PeriodType.ALL, new Pair<List<string>, SeriesCollection>(new List<string>(), new SeriesCollection()) },
