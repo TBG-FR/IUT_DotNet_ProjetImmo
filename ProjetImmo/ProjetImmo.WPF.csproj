@@ -150,6 +150,9 @@
     <Compile Include="Pages\BrowseEstatesPage.xaml.cs">
       <DependentUpon>BrowseEstatesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManageClientsPage.xaml.cs">
+      <DependentUpon>ManageClientsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ManageEstatesPage.xaml.cs">
       <DependentUpon>ManageEstatesPage.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
     <Page Include="Pages\BrowseEstatesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManageClientsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\ManageEstatesPage.xaml">
       <SubType>Designer</SubType>

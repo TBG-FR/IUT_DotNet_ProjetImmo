@@ -1,0 +1,191 @@
+﻿<Page x:Class="ProjetImmo.WPF.Pages.ManageClientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
+      xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
+      Height="450" Width="1250"
+      Title="ManageClientsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="1.5*" />
+        </Grid.RowDefinitions>
+
+        <!-- Grid contenant la Barre de Recherche -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.4*" />
+                <ColumnDefinition Width="1.4*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Input de Recherche -->
+            <TextBox Grid.Column="0" Text="{Binding SearchContent, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans" VerticalContentAlignment="Center">
+                <TextBox.SelectionBrush>
+                    <SolidColorBrush Color="Gray"/>
+                </TextBox.SelectionBrush>
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="DarkGray"/>
+                </TextBox.BorderBrush>
+            </TextBox>
+            <TextBlock Grid.Column="0" Style="{StaticResource placeHolder}" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Open Sans"/>
+
+            <!-- Boutton de Recherche -->
+            <Button Grid.Column="1" Content="Recherche"
+                    Style="{StaticResource SearchbarControl}"
+                    Command="{Binding SortListBySearchCommand}"
+                    />
+            <!-- Click="Button_Search_Click" -->
+
+            <!-- Boutton des Filtres -->
+            <Button Grid.Column="2" Content="Filtres"
+                    Style="{StaticResource SearchbarControl}"
+                    Command="{Binding OpenSearchFilterWindowCommand}"
+                    CommandParameter="{x:Type windows:SearchFiltersWindow}"
+                    />
+            <!-- Click="Button_Filters_Click" -->
+
+            <!-- Menu de Tri de la Recherche -->
+            <ComboBox Grid.Column="3" Style="{StaticResource SearchbarControl}" SelectedItem="{Binding selectedFilter}">
+
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Prix"/>
+                <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Superficie"/>
+                
+            </ComboBox>
+
+
+                <!-- SelectionChanged="ComboBox_OrderBy_SelectionChanged" -->
+
+        </Grid>
+
+        <!-- Grid contenant les Offres Immobilières -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.25*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ListView contenant les Offres -->
+            <ListView Grid.Column="0" ItemsSource="{Binding Estates}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" >
+                
+                <!-- Template affichage des items -->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type :" />
+                                <TextBlock Text="{Binding Type}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Address :" />
+                                <TextBlock Text="{Binding Address.PostalAddress}" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Address.ZIP}" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding Address.City}" />
+                                <TextBlock Text=")" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ListView>
+
+            <!-- Grid contenant les Infos de l'Offres Sélectionnée -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Image Bien Immo -->
+                <TextBlock Grid.Row="0" Text="{Binding SelectedItem.ID}" />
+
+                <TextBlock Grid.Row="1" Text="Détails:" />
+
+                <!-- Détails Bien Immo -->
+                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Type :" />
+                        <TextBlock Text="{Binding SelectedItem.Surface}" />
+                        <TextBlock Text=" m²" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre de Chambre(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.RoomsCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre d'Étage(s) :" />
+                        <TextBlock Text="{Binding SelectedItem.FloorCount}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Charges Anuelles :" />
+                        <TextBlock Text="{Binding SelectedItem.AnnualCharges}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Taxe d'Habitation :" />
+                        <TextBlock Text="{Binding SelectedItem.PropertyTax}" />
+                        <TextBlock Text=" €" />
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!-- Gestion des Transactions -->
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                    <Button Content="Valider la Vente" Style="{StaticResource InternalButton}"
+                    Command="{Binding ValidateSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromSale}}" />
+
+                    <Button Content="Valider la Location" Style="{StaticResource InternalButton}"
+                    Command="{Binding ValidateRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromRental}}" />
+
+                    <Button Content="Remettre en Vente" Style="{StaticResource InternalButton}"
+                    Command="{Binding NewSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+
+                    <Button Content="Remettre à la Location" Style="{StaticResource InternalButton}"
+                    Command="{Binding NewRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+                    
+                </StackPanel>
+
+                <!-- TODO : "TEMPLATE" Affichant les infos d'une Offre -->
+                <!-- (Caché par défaut et remplacé par un message "Cliquez sur une Estate" ?) -->
+
+            </Grid>
+
+        </Grid>
+
+        <!-- Grid contenant la Barre du Menu -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+            <Button Grid.Column="0" Content="Ajouter Vente" Style="{StaticResource InternalButton}"
+                    Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
+
+            <Button Grid.Column="1" Content="Supprimer Selection" Style="{StaticResource InternalButton}"
+                    Command="{Binding DeleteSelectedEstateCommand}"/>
+
+            <Button Grid.Column="2" Content="Modifier Selection" Style="{StaticResource InternalButton}"
+                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

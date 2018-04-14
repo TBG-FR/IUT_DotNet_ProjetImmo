@@ -76,7 +76,8 @@
                         </charts:Axis>
                     </charts:CartesianChart.AxisY>
                     <charts:CartesianChart.AxisX>
-                        <charts:Axis Title="Mois" Labels="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].First}"></charts:Axis>
+                        <charts:Axis Title="Mois" Labels="{Binding Path=RentalsChartValues[(enum:PeriodType)YEAR].First}">
+                        </charts:Axis>
                     </charts:CartesianChart.AxisX>
                 </charts:CartesianChart>
 
