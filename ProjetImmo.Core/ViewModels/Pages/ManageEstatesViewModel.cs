@@ -18,12 +18,14 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { if (SetProperty(value)) { SetProperty(value); } }
         }
-        
-        public ManageEstatesViewModel() {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+
+        public ManageEstatesViewModel()
+        {
+            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
             if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
+            SearchContent = "";
         }
-        
+
         public Estate SelectedItem
         {
             get { return GetProperty<Estate>(); }
@@ -45,12 +47,6 @@ namespace ProjetImmo.Core.ViewModels
                 {
                 }
             }
-        }
-
-        public ManageEstatesViewModel()
-        {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-            SearchContent = "";
         }
 
         public List<string> GenerateSlug(string phrase)
@@ -76,7 +72,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>((type) =>
             {
                 NavigationService.ShowDialog<UpsertEstateViewModel>(type);
-                Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
             });
 
         }
@@ -90,7 +86,7 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
                     DataAccess.AgencyDbContext.Current.SaveChangesAsync();
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
                 }
                 else
                 {
@@ -110,7 +106,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertEstateViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
                 }
                 else
                 {
@@ -126,7 +122,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
 
         }
-        
+
         public BaseCommand<Type> SortListBySearchCommand
         {
 
@@ -137,7 +133,7 @@ namespace ProjetImmo.Core.ViewModels
 
             //Bonne Chance à vous...
 
-            
+
 
             get => new BaseCommand<Type>(/*async*/(type) => {
                 //On crée une liste de keyWords et une liste qui va stocker les poids d'occurences (avec les keyWords) pour chaque Estate
@@ -145,13 +141,13 @@ namespace ProjetImmo.Core.ViewModels
                 List<int> occurencesEstates = new List<int>();
 
                 //On initialise la liste d'occurences à 0
-                foreach(Estate est in Estates)
+                foreach (Estate est in Estates)
                 {
                     occurencesEstates.Add(0);
                 }
 
                 //On parcours les Estates (toutes les variables contenant estate dans leurs noms sont parcourues avec les i)
-                for (int i=0; i< Estates.Count; i++)
+                for (int i = 0; i < Estates.Count; i++)
                 {
                     //On parcours les motsCles (toutes les variables contenant motCle dans leurs noms sont parcourues avec les j)
                     for (int j = 0; j < motsCles.Count; j++)
@@ -197,7 +193,7 @@ namespace ProjetImmo.Core.ViewModels
                 Estates = tmpSortEst;
 
                 // --> !!! CRITICAL WARNING END !!! <-- //
-                
+
             });
 
         }
@@ -251,7 +247,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, true);
 
                     //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
                 }
                 else
                 {
@@ -260,24 +256,29 @@ namespace ProjetImmo.Core.ViewModels
             });
 
         }
-                
+
         public BaseCommand<Type> NewRentalCommand
         {
 
-            get => new BaseCommand<Type>((type) => {
+            get => new BaseCommand<Type>((type) =>
+            {
                 if (SelectedItem != null)
                 {
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, false);
 
                     //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
                 }
                 else
                 {
                     MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                 }
-                
+
+            });
+
+        }
+
         #endregion
-        
+
     }
 }
