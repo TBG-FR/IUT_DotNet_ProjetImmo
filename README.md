@@ -1,6 +1,6 @@
 
 # IUT_DotNet_ProjetImmo
-**Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobiliers**
+**Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobiliers**  
 *Arnaud Berlendis et Tom-Brian Garcia*
 
 ## Fonctionnalités implémentées
