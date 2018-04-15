@@ -18,6 +18,12 @@ namespace ProjetImmo.Core.ViewModels
     public class DisplayStatsViewModel : BaseNotifyPropertyChanged
     {
 
+        public override void refresh()
+        {
+            // NE FONCTIONNE PAS (Toutes les données reviennent à 0 sur l'affichage... Regarder du côté WPF)
+            //refreshStats();
+        }
+
         public ObservableCollection<Estate> CurrentSales
         {
             get { return GetProperty<ObservableCollection<Estate>>(); }
@@ -29,6 +35,8 @@ namespace ProjetImmo.Core.ViewModels
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { SetProperty<ObservableCollection<Estate>>(value); }
         }
+
+        #region Properties - Calculated data to display
 
         public Dictionary<EstateType, int> CurrentSalesDetails
         {
@@ -59,13 +67,16 @@ namespace ProjetImmo.Core.ViewModels
             set { SetProperty<Dictionary<PeriodType, Pair<int, int>>>(value); }
         }
 
+        #endregion
+
         public DisplayStatsViewModel()
         {
-            //Assembly.LoadWithPartialName("PresentationFramework");
-            //Assembly.Load(new AssemblyName("PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
 
+            // Première Initilialisation des données
             CurrentSales = new ObservableCollection<Estate>();
             CurrentRentals = new ObservableCollection<Estate>();
+
+            #region Constructeur - Initialisation des données
 
             CurrentSalesDetails = new Dictionary<EstateType, int>
             {
@@ -109,47 +120,10 @@ namespace ProjetImmo.Core.ViewModels
                 { PeriodType.DAY, new Pair<int, int>(0,0) }
             };
 
-            refreshStats();
-
-            #region TEMP
-            //refreshGraphs();
-
-            //CurrentSalesNumbers.(EstateType.HOUSE, 15);
-            //CurrentSalesNumbers.ElementAt(Convert.ChangeType(EstateType.HOUSE, EstateType.HOUSE.GetTypeCode());
-
-            /*
-            foreach (Estate e in CurrentSales)
-            {
-
-                DateTime? D1 = e.Transactions.Last().TransactionDate;
-
-                if(D1 == null) {
-
-                    String S1 = D1.ToString();
-                    Boolean B1 = D1.HasValue;
-
-                    S1.ToUpper();
-                }
-
-            }
-            */
-
-            /*
-            CurrentSales.Add(DataAccess.AgencyDbContext.Current.Estate
-                .Where((e) => e.Transactions.Count() != 0)
-                .Where((e) => e.Transactions.Last().TransactionDate.Equals(null))
-                .Where((e) => e.Transactions.Last().GetType() == typeof(SaleTransaction)).ToArray());
-
-            CurrentRentals.Add(DataAccess.AgencyDbContext.Current.Estate
-                .Where((e) => e.Transactions.Count() != 0)
-                .Where((e) => e.Transactions.Last().TransactionDate.Equals(null))
-                .Where((e) => e.Transactions.Last().GetType() == typeof(RentalTransaction)).ToArray());
-            */
-            //CurrentSales.Count();
-            //CurrentRentals.Count();
-
-            //CurrentSales.Where((e) => e.GetType().Equals(EstateType.HOUSE)).Count();
             #endregion
+
+            // Premier rafraichissement des données
+            refreshStats();
 
         }
 
@@ -158,13 +132,17 @@ namespace ProjetImmo.Core.ViewModels
 
             #region CurrentEstats : Get all Estates from the Database
 
-            ObservableCollection<Estate> CurrentEstates = 
+            ObservableCollection<Estate> CurrentEstatesTemp = 
                 new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate
-                    .Where((e) => e.Transactions.Count() != 0)/*
-                    .Where((e) => e.Transactions.Last().TransactionDate.Equals())*/
+                    .Where((e) => e.Transactions.Count() != 0)
+                    //.Where((e) => e.Transactions.Last().Equals(null))
+                    //.Where((e) => e.Transactions.Last().HasValue.Equals(false))
+                    //...
                     .Include((e) => e.Transactions).ToArray());
 
-            //Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
+            // Replaces the "Where" instruction
+            ObservableCollection<Estate> CurrentEstates = new ObservableCollection<Estate>();
+            foreach (Estate e in CurrentEstatesTemp) { if(!(e.Transactions.Last().TransactionDate.HasValue)) { CurrentEstates.Add(e); } }
 
             #endregion
 
@@ -189,13 +167,11 @@ namespace ProjetImmo.Core.ViewModels
                 switch(e.Type)
                 {
                     case EstateType.HOUSE:
-                        //CurrentRentalsDetails[EstateType.HOUSE] += 1; 
-                        CurrentRentalsDetails[EstateType.HOUSE] = 120; // TEMP
+                        CurrentRentalsDetails[EstateType.HOUSE] += 1;
                         break;
 
                     case EstateType.FLAT:
-                        //CurrentRentalsDetails[EstateType.FLAT] += 1;
-                        CurrentRentalsDetails[EstateType.FLAT] = 21; // TEMP
+                        CurrentRentalsDetails[EstateType.FLAT] += 1;
                         break;
 
                     case EstateType.COMMERCIAL:
@@ -223,13 +199,11 @@ namespace ProjetImmo.Core.ViewModels
                 switch (e.Type)
                 {
                     case EstateType.HOUSE:
-                        //CurrentSalesDetails[EstateType.HOUSE] += 1;
-                        CurrentSalesDetails[EstateType.HOUSE] = 170; // TEMP
+                        CurrentSalesDetails[EstateType.HOUSE] += 1;
                         break;
 
                     case EstateType.FLAT:
-                        //CurrentSalesDetails[EstateType.FLAT] += 1;
-                        CurrentSalesDetails[EstateType.FLAT] = 71; // TEMP
+                        CurrentSalesDetails[EstateType.FLAT] += 1;
                         break;
 
                     case EstateType.COMMERCIAL:
@@ -247,6 +221,8 @@ namespace ProjetImmo.Core.ViewModels
             }
 
             #endregion
+            
+            #region GridValues : Reset values
 
             // Reset Numeric Values (they will be updated with SalesChartValues & RentalsChartValues)
             //GridValues.ResetValues();
@@ -258,12 +234,20 @@ namespace ProjetImmo.Core.ViewModels
                 { PeriodType.DAY, new Pair<int, int>(0,0) }
             };
 
+            #endregion
+
+            #region SalesChartValues : Reset values and re-calculate them
+
             SalesChartValues.ResetValues();
             SalesChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(SaleTransaction));
             SalesChartValues[PeriodType.YEAR] = generateChartValues(PeriodType.YEAR, typeof(SaleTransaction));
             SalesChartValues[PeriodType.MONTH] = generateChartValues(PeriodType.MONTH, typeof(SaleTransaction));
             SalesChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(SaleTransaction));
             SalesChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(SaleTransaction));
+
+            #endregion
+
+            #region RentalsChartValues : Reset values and re-calculate them
 
             RentalsChartValues.ResetValues();
             RentalsChartValues[PeriodType.ALL] = generateChartValues(PeriodType.ALL, typeof(RentalTransaction));
@@ -272,8 +256,10 @@ namespace ProjetImmo.Core.ViewModels
             RentalsChartValues[PeriodType.WEEK] = generateChartValues(PeriodType.WEEK, typeof(RentalTransaction));
             RentalsChartValues[PeriodType.DAY] = generateChartValues(PeriodType.DAY, typeof(RentalTransaction));
 
-            CurrentSalesDetails.Count();
-            
+            #endregion
+
+            // At this point, all data should be loaded into the different properties
+
         }
 
         public Pair<List<string>, SeriesCollection> generateChartValues(PeriodType period, Type transactionType)
@@ -290,7 +276,7 @@ namespace ProjetImmo.Core.ViewModels
             {
 
                 /*
-                ===== Sales =====
+                ===== Actions on  =====
                 GridValues[PeriodType.YEAR].First
                 GridValues[PeriodType.MONTH].First
                 GridValues[PeriodType.DAY].First
@@ -303,18 +289,18 @@ namespace ProjetImmo.Core.ViewModels
 
                         int years = DateTime.Now.Year - 2015;
 
-                        // Chart Columns : Hours of the Day
+                        // Chart Columns : Years since 2015
                         for (int i = years; i >= 0; i--) { labels.Add((DateTime.Now.Year - i).ToString()); }
 
-                        // Data : SaleTransactions of the Month, per Day
+                        // Data : SaleTransactions of all time (since 2015), per Year
                         matchingSaleTransactions = new ObservableCollection<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
 
-                        // Data : Sales per Month
+                        // Data : Sales per Year
                         values = new int[years + 1];
                         for (int i = years; i >= 0; i--) { values[i] = 0; }
                         foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
 
-                        // Chart Lines : Sales per Month
+                        // Chart Lines : Sales per Year
                         chartvalues = new ChartValues<int>();
                         for (int i = 0; i <= years; i++) { chartvalues.Add(values[i]); }
 
@@ -446,7 +432,7 @@ namespace ProjetImmo.Core.ViewModels
                     #endregion
 
                     default:
-                        // TODO
+                        // TODO ?
                         return null;
                         break;
 
@@ -457,7 +443,7 @@ namespace ProjetImmo.Core.ViewModels
             {
 
                 /*
-                ===== Rentals =====
+                ===== Actions on =====
                 GridValues[PeriodType.YEAR].Second
                 GridValues[PeriodType.MONTH].Second
                 GridValues[PeriodType.DAY].Second
@@ -470,18 +456,18 @@ namespace ProjetImmo.Core.ViewModels
 
                         int years = DateTime.Now.Year - 2015;
 
-                        // Chart Columns : Hours of the Day
+                        // Chart Columns : Years since 2015
                         for (int i = years; i >= 0; i--) { labels.Add((DateTime.Now.Year - i).ToString()); }
 
-                        // Data : RentalTransactions of the Month, per Day
+                        // Data : RentalTransactions of all time (since 2015), per Year
                         matchingRentalTransactions = new ObservableCollection<RentalTransaction>(DataAccess.AgencyDbContext.Current.RentalTransaction.Where((t) => t.TransactionDate.HasValue).ToArray());
 
-                        // Data : Sales per Month
+                        // Data : Sales per Year
                         values = new int[years + 1];
                         for (int i = years; i >= 0; i--) { values[i] = 0; }
                         foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Year; values[m - 2015]++; }
 
-                        // Chart Lines : Sales per Month
+                        // Chart Lines : Sales per Year
                         chartvalues = new ChartValues<int>();
                         for (int i = 0; i <= years; i++) { chartvalues.Add(values[i]); }
 
@@ -612,7 +598,7 @@ namespace ProjetImmo.Core.ViewModels
                     #endregion
 
                     default:
-                        // TODO
+                        // TODO ?
                         return null;
                         break;
 

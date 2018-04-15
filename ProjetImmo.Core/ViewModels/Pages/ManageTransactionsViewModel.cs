@@ -14,7 +14,7 @@ namespace ProjetImmo.Core.ViewModels
     public class ManageTransactionsViewModel : BaseNotifyPropertyChanged
     {
 
-        public void reInitList()
+        public override void refresh()
         {
 
             // This instruction is used to initialize the list (data), and also to refresh it (after an action in another window)
@@ -26,13 +26,15 @@ namespace ProjetImmo.Core.ViewModels
             List<SaleTransaction> saleTransactions = new List<SaleTransaction>(DataAccess.AgencyDbContext.Current.SaleTransaction/*.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).*/.ToArray());
             foreach (SaleTransaction st in saleTransactions) { Transactions.Add(st); }
 
+            // Replacer le SelectedItem
+            if (Transactions != null && Transactions.Count != 0) { SelectedItem = Transactions.First(); }
+
         }
 
         // Constructeur
         public ManageTransactionsViewModel()
         {
-            reInitList();
-            if (Transactions != null && Transactions.Count != 0) { SelectedItem = Transactions.First(); }
+            refresh();
             SearchContent = "";
         }
 
@@ -113,7 +115,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManageTransaction
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -132,7 +134,7 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
                     DataAccess.AgencyDbContext.Current.SaveChangesAsync();
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -144,7 +146,7 @@ namespace ProjetImmo.Core.ViewModels
 
         #endregion
 
-        #region Commandes - Search-related
+        #region Commandes - Search/Sort-related
 
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {

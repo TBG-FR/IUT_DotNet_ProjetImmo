@@ -22,9 +22,9 @@
         <!-- Grid contenant le menu de navigation entres les Pages -->
         <Grid Grid.Row="0">
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
 
-                <Button Content="Accueil (Statistiques)"
+                <Button Content="  Accueil (Statistiques)  "
                         Command="{Binding ChangeViewCommand}"
                         Style="{StaticResource NavbarButton}">
                     <Button.CommandParameter>
@@ -35,7 +35,7 @@
                     </Button.CommandParameter>
                 </Button>
 
-                <Button Content="Consulter les Biens"
+                <Button Content="  Consulter les Biens  "
                         Command="{Binding ChangeViewCommand}"
                         Style="{StaticResource NavbarButton}">
                     <Button.CommandParameter>
@@ -46,7 +46,7 @@
                     </Button.CommandParameter>
                 </Button>
 
-                <Button Content="Gestion des Biens"
+                <Button Content="  Gestion des Biens  "
                         Command="{Binding ChangeViewCommand}"
                         Style="{StaticResource NavbarButton}">
                     <Button.CommandParameter>
@@ -57,7 +57,7 @@
                     </Button.CommandParameter>
                 </Button>
 
-                <Button Content="Gestion des Transactions"
+                <Button Content=" Gestion des Transactions  "
                         Command="{Binding ChangeViewCommand}"
                         Style="{StaticResource NavbarButton}">
                     <Button.CommandParameter>
@@ -68,7 +68,7 @@
                     </Button.CommandParameter>
                 </Button>
 
-                <Button Content="Gestion des Clients"
+                <Button Content="  Gestion des Clients  "
                         Command="{Binding ChangeViewCommand}"
                         Style="{StaticResource NavbarButton}">
                     <Button.CommandParameter>
@@ -79,13 +79,11 @@
                     </Button.CommandParameter>
                 </Button>
 
-                <Button Content="Fermer le programme"
+                <Button Content="  Fermer le programme  "
                         Command="{Binding CloseViewCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                        Style="{StaticResource NavbarButton}"/>
-
-                <Button Content="Random Button"
-                        Style="{StaticResource NavbarButton}"/>
+                        Style="{StaticResource NavbarButton}"
+                        HorizontalAlignment="Right"/>
 
             </StackPanel>
             
@@ -102,13 +100,14 @@
         <!-- Grid contenant le menu du bas (trucs divers à définir) -->
         <Grid Grid.Row="2">
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                <Button Content="Ouvrir subfenetre"
+                <!--<Button Content="Ouvrir subfenetre"
                     Command="{Binding OpenNewWindowCommand}"
                     CommandParameter="{x:Type windows:SearchFiltersWindow}"
                     Width="100"
                     />
+                -->
               
                 <!--
                 <Button Content="Afficher fenêtre"
@@ -123,7 +122,14 @@
                 </Button>
                 -->
 
-                <Button Content="Random Button" Width="100" Height="50" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
+                <Button Content="   Random Button   " Style="{StaticResource NavbarButton}" />
 
             </StackPanel>
 

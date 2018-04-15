@@ -14,19 +14,21 @@ namespace ProjetImmo.Core.ViewModels
     public class ManageClientsViewModel : BaseNotifyPropertyChanged
     {
 
-        public void reInitList()
+        public override void refresh()
         {
 
             // This instruction is used to initialize the list (data), and also to refresh it (after an action in another window)
             Clients = new ObservableCollection<Person>(DataAccess.AgencyDbContext.Current.Person/*.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords)*/.ToArray());
+
+            // Replacer le SelectedItem
+            if (Clients != null && Clients.Count != 0) { SelectedItem = Clients.First(); }
 
         }
 
         // Constructeur
         public ManageClientsViewModel()
         {
-            reInitList();
-            if (Clients != null && Clients.Count != 0) { SelectedItem = Clients.First(); }
+            refresh();
             SearchContent = "";
         }
 
@@ -90,7 +92,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>((type) =>
             {
                 NavigationService.ShowDialog<UpsertPersonViewModel>(type);
-                reInitList();
+                refresh();
             });
 
         }
@@ -105,7 +107,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertPersonViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManagePerson
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -123,8 +125,8 @@ namespace ProjetImmo.Core.ViewModels
                 if (SelectedItem != null)
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
-                    DataAccess.AgencyDbContext.Current.SaveChangesAsync();
-                    reInitList();
+                    await DataAccess.AgencyDbContext.Current.SaveChangesAsync();
+                    refresh();
                 }
                 else
                 {
@@ -136,7 +138,7 @@ namespace ProjetImmo.Core.ViewModels
 
         #endregion
 
-        #region Commandes - Search-related
+        #region Commandes - Search/Sort-related
 
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {

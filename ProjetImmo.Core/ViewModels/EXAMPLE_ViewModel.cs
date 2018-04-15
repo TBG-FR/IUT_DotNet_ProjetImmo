@@ -45,5 +45,10 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
+        public override void refresh()
+        {
+            // Do nothing
+        }
+
     }
 }

@@ -75,15 +75,10 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
-        /*public Address()
+        public override void refresh()
         {
-            //this.ID = default(int);
-            this.PostalAddress = default(String);
-            this.ZIP = default(String);
-            this.City = default(String);
-            this.Longitude = default(double);
-            this.Latitude = default(double);
-        }*/
+            // Do nothing
+        }
 
     }
 }

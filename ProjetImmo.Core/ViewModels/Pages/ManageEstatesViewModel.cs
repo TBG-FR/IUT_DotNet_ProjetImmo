@@ -14,18 +14,20 @@ namespace ProjetImmo.Core.ViewModels
     public class ManageEstatesViewModel : BaseNotifyPropertyChanged
     {
 
-        public void reInitList() {
+        public override void refresh() {
 
             // This instruction is used to initialize the list (data), and also to refresh it (after an action in another window)
             Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+
+            // Replacer le SelectedItem
+            if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
 
         }
 
         // Constructeur
         public ManageEstatesViewModel()
         {
-            reInitList();
-            if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
+            refresh();
             SearchContent = "";
         }
 
@@ -89,7 +91,7 @@ namespace ProjetImmo.Core.ViewModels
             get => new BaseCommand<Type>((type) =>
             {
                 NavigationService.ShowDialog<UpsertEstateViewModel>(type);
-                reInitList();
+                refresh();
             });
 
         }
@@ -104,7 +106,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertEstateViewModel>(type, SelectedItem);
 
                     //executé au retour sur la fentre ManageEstate
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -123,7 +125,7 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
                     DataAccess.AgencyDbContext.Current.SaveChangesAsync();
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -146,7 +148,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), true);
 
                     //executé au retour sur la fentre ManageEstate
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -165,7 +167,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), false);
 
                     //executé au retour sur la fentre ManageEstate
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -184,7 +186,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, true);
 
                     //executé au retour sur la fentre ManageEstate
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -204,7 +206,7 @@ namespace ProjetImmo.Core.ViewModels
                     NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, false);
 
                     //executé au retour sur la fentre ManageEstate
-                    reInitList();
+                    refresh();
                 }
                 else
                 {
@@ -217,8 +219,8 @@ namespace ProjetImmo.Core.ViewModels
 
         #endregion
 
-        #region Commandes - Search-related
-        
+        #region Commandes - Search/Sort-related
+
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {
 

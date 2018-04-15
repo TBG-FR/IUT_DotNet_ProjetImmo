@@ -35,6 +35,9 @@ namespace ProjetImmo.Core.ViewModels
             if (this.Sale == true) { this.SelectedItem = (SaleTransaction)SelectedItem; }
             else { this.SelectedItem = (RentalTransaction)SelectedItem; }
 
+            // Date de Transaction par défaut
+            this.SelectedItem.TransactionDate = DateTime.Now;
+
             // Chargement des données utiles
             loadData();
         }
@@ -58,6 +61,9 @@ namespace ProjetImmo.Core.ViewModels
                 this.SelectedItem = new RentalTransaction();
                 this.SelectedItem.RelatedEstate = RelatedEstate;
             }
+
+            // Date de Création par défaut
+            this.SelectedItem.CreationDate = DateTime.Now;
 
             // Chargement des données utiles
             loadData();
@@ -266,6 +272,11 @@ namespace ProjetImmo.Core.ViewModels
             // On charge la liste des Personnes
             Persons = new ObservableCollection<Person>(DataAccess.AgencyDbContext.Current.Person.ToArray());
 
+        }
+
+        public override void refresh()
+        {
+            // Do nothing
         }
 
     }

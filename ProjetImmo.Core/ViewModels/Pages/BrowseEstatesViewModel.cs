@@ -13,16 +13,36 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class BrowseEstatesViewModel : BaseNotifyPropertyChanged
     {
+
+        public override void refresh()
+        {
+            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+
+            // Replacer le SelectedItem
+            if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
+        }
+
+        // Constructeur
+        public BrowseEstatesViewModel()
+        {
+            refresh();
+            SearchContent = "";
+        }
+
+        // Liste (éléments)
         public ObservableCollection<Estate> Estates {
             get { return GetProperty<ObservableCollection<Estate>>(); }
             set { if (SetProperty(value)) { /**/ } }
         }
 
+        // Élément selectionné
         public Estate SelectedItem
         {
             get { return GetProperty<Estate>(); }
             set { if (SetProperty(value)) { /**/ } }
         }
+
+        #region Propriétés & Fonctions - Search-related
 
         public String SelectedFilter
         {
@@ -55,10 +75,6 @@ namespace ProjetImmo.Core.ViewModels
             }
         }
 
-        public BrowseEstatesViewModel() {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-            SearchContent = "";
-        }
 
         public List<string> GenerateSlug(string phrase)
         {
@@ -76,6 +92,10 @@ namespace ProjetImmo.Core.ViewModels
             byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
             return System.Text.Encoding.ASCII.GetString(bytes);
         }
+
+        #endregion
+
+        #region Commandes - Search/Sort-related
 
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {
@@ -170,6 +190,8 @@ namespace ProjetImmo.Core.ViewModels
             });
 
         }
+
+        #endregion
 
     }
 }

@@ -27,18 +27,6 @@ namespace ProjetImmo.Core.ViewModels
             this.SelectedItem = SelectedItem;
             if(this.SelectedItem.Address == null) { this.SelectedItem.Address = new Address(); }
 
-            //On charge les Keywords
-            ObservableCollection<EstateKeyword> keywords = SelectedItem.Keywords;
-            string buff = "";
-            foreach (EstateKeyword keyword in keywords)
-            {
-                List<Keyword> key = DataAccess.AgencyDbContext.Current.Keyword.Where(k => k.ID == keyword.KeywordID).ToList();
-                buff += key[0].Name;
-                if (keyword != keywords.Last())
-                    buff += ",";
-            }
-            ConcatKeyWords = buff;
-
             // Chargement des données utiles
             loadData();
         }
@@ -258,6 +246,29 @@ namespace ProjetImmo.Core.ViewModels
             Types = new ObservableCollection<Models.Enums.EstateType>();
             foreach (var value in Enum.GetValues(typeof(Models.Enums.EstateType))) { Types.Add((Models.Enums.EstateType)value); }
 
+            //On charge les Keywords
+            if (SelectedItem.Keywords != null && SelectedItem.Keywords.Count > 0)
+            {
+
+                ObservableCollection<EstateKeyword> keywords = SelectedItem.Keywords;
+
+                string buff = "";
+                foreach (EstateKeyword keyword in keywords)
+                {
+                    List<Keyword> key = DataAccess.AgencyDbContext.Current.Keyword.Where(k => k.ID == keyword.KeywordID).ToList();
+                    buff += key[0].Name;
+                    if (keyword != keywords.Last())
+                        buff += ",";
+                }
+                ConcatKeyWords = buff;
+            }
+            else { ConcatKeyWords = ""; }
+
+        }
+
+        public override void refresh()
+        {
+            // Do nothing
         }
 
     }

@@ -7,8 +7,12 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class SearchFilterViewModel : BaseNotifyPropertyChanged
     {
+        // TODO
 
-        /**/
+        public override void refresh()
+        {
+            // Do nothing
+        }
 
     }
 }

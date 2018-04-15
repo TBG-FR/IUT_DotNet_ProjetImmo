@@ -8,6 +8,11 @@ namespace ProjetImmo.Core.ViewModels
     public class MainViewModel<TPage> : BaseNotifyPropertyChanged
     {
 
+        public override void refresh()
+        {
+            // Do nothing
+        }
+
         public object CurrentPage
         {
             get { return GetProperty<object>(); }

@@ -83,5 +83,10 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
+        public override void refresh()
+        {
+            // Do nothing
+        }
+
     }
 }

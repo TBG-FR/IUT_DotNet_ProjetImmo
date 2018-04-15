@@ -12,6 +12,10 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class ConnexionWindowViewModel : BaseNotifyPropertyChanged
     {
+        public override void refresh()
+        {
+            // Do nothing
+        }
 
         public BaseCommand<Type/*, Type*/> OpenNewWindowCommand
         {

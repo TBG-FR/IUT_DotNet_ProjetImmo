@@ -189,7 +189,7 @@
         <!-- Grid contenant la Barre du Menu -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-            <Button Grid.Column="0" Content=" Ajouter Vente " Style="{StaticResource InternalButton}"
+            <Button Grid.Column="0" Content=" Ajouter un bien " Style="{StaticResource InternalButton}"
                     Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
 
             <Button Grid.Column="1" Content=" Supprimer Selection " Style="{StaticResource InternalButton}"

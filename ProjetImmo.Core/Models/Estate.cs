@@ -113,57 +113,10 @@ namespace ProjetImmo.Core.Models
 
         #endregion
 
-        /*public Estate()
+        public override void refresh()
         {
-            this.ID = default(int);
-            this.
-        }*/
-
-        /*
-        public bool IsOnSale
-        {
-            get { return GetProperty<bool>(); }
-            set
-            {
-                if(Transactions == null || Transactions.Count == 0) { SetProperty(false); }
-                if (Transactions.Last().GetType().Equals(typeof(SaleTransaction)) && Transactions.Last().TransactionDate == null) { SetProperty(true); }
-                else { SetProperty(false); }
-            }
+            // Do nothing
         }
-
-        public bool IsToRent
-        {
-            get { return GetProperty<bool>(); }
-            set
-            {
-                if (Transactions == null || Transactions.Count == 0) { SetProperty(false); }
-                if (Transactions.Last().GetType().Equals(typeof(RentalTransaction)) && Transactions.Last().TransactionDate == null) { SetProperty(true); }
-                else { SetProperty(false); }
-            }
-        }
-        */
-        
-        /*
-        public bool IsOnSale
-        {
-            get
-            {
-                if (Transactions == null || Transactions.Count == 0) { return false; }
-                if (Transactions.Last().GetType().Equals(typeof(SaleTransaction)) && Transactions.Last().TransactionDate == null) { return true; }
-                else { return false; }
-            }
-        }
-
-        public bool IsToRent
-        {
-            get
-            {
-                if (Transactions == null || Transactions.Count == 0) { return false; }
-                if (Transactions.Last().GetType().Equals(typeof(RentalTransaction)) && Transactions.Last().TransactionDate == null) { return true; }
-                else { return false; }
-            }
-        }
-        */
 
     }
 }

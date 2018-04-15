@@ -39,7 +39,8 @@ namespace ProjetImmo.Core.Tools
         {
             get => new BaseCommand<Type, Type>((tView, tViewModel) => { NavigationService.Show(tView, tViewModel);  });
         }
-        
+
+        public abstract void refresh();
 
     }
 }

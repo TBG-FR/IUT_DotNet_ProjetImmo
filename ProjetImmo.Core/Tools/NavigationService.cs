@@ -23,8 +23,16 @@ namespace ProjetImmo.Core.Tools
         private static object GetViewModelInstance(Type tViewModel, params object[] viewModelParameters)
         {
             object vm = null;
+            // Ne pas garder en cache ces fenêtres
             if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel) && tViewModel != typeof(UpsertTransactionViewModel))
+            {
                 vm = _viewModelsCache[tViewModel];
+
+                // Rafraîchir la vue mise en cache lors de la récupération
+                BaseNotifyPropertyChanged test = (BaseNotifyPropertyChanged)vm;
+                test.refresh();
+            }
+
             else
             {
                 vm = Activator.CreateInstance(tViewModel, viewModelParameters);

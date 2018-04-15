@@ -165,20 +165,6 @@
 
         </Grid>
 
-        <!-- Grid contenant la Barre du Menu -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-
-            <Button Grid.Column="0" Content=" Ajouter Vente " Style="{StaticResource InternalButton}"
-                    Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
-
-            <Button Grid.Column="1" Content=" Supprimer Selection " Style="{StaticResource InternalButton}"
-                    Command="{Binding DeleteSelectedEstateCommand}"/>
-
-            <Button Grid.Column="2" Content=" Modifier Selection " Style="{StaticResource InternalButton}"
-                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
-
-        </StackPanel>
-
     </Grid>
 
 </Page>
