@@ -258,7 +258,7 @@ namespace ProjetImmo.Core.ViewModels
                     List<Keyword> key = DataAccess.AgencyDbContext.Current.Keyword.Where(k => k.ID == keyword.KeywordID).ToList();
                     buff += key[0].Name;
                     if (keyword != keywords.Last())
-                        buff += ",";
+                        buff += ", ";
                 }
                 ConcatKeyWords = buff;
             }
