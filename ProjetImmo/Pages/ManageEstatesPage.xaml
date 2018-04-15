@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjetImmo.WPF.Pages"
       xmlns:windows="clr-namespace:ProjetImmo.WPF.Windows"
-      Height="450" Width="1250"
+      Height="500" Width="1250"
       Title="ManageEstatesPage">
 
     <Grid>
@@ -56,11 +56,11 @@
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Date"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Prix" IsSelected="True"/>
                 <ComboBoxItem Style="{StaticResource SubmenuItem}" Content="Superficie"/>
-                
+
             </ComboBox>
 
 
-                <!-- SelectionChanged="ComboBox_OrderBy_SelectionChanged" -->
+            <!-- SelectionChanged="ComboBox_OrderBy_SelectionChanged" -->
 
         </Grid>
 
@@ -112,6 +112,7 @@
                     <RowDefinition Height="2.5*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <!-- Image Bien Immo -->
@@ -123,35 +124,35 @@
                 <Separator Height="2" Background="#282828" Margin="0,59.4,0,0.2" Grid.Row="1"/>
 
                 <!-- Détails Bien Immo -->
-                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" >
+                <StackPanel Grid.Row="2" Orientation="Vertical" Style="{StaticResource ListViewItem}" Margin="0,0,0,50.2" Grid.RowSpan="2" Height="145" VerticalAlignment="Bottom" Background="#a9b9d6" >
 
-                    <StackPanel Orientation="Horizontal" Height="30">
+                    <StackPanel Orientation="Horizontal" Height="26" Margin="0,8,0,0">
                         <Border Width="15"/>
                         <TextBlock Text="Type : "  FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.Surface}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text=" m²" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Height="30">
+                    <StackPanel Orientation="Horizontal" Height="26">
                         <Border Width="15"/>
                         <TextBlock Text="Nombre de Chambre(s) : " FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.RoomsCount}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Height="30">
+                    <StackPanel Orientation="Horizontal" Height="26">
                         <Border Width="15"/>
                         <TextBlock Text="Nombre d'Étage(s) :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.FloorCount}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Height="30">
+                    <StackPanel Orientation="Horizontal" Height="26">
                         <Border Width="15"/>
                         <TextBlock Text="Charges Anuelles :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.AnnualCharges}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text=" €" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Height="30">
+                    <StackPanel Orientation="Horizontal" Height="26">
                         <Border Width="15"/>
                         <TextBlock Text="Taxe d'Habitation :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.PropertyTax}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
@@ -161,23 +162,25 @@
                 </StackPanel>
 
                 <!-- Gestion des Transactions -->
-                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Grid Grid.Row="3" Background="#384356" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
 
-                    <Button Content="Valider la Vente" Style="{StaticResource InternalButton}"
-                    Command="{Binding ValidateSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
-                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromSale}}" />
+                        <Button Content=" Valider la Vente " Style="{StaticResource InternalButton}"
+                        Command="{Binding ValidateSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                        Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromSale}}" />
 
-                    <Button Content="Valider la Location" Style="{StaticResource InternalButton}"
-                    Command="{Binding ValidateRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
-                    Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromRental}}" />
+                        <Button Content=" Valider la Location " Style="{StaticResource InternalButton}"
+                        Command="{Binding ValidateRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"
+                        Visibility="{Binding SelectedItem, Converter={StaticResource VisibilityFromBoolFromRental}}" />
 
-                    <Button Content="Remettre en Vente" Style="{StaticResource InternalButton}"
-                    Command="{Binding NewSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+                        <Button Content=" Remettre en Vente " Style="{StaticResource InternalButton}"
+                        Command="{Binding NewSaleCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
 
-                    <Button Content="Remettre à la Location" Style="{StaticResource InternalButton}"
-                    Command="{Binding NewRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+                        <Button Content=" Remettre à la Location " Style="{StaticResource InternalButton}"
+                        Command="{Binding NewRentalCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
 
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
 
             </Grid>
 
@@ -186,13 +189,13 @@
         <!-- Grid contenant la Barre du Menu -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-            <Button Grid.Column="0" Content="Ajouter Vente" Style="{StaticResource InternalButton}"
+            <Button Grid.Column="0" Content=" Ajouter Vente " Style="{StaticResource InternalButton}"
                     Command="{Binding OpenEditEstateWindowCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
 
-            <Button Grid.Column="1" Content="Supprimer Selection" Style="{StaticResource InternalButton}"
+            <Button Grid.Column="1" Content=" Supprimer Selection " Style="{StaticResource InternalButton}"
                     Command="{Binding DeleteSelectedEstateCommand}"/>
 
-            <Button Grid.Column="2" Content="Modifier Selection" Style="{StaticResource InternalButton}"
+            <Button Grid.Column="2" Content=" Modifier Selection " Style="{StaticResource InternalButton}"
                     Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:UpsertEstateWindow}"/>
 
         </StackPanel>
