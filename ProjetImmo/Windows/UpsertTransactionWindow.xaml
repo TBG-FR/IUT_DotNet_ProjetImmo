@@ -54,7 +54,7 @@
                     IsEnabled="{Binding NewItem}" />
             <!--<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding SelectedItem.CreationDate}"
                     IsEnabled="{Binding NewItem}" />-->
-            <DatePicker Grid.Column="1" Grid.Row="3" Text="{Binding SelectedItem.CreationDate}"
+            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding SelectedItem.CreationDate}"
                     IsEnabled="{Binding NewItem}" />
             <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding SelectedItem.Price}"
                     IsEnabled="{Binding NewItem}" />
@@ -68,7 +68,7 @@
             <!-- Non modifiable si NewItem == true -->
             <!--<TextBox Grid.Column="1" Grid.Row="9" Text="{Binding SelectedItem.TransactionDate}"
                     IsEnabled="{Binding NewItem, Converter={StaticResource BoolToInverseConverter}}" />-->
-            <DatePicker Grid.Column="1" Grid.Row="9" Text="{Binding SelectedItem.TransactionDate}"
+            <DatePicker Grid.Column="1" Grid.Row="9" SelectedDate="{Binding SelectedItem.TransactionDate}"
                     IsEnabled="{Binding NewItem, Converter={StaticResource BoolToInverseConverter}}" />
             <ComboBox Grid.Column="1" Grid.Row="10"
                       ItemsSource="{Binding Persons}" ItemTemplate="{StaticResource templateComboPers}"

@@ -96,7 +96,7 @@
                                 <TextBlock Text="{Binding Title}" />
                                 <TextBlock Text=" - " />
                                 <TextBlock Text="{Binding Price}" />
-                                <TextBlock Text=" (" />
+                                <TextBlock Text="€ (" />
                                 <TextBlock Text="{Binding CreationDate}" />
                                 <TextBlock Text=")" />
                                 <!-- TODO : ADD TransactionDate, Clients, etc-->
@@ -137,6 +137,7 @@
                         <Border Width="15"/>
                         <TextBlock Text="Frais de Transaction : " FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding SelectedItem.Fees}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text=" €" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Height="30">

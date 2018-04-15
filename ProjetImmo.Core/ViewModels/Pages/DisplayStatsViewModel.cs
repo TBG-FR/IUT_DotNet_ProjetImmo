@@ -416,7 +416,7 @@ namespace ProjetImmo.Core.ViewModels
 
                         // Data : Sales per Month
                         values = new int[24];
-                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Hour; values[m - 1]++; }
+                        foreach (SaleTransaction t in matchingSaleTransactions) { int m = t.TransactionDate.Value.Hour; values[m]++; }
 
                         // Chart Lines : Sales per Month
                         chartvalues = new ChartValues<int>();
@@ -582,7 +582,7 @@ namespace ProjetImmo.Core.ViewModels
 
                         // Data : Sales per Month
                         values = new int[24];
-                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Hour; values[m - 1]++; }
+                        foreach (RentalTransaction t in matchingRentalTransactions) { int m = t.TransactionDate.Value.Hour; values[m]++; }
 
                         // Chart Lines : Sales per Month
                         chartvalues = new ChartValues<int>();

@@ -34,3 +34,9 @@
 - `DisplayStatsPage` : Les statistiques se mettaient toutes à 0 lors d'un refresh, le refresh est donc désactivé pour cette page (dans `DisplayStatsViewModel`)
 
 - `ManageTransactionsPage` : Lors du premier chargement, le champ "client" s'affiche vide (dans les détails), mais il est fonctionnel par la suite
+
+- `UpsertTransactionWindow` : Lorsqu'on valide une transaction, si l'on ferme la fenêtre sans valider, cela se valide quand même
+
+## Notes
+
+- La recherche fonctionne avec la fonction "lower()" et ne matche donc que les mots-clés en minuscule et les prénoms/nom des propriétaires également
