@@ -16,7 +16,11 @@ namespace ProjetImmo.Core.ViewModels
 
         public override void refresh()
         {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+            ObservableCollection<Estate> EstatesTemp = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+
+            // Replaces the .Where(e => e.Transactions.Last().TransactionDate.HasValue.Equals(false) or something like that
+            Estates = new ObservableCollection<Estate>();
+            foreach (Estate e in EstatesTemp) { if (e.Transactions != null && e.Transactions.Count > 0 && e.Transactions.Last().TransactionDate.HasValue.Equals(false)) { Estates.Add(e); } }
 
             // Replacer le SelectedItem
             if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
