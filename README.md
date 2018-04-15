@@ -38,7 +38,7 @@
 
 - `UpsertTransactionWindow` : Lorsqu'on valide une transaction, si l'on ferme la fenêtre sans valider, cela se valide quand même
 
-- Apparemment, il n'est pas possible de modifier plusieurs clients à la suite, il faut relancer l'application
+~~Apparemment, il n'est pas possible de modifier plusieurs clients à la suite, il faut relancer l'application~~ FIX (NavigationService)
 
 ## Notes
 
