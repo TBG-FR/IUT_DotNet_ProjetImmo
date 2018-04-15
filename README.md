@@ -1,6 +1,7 @@
 
 # IUT_DotNet_ProjetImmo
 **Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobiliers**
+*Arnaud Berlendis et Tom-Brian Garcia*
 
 ## Fonctionnalités implémentées
 - `DisplayStatsPage` : Affichage de statistiques diverses sur la page d'accueil : biens vendus, biens en vente, graphiques des ventes, le tout avec des périodes (mois, année, etc). Les données sont gérées avec des propriétés, dont la plupart sont des dictionnaires, permettant de classer les statistiques selon la période de temps, le type (vente/location) et le status (disponible ou non)
