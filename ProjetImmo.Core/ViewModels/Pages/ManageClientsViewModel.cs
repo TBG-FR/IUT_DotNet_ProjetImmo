@@ -13,24 +13,38 @@ namespace ProjetImmo.Core.ViewModels
 {
     public class ManageClientsViewModel : BaseNotifyPropertyChanged
     {
-        public ObservableCollection<Estate> Estates
+
+        public void reInitList()
         {
-            get { return GetProperty<ObservableCollection<Estate>>(); }
-            set { if (SetProperty(value)) { SetProperty(value); } }
+
+            // This instruction is used to initialize the list (data), and also to refresh it (after an action in another window)
+            Clients = new ObservableCollection<Person>(DataAccess.AgencyDbContext.Current.Person/*.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords)*/.ToArray());
+
         }
 
+        // Constructeur
         public ManageClientsViewModel()
         {
-            Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-            if (Estates != null && Estates.Count != 0) { SelectedItem = Estates.First(); }
+            reInitList();
+            if (Clients != null && Clients.Count != 0) { SelectedItem = Clients.First(); }
             SearchContent = "";
         }
 
-        public Estate SelectedItem
+        // Liste (éléments)
+        public ObservableCollection<Person> Clients
         {
-            get { return GetProperty<Estate>(); }
+            get { return GetProperty<ObservableCollection<Person>>(); }
             set { if (SetProperty(value)) { SetProperty(value); } }
         }
+
+        // Élément selectionné
+        public Person SelectedItem
+        {
+            get { return GetProperty<Person>(); }
+            set { if (SetProperty(value)) { SetProperty(value); } }
+        }
+
+        #region Propriétés & Fonctions - Search-related
 
         public String selectedFilter
         {
@@ -66,18 +80,42 @@ namespace ProjetImmo.Core.ViewModels
             return System.Text.Encoding.ASCII.GetString(bytes);
         }
 
-        public BaseCommand<Type> OpenEditEstateWindowCommand
+        #endregion
+
+        #region Commandes - Ajout/Modification/Suppression d'élément
+
+        public BaseCommand<Type> OpenEditPersonWindowCommand
         {
 
             get => new BaseCommand<Type>((type) =>
             {
-                NavigationService.ShowDialog<UpsertEstateViewModel>(type);
-                Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+                NavigationService.ShowDialog<UpsertPersonViewModel>(type);
+                reInitList();
             });
 
         }
 
-        public BaseCommand<Type> DeleteSelectedEstateCommand
+        public BaseCommand<Type> ModifySelectedPersonCommand
+        {
+
+            get => new BaseCommand<Type>((type) =>
+            {
+                if (SelectedItem != null)
+                {
+                    NavigationService.ShowDialog<UpsertPersonViewModel>(type, SelectedItem);
+
+                    //executé au retour sur la fentre ManagePerson
+                    reInitList();
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                }
+            });
+
+        }
+
+        public BaseCommand<Type> DeleteSelectedPersonCommand
         {
 
             get => new BaseCommand<Type>(async (type) =>
@@ -86,7 +124,7 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
                     DataAccess.AgencyDbContext.Current.SaveChangesAsync();
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
+                    reInitList();
                 }
                 else
                 {
@@ -96,25 +134,9 @@ namespace ProjetImmo.Core.ViewModels
 
         }
 
-        public BaseCommand<Type> ModifySelectedEstateCommand
-        {
+        #endregion
 
-            get => new BaseCommand<Type>((type) =>
-            {
-                if (SelectedItem != null)
-                {
-                    NavigationService.ShowDialog<UpsertEstateViewModel>(type, SelectedItem);
-
-                    //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                }
-            });
-
-        }
+        #region Commandes - Search-related
 
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {
@@ -135,48 +157,51 @@ namespace ProjetImmo.Core.ViewModels
 
 
 
-            get => new BaseCommand<Type>(/*async*/(type) => {
-                //On crée une liste de keyWords et une liste qui va stocker les poids d'occurences (avec les keyWords) pour chaque Estate
+            get => new BaseCommand<Type>((type) => {
+
+                /* MODIFY FROM HERE -------------------------------------------------
+
+                //On crée une liste de keyWords et une liste qui va stocker les poids d'occurences (avec les keyWords) pour chaque Person
                 List<string> motsCles = GenerateSlug(SearchContent);
-                List<int> occurencesEstates = new List<int>();
+                List<int> occurencesClients = new List<int>();
 
                 //On initialise la liste d'occurences à 0
-                foreach (Estate est in Estates)
+                foreach (Person est in Clients)
                 {
-                    occurencesEstates.Add(0);
+                    occurencesClients.Add(0);
                 }
 
-                //On parcours les Estates (toutes les variables contenant estate dans leurs noms sont parcourues avec les i)
-                for (int i = 0; i < Estates.Count; i++)
+                //On parcours les Clients (toutes les variables contenant Person dans leurs noms sont parcourues avec les i)
+                for (int i = 0; i < Clients.Count; i++)
                 {
                     //On parcours les motsCles (toutes les variables contenant motCle dans leurs noms sont parcourues avec les j)
                     for (int j = 0; j < motsCles.Count; j++)
                     {
-                        if (Estates[i].Owner.Firstname.Equals(motsCles[j]))
+                        if (Clients[i].Owner.Firstname.Equals(motsCles[j]))
                         {
-                            occurencesEstates[i] += 3;
+                            occurencesClients[i] += 3;
                         }
-                        if (Estates[i].Owner.Lastname.Equals(motsCles[j]))
+                        if (Clients[i].Owner.Lastname.Equals(motsCles[j]))
                         {
-                            occurencesEstates[i] += 3;
+                            occurencesClients[i] += 3;
                         }
-                        //On parcours tous les mots clés de l'Estate courant
-                        foreach (EstateKeyword estKeyw in Estates[i].Keywords)
+                        //On parcours tous les mots clés de l'Person courant
+                        foreach (PersonKeyword estKeyw in Clients[i].Keywords)
                         {
                             List<Keyword> keyword = new List<Keyword>(DataAccess.AgencyDbContext.Current.Keyword.Where((e) => e.ID == estKeyw.KeywordID).ToList());
                             if (motsCles[j].Equals(keyword[0].Name))
                             {
-                                occurencesEstates[i] += 2;
+                                occurencesClients[i] += 2;
                             }
                         }
                     }
                 }
 
-                //On crée une nouvelle ObservableCollection d'Estates qui trira la liste courante
-                ObservableCollection<Estate> tmpSortEst = new ObservableCollection<Estate>();
+                //On crée une nouvelle ObservableCollection d'Clients qui trira la liste courante
+                ObservableCollection<Person> tmpSortEst = new ObservableCollection<Person>();
 
                 bool toChange = false;
-                foreach(int occ in occurencesEstates)
+                foreach (int occ in occurencesClients)
                 {
                     if (occ != 0)
                         toChange = true;
@@ -185,107 +210,27 @@ namespace ProjetImmo.Core.ViewModels
                 if (toChange)
                 {
                     //On parcours les valeurs de Min a Max de la Liste d'occurences
-                    for (int i = occurencesEstates.Max(); i >= occurencesEstates.Min(); i--)
+                    for (int i = occurencesClients.Max(); i >= occurencesClients.Min(); i--)
                     {
                         //On parcours la Liste d'occurences
-                        for (int j = 0; j < occurencesEstates.Count; j++)
+                        for (int j = 0; j < occurencesClients.Count; j++)
                         {
                             //Si l'occurence courrante est égale à i (i allant de min à max occurences)
-                            if (occurencesEstates[j].Equals(i))
+                            if (occurencesClients[j].Equals(i))
                             {
-                                //On ajoute l'Estate correspondant au numéro de l'occurence courante
-                                tmpSortEst.Add(Estates[j]);
+                                //On ajoute l'Person correspondant au numéro de l'occurence courante
+                                tmpSortEst.Add(Clients[j]);
                             }
                         }
                     }
 
-                    //On copie tmpSortEst (la liste triée) dans Estates
-                    Estates = tmpSortEst;
+                    //On copie tmpSortEst (la liste triée) dans Clients
+                    Clients = tmpSortEst;
                 }
 
                 // --> !!! CRITICAL WARNING END !!! <-- //
 
-            });
-
-        }
-
-        #region Commandes liées aux Transactions
-
-        public BaseCommand<Type> ValidateSaleCommand
-        {
-
-            get => new BaseCommand<Type>((type) => {
-                if (SelectedItem != null)
-                {
-                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), true);
-
-                    //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                }
-            });
-
-        }
-
-        public BaseCommand<Type> ValidateRentalCommand
-        {
-
-            get => new BaseCommand<Type>((type) => {
-                if (SelectedItem != null)
-                {
-                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem.Transactions.Last(), false);
-
-                    //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).ToArray());
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                }
-            });
-
-        }
-
-        public BaseCommand<Type> NewSaleCommand
-        {
-
-            get => new BaseCommand<Type>((type) => {
-                if (SelectedItem != null)
-                {
-                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, true);
-
-                    //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                }
-            });
-
-        }
-
-        public BaseCommand<Type> NewRentalCommand
-        {
-
-            get => new BaseCommand<Type>((type) =>
-            {
-                if (SelectedItem != null)
-                {
-                    NavigationService.ShowDialog<UpsertTransactionViewModel>(type, SelectedItem, false);
-
-                    //executé au retour sur la fentre ManageEstate
-                    Estates = new ObservableCollection<Estate>(DataAccess.AgencyDbContext.Current.Estate.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords).ToArray());
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez selectionner un item", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                }
-
-            });
+            */});
 
         }
 

@@ -150,11 +150,17 @@
     <Compile Include="Pages\BrowseEstatesPage.xaml.cs">
       <DependentUpon>BrowseEstatesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManageTransactionsPage.xaml.cs">
+      <DependentUpon>ManageTransactionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ManageClientsPage.xaml.cs">
       <DependentUpon>ManageClientsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ManageEstatesPage.xaml.cs">
       <DependentUpon>ManageEstatesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UpsertPersonWindow.xaml.cs">
+      <DependentUpon>UpsertPersonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UpsertTransactionWindow.xaml.cs">
       <DependentUpon>UpsertTransactionWindow.xaml</DependentUpon>
@@ -177,6 +183,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ManageTransactionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\ManageClientsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -197,6 +207,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\UpsertPersonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\UpsertTransactionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -7,10 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ProjetImmo.Core.Commandes;
-using ProjetImmo.Core.Models;
-using ProjetImmo.Core.Tools;
-using System;
 
 namespace ProjetImmo.Core.ViewModels
 {

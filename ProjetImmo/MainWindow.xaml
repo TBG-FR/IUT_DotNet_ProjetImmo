@@ -57,6 +57,28 @@
                     </Button.CommandParameter>
                 </Button>
 
+                <Button Content="Gestion des Transactions"
+                        Command="{Binding ChangeViewCommand}"
+                        Style="{StaticResource NavbarButton}">
+                    <Button.CommandParameter>
+                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
+                            <x:Type Type="pages:ManageTransactionsPage"/>
+                            <x:Type Type="vm:ManageTransactionsViewModel"/>
+                        </x:Array>
+                    </Button.CommandParameter>
+                </Button>
+
+                <Button Content="Gestion des Clients"
+                        Command="{Binding ChangeViewCommand}"
+                        Style="{StaticResource NavbarButton}">
+                    <Button.CommandParameter>
+                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:Object">
+                            <x:Type Type="pages:ManageClientsPage"/>
+                            <x:Type Type="vm:ManageClientsViewModel"/>
+                        </x:Array>
+                    </Button.CommandParameter>
+                </Button>
+
                 <Button Content="Fermer le programme"
                         Command="{Binding CloseViewCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
