@@ -161,10 +161,12 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
             <Button Grid.Column="1" Content="Supprimer Selection" Style="{StaticResource InternalButton}"
-                    Command="{Binding DeleteSelectedEstateCommand}"/>
+                    Command="{Binding DeleteSelectedTransactionCommand}"/>
 
+            <!--
             <Button Grid.Column="2" Content="Modifier Selection" Style="{StaticResource InternalButton}"
-                    Command="{Binding ModifySelectedEstateCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+                    Command="{Binding ModifySelectedTransactionCommand}" CommandParameter="{x:Type windows:UpsertTransactionWindow}"/>
+            -->
 
         </StackPanel>
 

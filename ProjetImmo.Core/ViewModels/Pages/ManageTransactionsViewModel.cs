@@ -105,6 +105,7 @@ namespace ProjetImmo.Core.ViewModels
         }
         */
 
+        /*
         public BaseCommand<Type> ModifySelectedTransactionCommand
         {
 
@@ -124,6 +125,7 @@ namespace ProjetImmo.Core.ViewModels
             });
 
         }
+        */
 
         public BaseCommand<Type> DeleteSelectedTransactionCommand
         {
