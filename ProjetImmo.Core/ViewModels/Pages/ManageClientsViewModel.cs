@@ -161,8 +161,6 @@ namespace ProjetImmo.Core.ViewModels
 
             get => new BaseCommand<Type>((type) => {
 
-                /* MODIFY FROM HERE -------------------------------------------------
-
                 //On crée une liste de keyWords et une liste qui va stocker les poids d'occurences (avec les keyWords) pour chaque Person
                 List<string> motsCles = GenerateSlug(SearchContent);
                 List<int> occurencesClients = new List<int>();
@@ -179,28 +177,27 @@ namespace ProjetImmo.Core.ViewModels
                     //On parcours les motsCles (toutes les variables contenant motCle dans leurs noms sont parcourues avec les j)
                     for (int j = 0; j < motsCles.Count; j++)
                     {
-                        if (Clients[i].Owner.Firstname.Equals(motsCles[j]))
+                        if (Clients[i].Firstname.Equals(motsCles[j]))
                         {
                             occurencesClients[i] += 3;
                         }
-                        if (Clients[i].Owner.Lastname.Equals(motsCles[j]))
+                        if (Clients[i].Lastname.Equals(motsCles[j]))
                         {
                             occurencesClients[i] += 3;
                         }
-                        //On parcours tous les mots clés de l'Person courant
-                        foreach (PersonKeyword estKeyw in Clients[i].Keywords)
+                        if (Clients[i].Address.City.Equals(motsCles[j]))
                         {
-                            List<Keyword> keyword = new List<Keyword>(DataAccess.AgencyDbContext.Current.Keyword.Where((e) => e.ID == estKeyw.KeywordID).ToList());
-                            if (motsCles[j].Equals(keyword[0].Name))
-                            {
-                                occurencesClients[i] += 2;
-                            }
+                            occurencesClients[i] += 2;
+                        }
+                        if (Clients[i].Address.ZIP.Equals(motsCles[j]))
+                        {
+                            occurencesClients[i] += 2;
                         }
                     }
                 }
 
                 //On crée une nouvelle ObservableCollection d'Clients qui trira la liste courante
-                ObservableCollection<Person> tmpSortEst = new ObservableCollection<Person>();
+                ObservableCollection<Person> tmpSortCli = new ObservableCollection<Person>();
 
                 bool toChange = false;
                 foreach (int occ in occurencesClients)
@@ -221,18 +218,18 @@ namespace ProjetImmo.Core.ViewModels
                             if (occurencesClients[j].Equals(i))
                             {
                                 //On ajoute l'Person correspondant au numéro de l'occurence courante
-                                tmpSortEst.Add(Clients[j]);
+                                tmpSortCli.Add(Clients[j]);
                             }
                         }
                     }
 
                     //On copie tmpSortEst (la liste triée) dans Clients
-                    Clients = tmpSortEst;
+                    Clients = tmpSortCli;
                 }
 
                 // --> !!! CRITICAL WARNING END !!! <-- //
 
-            */});
+                });
 
         }
 

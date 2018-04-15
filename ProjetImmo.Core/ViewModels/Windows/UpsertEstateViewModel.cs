@@ -83,17 +83,17 @@ namespace ProjetImmo.Core.ViewModels
                 {
                     errors.Add("Type de bien null");
                 }
-                if (SelectedItem.RoomsCount < 1)
+                if (SelectedItem.RoomsCount < 0)
                 {
-                    errors.Add("Nombre de chambres négatif ou null");
+                    errors.Add("Nombre de chambres négatif");
                 }
-                if (SelectedItem.AnnualCharges <= 0)
+                if (SelectedItem.AnnualCharges < 0)
                 {
-                    errors.Add("Charges négatives ou nulles");
+                    errors.Add("Charges négatives");
                 }
-                if (SelectedItem.PropertyTax <= 0)
+                if (SelectedItem.PropertyTax < 0)
                 {
-                    errors.Add("Taxe négative ou nulle");
+                    errors.Add("Taxe négative");
                 }
                 if (SelectedItem.FloorNumber < -100)
                 {
