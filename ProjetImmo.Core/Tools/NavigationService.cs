@@ -24,7 +24,7 @@ namespace ProjetImmo.Core.Tools
         {
             object vm = null;
             // Ne pas garder en cache ces fenêtres
-            if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel) && tViewModel != typeof(UpsertTransactionViewModel))
+            if (_viewModelsCache.ContainsKey(tViewModel) && tViewModel != typeof(UpsertEstateViewModel) && tViewModel != typeof(UpsertTransactionViewModel) && tViewModel != typeof(UpsertPersonViewModel))
             {
                 vm = _viewModelsCache[tViewModel];
 
