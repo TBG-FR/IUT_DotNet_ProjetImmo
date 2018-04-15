@@ -18,7 +18,7 @@ namespace ProjetImmo.Core.ViewModels
         {
 
             // This instruction is used to initialize the list (data), and also to refresh it (after an action in another window)
-            Clients = new ObservableCollection<Person>(DataAccess.AgencyDbContext.Current.Person/*.Include(e => e.Address).Include(e => e.Owner).Include(e => e.Keywords)*/.ToArray());
+            Clients = new ObservableCollection<Person>(DataAccess.AgencyDbContext.Current.Person.Include(e => e.Address).ToArray());
 
             // Replacer le SelectedItem
             if (Clients != null && Clients.Count != 0) { SelectedItem = Clients.First(); }
