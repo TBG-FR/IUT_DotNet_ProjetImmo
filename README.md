@@ -38,6 +38,8 @@
 
 - `UpsertTransactionWindow` : Lorsqu'on valide une transaction, si l'on ferme la fenêtre sans valider, cela se valide quand même
 
+- Apparemment, il n'est pas possible de modifier plusieurs clients à la suite, il faut relancer l'application
+
 ## Notes
 
 - La recherche fonctionne avec la fonction "lower()" et ne matche donc que les mots-clés en minuscule et les prénoms/nom des propriétaires également
