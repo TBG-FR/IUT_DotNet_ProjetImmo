@@ -1,18 +1,31 @@
 # IUT_DotNet_ProjetImmo
 Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobiliers
 
-## Useful Links
+## Fonctionnalités implémentées
+- `DisplayStatsPage` : Affichage de statistiques diverses sur la page d'accueil : biens vendus, biens en vente, graphiques des ventes, le tout avec des périodes (mois, année, etc). Les données sont gérées avec des propriétés, dont la plupart sont des dictionnaires, permettant de classer les statistiques selon la période de temps, le type (vente/location) et le status (disponible ou non)
 
-### Binding Enum to WPF (with and without Localization)
-https://stackoverflow.com/questions/3695976/binding-enum-type-to-textbox  
-https://www.codeproject.com/Articles/29495/Binding-and-Using-Friendly-Enums-in-WPF  
-  
-## Sort an Observable Collection
-https://stackoverflow.com/questions/19112922/sort-observablecollectionstring-c-sharp  
+- `BrowseEstatesPage` : Interface destinée au client, qui liste les biens immobiliers disponibles, et permet de les trier (par la barre de recherche, qui compare l'input avec les mot-clés et le nom/prénom des propriétaires). Lors de la sélection d'un bien, ses détails sont affichés.
 
-## Multi-Values Dictionnary
-https://stackoverflow.com/questions/1500835/c-sharp-dictionary-with-two-values-per-key  
-https://stackoverflow.com/questions/569903/multi-value-dictionary  
+- `ManageEstatesPage` : Interface destiné aux vendeurs, qui permet de voir tous les biens immobiliers (même ceux indisponibles),  Lors de la sélection d'un bien, ses détails sont affichés, ainsi que des boutons permettant de gérer les transactions de ce bien. Plusieurs boutons permettent également d'ajouter, modifier ou supprimer des biens immobiliers.
 
-## Graphics
-https://lvcharts.net/App/examples/v1/wpf/Basic%20Line%20Chart
+- `ManageClientsPage` : Interface destiné aux vendeurs, qui permet de lister les clients existants, mais égalent d'ajouter, modifier ou supprimer des clients. Les détails de ces derniers sont affichés lors de la sélection.
+
+- `ManageTransactionsPage` : Interface destiné aux vendeurs, qui permet de lister toutes les transactions existantes, et de les modifier ou supprimer, même si ce n'est pas recommandé (la dernière transaction donne l'état du bien immobilier, il vaut mieux interagir par l'interface de gestion des biens). Les détails des transactions sont affichées lors de la transaction. Nous avons préféré implémenter ces fonctionnalités plutôt que celles liées aux rendez-vous (RDV).
+
+- Plusieurs fenêtres permettent de finaliser l'ajout et la modification de personnes, transactions ou biens immobiliers (`UpsertTransactionWindow`, `UpsertClientWindow`, `UpsertPersonWindow`)
+
+## Fonctionnalités non-implémentées
+
+- `DisplayStatsPage` : Il est actuellement impossible de switcher entre les 5 différents types de graphiques, mais ceux-ci sont fonctionnels. Nous n'avons pas réussi à implémenter un binding sur les boutons permettant de changer les différents bindings du graphique (Series, Labels, etc).
+
+- `BrowseEstatesPage` et `ManageEstatesPage` : Les filtres ne sont pas implémentés, le bouton "Filtres" est présent et ouvre une fenêtre, mais rien n'est implémenté. Le tri par Date/Prix/Superficie n'est pas implémenté non plus, malgré la présence des boutons adaptés. Cependant, le tri par la barre de recherche fonctionne.
+
+- `ManageClientsPage` et `ManageTransactionsPage` : Les filtres ne sont pas implémentés, le bouton "Filtres" est présent et ouvre une fenêtre, mais rien n'est implémenté. Le tri par Date/Prix/Superficie n'est pas implémenté non plus, malgré la présence des boutons adaptés. Le tri par la barre de recherche n'a pas été testé, il ne fonctionne sûrement pas.
+
+- Nous avons commencé à réfléchir et implémenter un système de connexion, où la première fenêtre affichée serait celle de connexion, qui ensuite redirigerait sur l'application "complète", en affichant seulement les pages liées au type d'utilisateur (client, administrateur, employé)
+
+- Nous n'avons pas implémenté la gestion des images, par manque de temps et préférant nous concentrer sur les fonctionnalités liées aux biens et transactions.
+
+## Bugs connus
+
+- `DisplayStatsPage` : Les statistiques se mettaient toutes à 0 lors d'un refresh, le refresh est donc désactivé pour cette page (dans `DisplayStatsViewModel`)
