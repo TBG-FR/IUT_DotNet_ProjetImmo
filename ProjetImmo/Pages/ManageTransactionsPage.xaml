@@ -148,7 +148,7 @@
                     <StackPanel Orientation="Horizontal" Height="30">
                         <Border Width="15"/>
                         <TextBlock Text="Client :" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
-                        <TextBlock Text="{Binding SelectedItem.Client}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding SelectedItem.RelatedCustomer}" FontSize="16" FontFamily="Open Sans" VerticalAlignment="Center" />
                     </StackPanel>
 
                 </StackPanel>

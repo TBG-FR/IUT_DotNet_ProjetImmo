@@ -87,5 +87,10 @@ namespace ProjetImmo.Core.Models
             // Do nothing
         }
 
+        public override string ToString()
+        {
+            return String.Concat("[", ID, "] ", Firstname, Lastname);
+        }
+
     }
 }

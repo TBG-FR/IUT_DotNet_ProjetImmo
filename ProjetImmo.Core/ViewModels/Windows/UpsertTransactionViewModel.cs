@@ -167,6 +167,8 @@ namespace ProjetImmo.Core.ViewModels
                                 // On modifie les champs de la Transaction en question
                                 //target.Title = SelectedItem.Title;
                                 //target.Description = SelectedItem.Description;
+                                //target.Price = SelectedItem.Price;
+                                //target.Fees = SelectedItem.Fees;
                                 //target.CreationDate = SelectedItem.CreationDate;
                                 target.TransactionDate = SelectedItem.TransactionDate;
                                 target.RelatedCustomer = SelectedItem.RelatedCustomer;
@@ -186,6 +188,8 @@ namespace ProjetImmo.Core.ViewModels
                                 // On modifie les champs de la Transaction en question
                                 //target.Title = SelectedItem.Title;
                                 //target.Description = SelectedItem.Description;
+                                //target.Price = SelectedItem.Price;
+                                //target.Fees = SelectedItem.Fees;
                                 //target.Furnished = rentalTransaction.Furnished;
                                 //target.CreationDate = SelectedItem.CreationDate;
                                 target.TransactionDate = SelectedItem.TransactionDate;
@@ -213,6 +217,8 @@ namespace ProjetImmo.Core.ViewModels
                                 // On modifie les champs de la Transaction en question
                                 target.Title = SelectedItem.Title;
                                 target.Description = SelectedItem.Description;
+                                target.Price = SelectedItem.Price;
+                                target.Fees = SelectedItem.Fees;
                                 target.CreationDate = SelectedItem.CreationDate;
                                 //target.TransactionDate = SelectedItem.TransactionDate;
                                 //target.RelatedCustomer = SelectedItem.RelatedCustomer;
@@ -232,6 +238,8 @@ namespace ProjetImmo.Core.ViewModels
                                 // On modifie les champs de la Transaction en question
                                 target.Title = SelectedItem.Title;
                                 target.Description = SelectedItem.Description;
+                                target.Price = SelectedItem.Price;
+                                target.Fees = SelectedItem.Fees;
                                 target.Furnished = rentalTransaction.Furnished;
                                 target.CreationDate = SelectedItem.CreationDate;
                                 //target.TransactionDate = SelectedItem.TransactionDate;
@@ -247,7 +255,7 @@ namespace ProjetImmo.Core.ViewModels
                     }
 
                     // On applique les modifications dans la Base de Données et on ferme la fenêtre
-                    Core.DataAccess.AgencyDbContext.Current.SaveChanges();
+                    Core.DataAccess.AgencyDbContext.Current.SaveChangesAsync();
                     NavigationService.Close(view);
                 }
 

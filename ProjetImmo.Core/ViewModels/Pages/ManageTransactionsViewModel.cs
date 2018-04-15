@@ -133,7 +133,7 @@ namespace ProjetImmo.Core.ViewModels
                 if (SelectedItem != null)
                 {
                     DataAccess.AgencyDbContext.Current.Remove(SelectedItem);
-                    DataAccess.AgencyDbContext.Current.SaveChangesAsync();
+                    await DataAccess.AgencyDbContext.Current.SaveChangesAsync();
                     refresh();
                 }
                 else
@@ -151,7 +151,7 @@ namespace ProjetImmo.Core.ViewModels
         public BaseCommand<Type> OpenSearchFilterWindowCommand
         {
 
-            get => new BaseCommand<Type>(/*async*/(type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
+            get => new BaseCommand<Type>(async (type) => { NavigationService.ShowDialog<SearchFilterViewModel>(type); });
 
         }
 

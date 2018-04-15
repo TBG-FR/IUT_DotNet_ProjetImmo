@@ -216,7 +216,7 @@ namespace ProjetImmo.Core.ViewModels
                     }
 
                     // On applique les modifications dans la Base de Données et on ferme la fenêtre
-                    Core.DataAccess.AgencyDbContext.Current.SaveChanges();
+                    Core.DataAccess.AgencyDbContext.Current.SaveChangesAsync();
                     NavigationService.Close(view);
 
                 }
