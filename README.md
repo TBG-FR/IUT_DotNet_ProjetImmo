@@ -15,7 +15,7 @@ Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobilie
 - Plusieurs fenêtres permettent de finaliser l'ajout et la modification de personnes, transactions ou biens immobiliers (`UpsertTransactionWindow`, `UpsertClientWindow`, `UpsertPersonWindow`)
 
 ## Fonctionnalités non-implémentées
-- 
+
 - `DisplayStatsPage` : Il est actuellement impossible de switcher entre les 5 différents types de graphiques, mais ceux-ci sont fonctionnels. Nous n'avons pas réussi à implémenter un binding sur les boutons permettant de changer les différents bindings du graphique (Series, Labels, etc).
 
 - `BrowseEstatesPage` et `ManageEstatesPage` : Les filtres ne sont pas implémentés, le bouton "Filtres" est présent et ouvre une fenêtre, mais rien n'est implémenté. Le tri par Date/Prix/Superficie n'est pas implémenté non plus, malgré la présence des boutons adaptés. Cependant, le tri par la barre de recherche fonctionne.
