@@ -4,13 +4,19 @@
 **Conception d'une Application WPF (type "ERP") pour la Gestion de Biens Immobiliers**
 
 ## Équipe
-Arnaud Berlendis - [Github(1)](https://github.com/rattlesneak) [Github(2)](https://github.com/ArnaudBerlendis)
-Tom-Brian Garcia - [Github](https://github.com/TBG-FR) ou [Mails, LinkedIn, etc](https://linkkle.com/TBG)
-
+Arnaud Berlendis - [Github(1)](https://github.com/rattlesneak) [Github(2)](https://github.com/ArnaudBerlendis)  
+Tom-Brian Garcia - [Github](https://github.com/TBG-FR) ou [Mails, LinkedIn, etc](https://linkkle.com/TBG)  
+  
 ## Captures d'écran
 
 ![DisplayStatsPage - Screenshot](Ressources/img/Screenshot_DisplayStatsPage.png)
+**Page d'affichage des statistiques**  
+  
 ![ManageEstatesPage - Screenshot](Ressources/img/Screenshot_ManageEstatesPage.png)
+**Page de gestion des biens immobiliers**  
+  
+  
+**Les pages de gestion des transactions et de gestion des utilisateurs sont similaires à cette dernière**
 
 ## Fonctionnalités implémentées
 - `DisplayStatsPage` : Affichage de statistiques diverses sur la page d'accueil : biens vendus, biens en vente, graphiques des ventes, le tout avec des périodes (mois, année, etc). Les données sont gérées avec des propriétés, dont la plupart sont des dictionnaires, permettant de classer les statistiques selon la période de temps, le type (vente/location) et le status (disponible ou non)
