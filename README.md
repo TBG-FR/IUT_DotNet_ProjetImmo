@@ -9,12 +9,12 @@ Tom-Brian Garcia - [Github](https://github.com/TBG-FR) ou [Mails, LinkedIn, etc]
   
 ## Captures d'écran
   
-![DisplayStatsPage - Screenshot](Ressources/img/Screenshot_DisplayStatsPage.png)
 **Page d'affichage des statistiques**
+![DisplayStatsPage - Screenshot](Ressources/img/Screenshot_DisplayStatsPage.png)
 
 
-![ManageEstatesPage - Screenshot](Ressources/img/Screenshot_ManageEstatesPage.png)
 **Page de gestion des biens immobiliers**
+![ManageEstatesPage - Screenshot](Ressources/img/Screenshot_ManageEstatesPage.png)
 
 
 **Les pages de gestion des transactions et de gestion des utilisateurs sont similaires à cette dernière**
